@@ -23,7 +23,7 @@ body {
     position: fixed;
     inset: 0;
     z-index: -2;
-    background-image: url("/images/bg.jpg");
+    background-image: url("./images/bg.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -39,7 +39,7 @@ body {
     inset: 0;
     z-index: -1;
 
-    background-image: url("/images/bg2.jpg");
+    background-image: url("./images/bg2.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
