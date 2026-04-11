@@ -1,0 +1,139 @@
+.footer{
+    padding-top: 35px;
+    padding-bottom: 100px;
+    
+    .footer-icon-container {
+        font-size: 25px;          
+        display: flex; 
+        justify-content: center;
+        align-items: center;        
+        text-align: center;      
+
+        .buton-footer-ig {     
+            cursor: pointer;
+            position:relative;       
+            color: white;
+            box-shadow: $glow-light;
+            border-radius: 2px;
+            border-top-left-radius: 20px;  
+            height: 22px;          
+            width: 45px;
+            margin: 2px;
+            padding: 5px;
+            opacity: 0.6;
+            background: $neon-gradiant-r;               
+                        @include light  {
+                            box-shadow: $glow-light-strong;
+                            background: $accent-dark-gradiant-r;                                   
+                        }
+        }
+        .buton-footer-gh {
+            cursor: pointer;
+            position:relative;  
+            color: white;
+            opacity: 0.6;
+            box-shadow: $glow-light;
+            border-radius: 2px;
+            height: 22px;
+            width: 35px;
+            margin: 5px;
+            padding: 5px;
+            background: $neon-gradiant-m;
+                        
+                        @include light  {
+                            box-shadow: $glow-light-strong;
+                            background: $accent-dark-gradiant-m;
+                                    
+                        }
+        }
+          .buton-footer-lk {
+            cursor: pointer;
+            position:relative;  
+            color: white;
+            opacity: 0.6;
+            box-shadow: $glow-light;
+            border-radius: 2px;
+            border-bottom-right-radius: 20px;
+            height: 22px; 
+            width: 45px;
+            margin: 2px;
+            padding: 5px;
+            background: $neon-gradiant-l;
+
+                        @include light  {
+                            box-shadow: $glow-light-strong;
+                            background: $accent-dark-gradiant-l;
+                            transition: background 3s ease;       
+                        }
+        }        
+            .buton-footer-ig,
+            .buton-footer-gh,
+            .buton-footer-lk {
+                transition: 
+                    box-shadow $transition-mid,    
+                    opacity $transition-mid,
+                    transform $transition-mid;
+                }
+            .logo-footer {
+                filter: 
+                    drop-shadow(0 0 2px rgba(0, 0, 0, 0.3))
+                    drop-shadow(0 0 2px rgba(0, 0, 0, 0.3));
+                    }
+            .footer-logo-label{
+                position: absolute;
+                bottom: 120%;
+                left: 50%;
+                transform: translateX(-50%) translateY(5px);
+                padding: 4px 8px;
+                border-radius: 6px;
+                font-size: 11px;
+                font-family: $font-title;
+                font-weight: 600;
+                letter-spacing: 0.12em;
+                background: rgba(0, 0, 0, 0.350);
+                color: $neon;
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.25s ease;
+                backdrop-filter: blur(6px);
+                    @include light  {
+                        color: $accent-dark;  
+                        background: rgba(0, 0, 0, 0.070);      
+                    }
+                }
+
+                .footer-logo-label::after{
+                    content: "";
+                    position: absolute;
+                    bottom: -4px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    border-left: 4px solid transparent;
+                    border-right: 4px solid transparent;
+                    border-top: 4px solid rgba(0, 0, 0, 0.350);
+                        @include light  {
+                            border-top: 4px solid rgba(0, 0, 0, 0.070);
+                        }
+                    }                         
+                    .buton-footer-ig:hover,
+                    .buton-footer-lk:hover,
+                    .buton-footer-gh:hover {
+                        opacity: 1;
+                        transform: scale(1.2);
+                        transition: 0.3s;
+                        box-shadow: $glow-dark-strong;  
+                            @include light  {
+                                box-shadow: $glow-light-strong;        
+                            }                                              
+                        }       
+                    .buton-footer-ig:hover .footer-logo-label,
+                    .buton-footer-gh:hover .footer-logo-label,
+                    .buton-footer-lk:hover .footer-logo-label{                        
+                        opacity: 1;
+                        transform: translateX(-50%) translateY(0);
+                        }                        
+    }     
+}
+@media  (max-width: 650px) {
+    
+}

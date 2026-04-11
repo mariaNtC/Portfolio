@@ -1,0 +1,53 @@
+@keyframes arrowGlow {
+  0% {
+    filter: drop-shadow(0 0 5px rgba(127,255,212,1));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(127,255,212,2));
+  }
+  100% {
+    filter: drop-shadow(0 0 5px rgba(127,255,212,1));
+  }
+}
+@keyframes arrowGlowLight {
+      0% {
+    filter: drop-shadow(0 0 3px rgb(129, 140, 248,1));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px rgb(129, 140, 248,1));
+  }
+  100% {
+    filter: drop-shadow(0 0 3px rgb(129, 140, 248,1));
+  }
+}
+@keyframes mainLogoGlow {
+  0% {
+    filter: drop-shadow(0 0 2px rgba(127,255,212,0.8));
+  }
+  50% {
+    filter: drop-shadow(0 0 4px rgba(127,255,212,1));
+  }
+  100% {
+    filter: drop-shadow(0 0 2px rgba(127,255,212,0.8));
+  }
+}
+@keyframes mainLogoGlowLight {
+      0% {
+    filter: drop-shadow(0 0 1px rgb(129, 140, 248,0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 3px rgb(129, 140, 248,0.8));
+  }
+  100% {
+    filter: drop-shadow(0 0 1px rgb(129, 140, 248,0.5));
+  }
+}
+@keyframes neon-sweep {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}

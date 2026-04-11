@@ -1,0 +1,88 @@
+.logo-header {
+  position: relative;
+
+  .logo-img-container {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  /* LOGOS */
+
+  .logo-img,
+  .logo-img-light {
+    position: absolute;
+    width: 42px;
+    transition: opacity .3s ease, transform .3s ease;    
+    animation: mainLogoGlow 2.5s ease-in-out infinite;
+     @include light {
+      opacity: 1;
+      animation: mainLogoGlowLight 2.5s ease-in-out infinite;
+    }
+  }
+
+  .logo-img {
+    opacity: 0;
+
+    filter:
+      drop-shadow(0 0 1px rgb(24,117,102))
+      drop-shadow(0 0 1px rgb(127,255,233));
+
+    [data-theme="dark"] & {
+      opacity: 1;
+    }
+  }
+
+  .logo-img-light {
+    opacity: 0;
+
+    filter:
+      drop-shadow(0 0 1px rgba(129,140,248,0.6))
+      drop-shadow(0 0 1px rgba(129,140,248,0.8));
+
+    @include light {
+      opacity: 1;
+    }
+  }
+
+  /* TEXTO */
+
+  .logo-text {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%) scale(.9);
+    
+
+    font-family: $font-title;
+    letter-spacing: .15em;
+    font-size: 16px;
+    font-weight: 600;
+
+    opacity: 0;
+    transition: all .3s ease;
+    pointer-events: none;
+  }
+
+  /* HOVER */
+
+  .logo-img-container:hover .logo-text {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .logo-img-container:hover .logo-img,
+  .logo-img-container:hover .logo-img-light {
+    opacity: 30%;
+  }
+}
+@media (min-width: 700px) {
+    .logo-text {
+         white-space: nowrap;        
+    }
+}

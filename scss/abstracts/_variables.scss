@@ -1,0 +1,78 @@
+// THEME LIGHT
+$bg-light: #ffffff;
+$bg-glass-light: rgba(255, 255, 255, 0.8);
+$text-light: #111111;
+$accent-light: #6366f1;
+
+// THEME DARK
+$bg-dark: #0b0f19;
+$bg-glass-dark: rgba(11, 15, 25, 0.75);
+$text-dark: #e5e7eb;
+$accent-dark: #818cf8;
+
+// BRAND SECONDARY
+$neon: #7fffe9;
+$dark-surface: #050b14;
+
+// FONTS
+$font-body: 'Josefin Sans', system-ui, sans-serif;
+$font-title: 'Poiret One', cursive;
+
+// TRANSITIONS
+$transition-slow: 2s ease;
+$transition-fast: 0.25s ease;
+$transition-mid: 0.40s ease;
+$transition-default: 0.8s ease;
+
+// SHADOWS
+$shadow-text: 0px 0px 15px rgba(0, 0, 0, 0.5);
+$glow-light: 0 0 5px rgba(129, 140, 248, 0.6);
+$glow-dark: 0 0 5px rgb(127, 255, 233, 0.6);
+$glow-dark-strong: 0 0 5px rgb(127, 255, 233, 0.9);
+$glow-light-strong: 0 0 5px rgba(129, 140, 248, 2);
+
+// GRADIANTS
+$neon-gradiant-r: linear-gradient(
+                        135deg,
+                        #7fffe9 0%,
+                        #6de4d0 40%,
+                        #4ccbb7 70%,
+                        #2aa79b 100%
+                        );              
+$neon-gradiant-m: linear-gradient(                        
+                        #7fffe9 0%,
+                        #6de4d0 20%,
+                        #4ccbb7 60%,                        
+                        );      
+$neon-gradiant-l: linear-gradient(
+                       135deg,
+                        #2aa79b 0%,
+                         #4ccbb7 40%,
+                         #6de4d0 70%,
+                         #7fffe9 100%
+                        ); 
+$accent-dark-gradiant-r: linear-gradient(
+                                        135deg,
+                                        #818cf8 0%,
+                                        #6f7df0 25%,
+                                        #5a66e0 50%,
+                                        #404ec7 75%,
+                                        #2f3aa8 100%
+                                        );
+$accent-dark-gradiant-m: linear-gradient(                                        
+                                        #818cf8 0%,
+                                        #6f7df0 25%,
+                                        #5a66e0 50%,
+                                        #404ec7 75%,
+                                        #2f3aa8 100%
+                                        );
+$accent-dark-gradiant-l: linear-gradient(
+                                        135deg,
+                                        #2f3aa8 0%,
+                                        #404ec7 25%,
+                                        #5a66e0 50%,
+                                        #6f7df0 75%,
+                                        #818cf8 100%
+                                        );
+
+// BACKGROUNDS

@@ -1,0 +1,52 @@
+// ==============================
+// THEME
+// ==============================
+@mixin light {
+  [data-theme="light"] & {
+    @content;
+  }
+}
+
+@mixin dark {
+  [data-theme="dark"] & {
+    @content;
+  }
+}
+
+// ==============================
+// GLASS EFFECT
+// ==============================
+@mixin glass($bg-dark, $bg-light) {
+  background: $bg-dark;
+
+  @include light {
+    background: $bg-light;
+  }
+}
+
+// ==============================
+// GLOW
+// ==============================
+@mixin glow($dark, $light) {
+  box-shadow: $dark;
+
+  @include light {
+    box-shadow: $light;
+  }
+}
+
+// ==============================
+// FLEX CENTER
+// ==============================
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// ==============================
+// TRANSITION
+// ==============================
+@mixin transition($props...) {
+  transition: $props;
+}

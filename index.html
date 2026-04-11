@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ==============================
+       SEO BÁSICO
+  ============================== -->
+  <title>Mariano Tomás Corino — Desarrollador Frontend</title>
+  <meta name="description" content="Portfolio de Mariano Tomás Corino, desarrollador de aplicaciones y diseñador web. Especializado en HTML, CSS, SCSS, JavaScript y tecnologías frontend modernas." />
+  <meta name="author" content="Mariano Tomás Corino" />
+  <meta name="keywords" content="desarrollador frontend, diseñador web, portfolio, JavaScript, SCSS, HTML, CSS, Buenos Aires" />
+  <link rel="canonical" href="https://marianocorino.dev/" />
+
+  <!-- ==============================
+       OPEN GRAPH (LinkedIn, WhatsApp, Facebook)
+  ============================== -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://marianocorino.dev/" />
+  <meta property="og:title" content="Mariano Tomás Corino — Desarrollador de Apps" />
+  <meta property="og:description" content="Portfolio de Mariano Tomás Corino, desarrollador de aplicaciones y diseñador web. Especializado en HTML, CSS, SCSS y JavaScript." />
+  <meta property="og:image" content="https://media.vandalsports.com/i/1706x960/5-2024/202459164425_1.jpg.webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="es_AR" />
+  <meta property="og:site_name" content="Mariano Corino — Portfolio" />
+
+  <!-- ==============================
+       TWITTER / X CARD
+  ============================== -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mariano Tomás Corino — Desarrollador de App" />
+  <meta name="twitter:description" content="Portfolio de Mariano Tomás Corino, desarrollador de aplicaciones y diseñador web." />
+  <meta name="twitter:image" content="https://marianocorino.dev/images/og-preview.jpg" />
+
+  <!-- ==============================
+       FAVICON
+  ============================== -->
+  <link rel="icon" type="image/svg+xml" href="/images/logo.svg" />
+  <link rel="icon" type="image/svg+xml" href="/images/logo2.svg" media="(prefers-color-scheme: light)" />
+  <link rel="apple-touch-icon" href="/images/logo.svg" />
+
+  <!-- ==============================
+       PERFORMANCE — Preconnect & Preload fonts
+  ============================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+
+  <link
+    rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Poiret+One&display=swap"
+    as="style"
+    onload="this.onload=null;this.rel='stylesheet'"
+  />
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Poiret+One&display=swap" rel="stylesheet" />
+  </noscript>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    media="print"
+    onload="this.media='all'"
+  />
+  <noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  </noscript>
+
+  <!-- ==============================
+       ESTILOS
+  ============================== -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- ==============================
+       SCHEMA.ORG — Structured Data (JSON-LD)
+  ============================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Mariano Tomás Corino",
+    "url": "https://marianocorino.dev",
+    "jobTitle": "Desarrollador de Apps",
+    "description": "Desarrollador de aplicaciones y diseñador web especializado en tecnologías frontend modernas.",
+    "sameAs": [
+      "https://github.com/TU_USUARIO",
+      "https://linkedin.com/in/TU_USUARIO",
+      "https://instagram.com/TU_USUARIO"
+    ]
+  }
+  </script>
+
+</head>
+<body>
+  
+
+  <!-- Indicador de sección -->
+   
+  <header class="section-nav">
+    
+    <div class="menu-top">
+      <div class="nav-animator">
+        <div class="nav-track">
+          <div class="nav-past"></div>
+          <h1 class="nav-title"></h1>
+          <div class="nav-future"></div>
+        </div>
+      </div>
+
+
+      <div class="logo-header">
+        <div class="logo-img-container" >
+          
+          <img class="logo-img" src="/images/logo.svg" alt="logo">
+          <img class="logo-img-light" src="/images/logo2.svg" alt="logo">
+          <span class="logo-text">MARIANO TOMÁS CORINO</span> 
+          
+        </div>
+      </div>
+  
+        <div class="toggle-container">
+
+           <span class="label-toggle-light">CLARO</span>
+           
+            <button id="theme-toggle" aria-label="Cambiar tema">        
+              <img class="toggle-light" width="34" height="34" src="https://img.icons8.com/office/40/moon.png" alt="moon"/>
+              <img class="toggle-dark" width="66" height="66"  src="data:image/png;base64,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" alt="sun--v1"> 
+               <!--
+                <img class="toggle-light" width="40" height="40" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACRUlEQVR4nO2Yv2sUURDHV/yBCkoKsVEhhaTUVoyIlVYWoiIBsQyxlJhGb9/8Cyr2amliK0HRQm0EI7EQEivBGHfmcqA2RgznV97ljgMvp2/fvt15gRuY7nb385mZfff2JckgBlFt1CBHCTxtwEsEQYg04CUDfkjgI6XCp8jOEuRnKHDqSf6VQs6XAn8DjQME+VEevLS7Ias38flQcAEDvl02PHXzVlB4ArYRhCsUqNtnBhNIIWcqhEc7TwcTIPD9qgUM+F4g+I87CfxNQeD7NXzaVVjALmsK4wObKfhcgA7wIy0BAk8Xgp/Cyp4q1n7qO0aySmjsLVB9uaJXfel04bK3gAHPagsY8GPP6i/vs3uTCATWCNl+j+rLVW146o7RhEcH+KU+uHS68CIXvN0NGnAzIoEmoXEwR/XlujY09UpMOgsY8FttYOpJnnOt/mF9WOmT9RGX6qf6oNJvjFIXgScRC8y6jNDTTS1gIFMRC0w6dGB5N4HfRQg/b9n+K7Au8XWIwHcJ/EUbnFoMfMcyJaUHsIUgr/+COO56ObWvKRfy3wAXNqjiiU0hcBHYSuBFh1lesL+NTsCAx9xfyOxSjALzeVaUqARqrSP33KtLz1G6mgCBax4CtWgEDHjG449pZoP7vLJfghoCHzw6sJjEEIT3O9ZPDnJ3YG0c2K7Nb89ORwtsE45p89vxeaB+hO4bhOyUAf8uINAk1E8mGkHIhg1E/MenIyEr9jtcQYDnisJTtxNvKhcwkOehBAjyrHKBQQwiacUfSwfqHiqsrigAAAAASUVORK5CYII=" alt="lamp">
+                <img class="toggle-dark" width="40" height="40" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAADMklEQVR4nO1ZO2wTQRDdiH8BBUIU/CUQBUL8JBokJCqokAgEaICCBigo+FT8dtehiD1zCoYChSZI0MQKHb8CJEgqApSBUEcRiIafcjMXPovWPkfh4+R8t75z4Set5GLvzbzd2ZnZtRAttJAucl6wWQOVNPKoRjaOxqhC6pOFYFNDndfAexUQO3Tc/DkokMD7G+K87BpfoYD8siHg67LLX+WKuxP81Qr5huW2Nq5648uFayikYsUA3xENgga6W7aBVHRKLKWZrYA/WHJ7BpyST4EsBFvCRfpobQpX0Eh7KqFDb52R1rY1bG3JAu12SMq3K1vLl52R1rIFfCXchV4nhFKa+Qrpc3lVkNeLBqOzQGvD3f7ieWZBYkLt8YGQ8KVICQrpVdlmgduTkwH1h3n6rBPvItnkc+GilRIR5fNmYSX3009bB0RKkPnxZdamRiJZNItiE+U8/1h4oJ6JlKGRn1fStn8kPgnwo7IAj0449S6SbToZhtGDWAQSvy5RQBN22N/OPZzJvmcW295II32X8G1p3QQK6VSiFXAAhfQwdgQo5IHEMZgQCvyjsc5gJ/ornWSBhMjHzYIa+XzYFfY11MMICC9P9dUhjfQ6bB32iYyhC9xeVycgPVpX7UVsHyQyRrFo5mmgT5F7MdtxOu0GHUAB94Y3wUtRJj8uqwXuEE0CCdwROaVXq6/tQkWTIAfBoTCp3J9xsgI+U7195TDYaoxpExnBGNMm88E2hTQSCjg940f2EjHZj0cdwIN/3+AU0C+XTy4KaShyUrHFSwNd08hj0ch5YPJboF2O34vGFFK3LWoijS3XQC+mFQuUr/XioMM5IvNsMc3IIR2v9b3OUkCpZGZpoHcRYnnEzm06AQqDw5Hj2gsONp0AHfZP0bLW//sanZUACcHGerOLBN7QNAIU8sUY6fFC0wjQSPfqLkxA/f/wAA9OrSmpQQG9qX8HaFg0A6Q0c+3LRQwBQU+PmZO1/0LDxPYY8V85yPlgW9b+24N3K64AhXwzW+fz/s7K60VMAUA/JPo7MnFedtOa6t9OCcd7+ydf6gLqvjNMG0o0lLoAjfzUmQDgJ6kLaKEFUcZvcFzpGhA0cOgAAAAASUVORK5CYII=" alt="lamp">
+                      -->
+            </button>
+          <span class="label-toggle">OSCURO</span>         
+        
+        </div>
+  </header>
+<!-- Side nav menu -->
+ <nav class="side-menu-container">
+    <div class="side-menu">
+      
+        <a href="#home" class="menu-item">
+          <div class="key-button">
+            <div class="key depth"></div>
+            <button class="face"><i class="fa-solid fa-house-user"></i></button>
+          </div>
+          <span class="key-label">Inicio</span>
+        </a>
+
+        <a href="#about" class="menu-item">
+          <div class="key-button">
+            <div class="key depth"></div>
+            <button class="face"><i class="fa-solid fa-brain"></i></button>
+          </div>
+          <span class="key-label">Acerca de</span>
+        </a>
+        
+        <a href="#stack" class="menu-item">
+          <div class="key-button">
+            <div class="key depth"></div>
+            <button class="face"><i class="fa-solid fa-book"></i></button>
+          </div>
+          <span class="key-label">Habilidades</span>
+        </a>  
+
+        <a href="#projects" class="menu-item">
+          <div class="key-button">
+            <div class="key depth"></div>
+            <button class="face"><i class="fa-solid fa-briefcase"></i></button>
+          </div>
+          <span class="key-label">Proyectos</span>
+        </a>
+        <div class="side-menu-line"></div>       
+      
+      </div>
+    </nav>
+
+<!-- Side nav right menu -->
+      <nav class="side-menu-right">
+
+         <div class="menu-item-right cv-item">
+          <div class="key-btn-right">
+            <div class="key-right depth-right"></div>
+            <button class="face-right"><i class="fa-solid fa-sheet-plastic"></i></button>
+          </div>          
+           <span class="label-right">
+            <span class="label-text">Currículum</span>
+
+            <span class="cv-actions">
+              <button class="cv-confirm">✔</button>
+              <button class="cv-cancel">✖</button>
+            </span>
+          </span>
+        </div>
+
+        <a href="#contact" class="menu-item-right">          
+          <div class="key-btn-right">
+            <div class="key-right depth-right"></div>
+            <button class="face-right"><i class="fa-solid fa-paper-plane"></i></button>
+          </div>    
+          <span class="label-right">Contáctame</span>      
+        </a>
+        
+      </nav>
+      
+ 
+      <nav class="side-scroll-arrow">  
+        
+          <div class="scroll-dots">
+            <span class="dot-scroll" data-target="home"></span>
+            <span class="dot-scroll" data-target="about"></span>
+            <span class="dot-scroll" data-target="stack"></span>
+            <span class="dot-scroll" data-target="projects"></span>
+            <span class="dot-scroll" data-target="contact"></span>
+          </div>
+        
+        <div  class="scroll-arrow-container">          
+          <img class="scroll-arrow" src="/images/arrowD.svg" alt="logo">
+          <img class="scroll-arrow-light" src="/images/arrowDLight.svg" alt="logo">
+        </div>        
+      </nav>
+
+  <!-- Secciones -->
+  <main>
+
+    <section id="home" data-title="Inicio">
+      <div class="home-content">
+        
+        <div class="profile-image-wrapper">
+          <img
+            id="profile-image"
+            src="images/profile/1.jpg"
+            alt="Foto de perfil"
+          />
+
+          <span class="home-img-text">YO EN EL MULTIVERSO DE MIS GUSTOS AUDIOVISUALES</span>
+          
+        </div>
+
+        <div class="hero-text">
+          <p class="hero-subtitle">
+            Soy desarrollador de aplicaciones y diseñador web,
+            pero también soy:
+            <span id="dynamic-text"></span>
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <section id="about" data-title="About"></section>
+    <section id="stack" data-title="Stack"></section>
+    <section id="projects" data-title="Projects"></section>
+    <section id="contact" data-title="Contact">
+
+      <div class="contact-content">
+        <div class="mail-content">
+
+        </div>
+
+      </div>
+    </section>
+    
+  </main>
+
+  <footer>
+    <div id="footer" class="footer">
+      <div class="footer-icon-container">
+
+        <a href="https://instagram.com/TU_USUARIO" target="_blank" rel="noopener noreferrer"
+           class="buton-footer-ig" aria-label="Instagram de Mariano Corino">
+          <i class="fa-brands fa-instagram logo-footer" aria-hidden="true"></i>
+          <span class="footer-logo-label">Instagram</span>
+        </a>
+
+        <a href="https://github.com/TU_USUARIO" target="_blank" rel="noopener noreferrer"
+           class="buton-footer-gh" aria-label="GitHub de Mariano Corino">
+          <i class="fa-brands fa-github logo-footer" aria-hidden="true"></i>
+          <span class="footer-logo-label">GitHub</span>
+        </a>
+
+        <a href="https://www.linkedin.com/in/marianocorino/" target="_blank" rel="noopener noreferrer"
+           class="buton-footer-lk" aria-label="LinkedIn de Mariano Corino">
+          <i class="fa-brands fa-linkedin logo-footer" aria-hidden="true"></i>
+          <span class="footer-logo-label">LinkedIn</span>
+        </a>
+
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

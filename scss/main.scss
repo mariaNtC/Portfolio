@@ -1,0 +1,30 @@
+@import 'abstracts/mixins';
+@import 'abstracts/variables';
+
+@import 'base/base';
+
+@import 'layout/contact';
+@import 'layout/projects';
+@import 'layout/stack';
+@import 'layout/about';
+@import 'layout/header';
+@import 'layout/home';
+@import 'layout/footer';
+@import 'layout/arrow-scroll';
+
+@import 'components/side-menu-right';
+@import 'components/theme-toggle';
+@import 'components/side-menu';
+@import 'components/key-button';
+@import 'components/key-btn-right';
+@import 'components/logo-header';
+
+@import 'utilities/animations';
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+   padding-top: 30px;
+   margin: 0;
+}
