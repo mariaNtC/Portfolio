@@ -1,18 +1,16 @@
 .footer{
     padding-top: 35px;
     padding-bottom: 100px;
-    
     .footer-icon-container {
         font-size: 25px;          
         display: flex; 
         justify-content: center;
-        align-items: center;        
-        text-align: center;      
+        align-items: center;
+        text-align: center;       
 
         .buton-footer-ig {     
             cursor: pointer;
             position:relative;       
-            color: white;
             box-shadow: $glow-light;
             border-radius: 2px;
             border-top-left-radius: 20px;  
@@ -21,6 +19,7 @@
             margin: 2px;
             padding: 5px;
             opacity: 0.6;
+            color: white;
             background: $neon-gradiant-r;               
                         @include light  {
                             box-shadow: $glow-light-strong;
@@ -30,7 +29,6 @@
         .buton-footer-gh {
             cursor: pointer;
             position:relative;  
-            color: white;
             opacity: 0.6;
             box-shadow: $glow-light;
             border-radius: 2px;
@@ -38,6 +36,7 @@
             width: 35px;
             margin: 5px;
             padding: 5px;
+            color: white;
             background: $neon-gradiant-m;
                         
                         @include light  {
@@ -49,7 +48,6 @@
           .buton-footer-lk {
             cursor: pointer;
             position:relative;  
-            color: white;
             opacity: 0.6;
             box-shadow: $glow-light;
             border-radius: 2px;
@@ -58,6 +56,7 @@
             width: 45px;
             margin: 2px;
             padding: 5px;
+            color: white;
             background: $neon-gradiant-l;
 
                         @include light  {
@@ -94,7 +93,7 @@
                 color: $neon;
                 opacity: 0;
                 pointer-events: none;
-                transition: all 0.25s ease;
+                transition: opacity 0.25s ease, transform 0.25s ease;
                 backdrop-filter: blur(6px);
                     @include light  {
                         color: $accent-dark;  
@@ -120,7 +119,7 @@
                     .buton-footer-gh:hover {
                         opacity: 1;
                         transform: scale(1.2);
-                        transition: 0.3s;
+                        transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
                         box-shadow: $glow-dark-strong;  
                             @include light  {
                                 box-shadow: $glow-light-strong;        

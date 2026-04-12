@@ -55,7 +55,7 @@
         color: $neon;
         opacity: 0;
         pointer-events: none;
-        transition: all $transition-fast;
+        transition: opacity $transition-fast, transform $transition-fast, font-weight $transition-fast;
 
         backdrop-filter: blur(6px);
         -webkit-backdrop-filter: blur(6px);
@@ -240,7 +240,7 @@
                 color: white;
                 opacity: 1;
                 pointer-events: none;
-                transition: all $transition-fast;
+                transition: opacity $transition-fast, transform $transition-fast;
                 backdrop-filter: none;
                 @include light {
                     background: transparent;                    

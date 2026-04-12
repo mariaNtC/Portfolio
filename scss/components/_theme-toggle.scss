@@ -1,11 +1,9 @@
-.toggle-container {
-  
+.toggle-container {  
  display: flex;
  flex-direction: column;
  align-items: center;
   padding: 10px;
   margin: 5px 67px;
-
   #theme-toggle {     
     all: unset;
     cursor: pointer;
@@ -16,17 +14,14 @@
     align-items: center;
     justify-content: center;    
     }
-
     /* Ambos íconos superpuestos */
-    #theme-toggle img {
-    
+    #theme-toggle img {    
     position: absolute;
     transition: opacity 0.3s ease, transform 0.3s ease;
         .toggle-dark {
             width: 50px;
             height: 50px;
-        }
-    
+        }    
     }
     /* Por defecto ocultamos ambos */
     .toggle-light,
@@ -34,7 +29,6 @@
     opacity: 0;
     transform: scale(0.9);
     }
-
     .label-toggle , .label-toggle-light {           
         display: flex;
         align-items: center;
@@ -51,16 +45,14 @@
         color: white;
         opacity: 0;
         pointer-events: none;
-        transition: all $transition-default;
+        transition: opacity $transition-default, transform $transition-default;
         backdrop-filter: blur(6px);
         -webkit-backdrop-filter: blur(6px);
-
         @include light {
             background: rgba(0, 0, 0, 0.01);
             color: black;        
         }
     }
-
     .label-toggle::after {
         content: "";        
         position: absolute;
@@ -75,21 +67,14 @@
         @include light  {
             border-right-color: rgba(0, 0, 0, 0.068);
         }
-    }
-
-    
-    
+    }    
 }
-
 .toggle-container:hover .label-toggle,
 .toggle-container:hover .label-toggle-light {
   opacity: 1;
   transform: translateY(0);
   font-weight: 900;
 }
-
-
-
 /* Cuando el tema es dark mostramos el icono light */
 html[data-theme="dark"] .toggle-light {
   opacity: 1;
@@ -98,7 +83,6 @@ html[data-theme="dark"] .toggle-light {
     drop-shadow(0 0 2px rgba(255, 255, 255, 0.8))
     drop-shadow(0 0 12px rgba(127, 255, 233, 0.8));
 }
-
 /* Cuando el tema es light mostramos el icono dark */
 html[data-theme="light"] .toggle-dark {    
   opacity: 1;
@@ -107,9 +91,6 @@ html[data-theme="light"] .toggle-dark {
     drop-shadow(0 0 2px rgba(255, 239, 9, 0.8))
     drop-shadow(0 0 12px rgba(255, 240, 101, 0.8));
 }
-
-   
-
 @media (max-width: 800px) {
    .toggle-container  {    
         

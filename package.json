@@ -1,15 +1,23 @@
 {
-  "name": "sass-portafolio",
+  "name": "mariano-corino-portfolio",
   "version": "1.0.0",
-  "description": "",
+  "description": "Portfolio personal de Mariano Tomás Corino — Desarrollador Frontend",
+  "author": "Mariano Tomás Corino",
+  "homepage": "https://marianocorino.dev",
+  "license": "MIT",
   "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-     "sass": "sass scss/main.scss styles.css --watch"
+    "sass": "sass scss/main.scss styles.css --watch --style=compressed",
+    "sass:build": "sass scss/main.scss styles.css --style=compressed --no-source-map",
+    "sass:dev": "sass scss/main.scss styles.css --watch",
+    "test": "echo \"No tests configured\" && exit 0"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "portfolio",
+    "frontend",
+    "scss",
+    "javascript"
+  ],
   "type": "commonjs",
   "dependencies": {
     "sass": "^1.97.3"
