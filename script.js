@@ -8,6 +8,7 @@ const menuItemsLeft = document.querySelectorAll('.menu-item')
 const menuItemsRight= document.querySelectorAll('.menu-item-right')
 const allMenuLinks  = document.querySelectorAll('a[href^="#"]')
 
+
 // ==============================
 // ESTADO GLOBAL
 // ==============================
