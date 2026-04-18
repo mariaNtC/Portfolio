@@ -242,7 +242,7 @@ if (scrollArrow) {
 // ==============================
 // DOTS
 // ==============================
-const dots = document.querySelectorAll('.dot-scroll')
+const dots = document.querySelectorAll('[data-target]')
 
 dots.forEach(dot => {
   // Click
