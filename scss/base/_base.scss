@@ -1,7 +1,7 @@
 html {
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
   scroll-padding-top: 64px;  
-  scroll-behavior:smooth;
+  scroll-behavior:smooth; 
 }
 section {
   padding-top: 12px;

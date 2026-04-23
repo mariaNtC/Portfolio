@@ -1,5 +1,5 @@
 .footer{
-    padding-top: 35px;
+    padding-top: 10px;
     padding-bottom: 100px;
     .footer-icon-container {
         font-size: 25px;          
@@ -134,5 +134,16 @@
     }     
 }
 @media  (max-width: 650px) {
+    .footer .footer-icon-container .buton-footer-lk{
+        
+            border-radius: 2px;
+            border-top-right-radius: 20px;
+        
+    }
     
+            .footer .footer-icon-container .buton-footer-ig,
+            .footer .footer-icon-container .buton-footer-gh,
+            .footer .footer-icon-container .buton-footer-lk {
+                opacity: 1;
+            }
 }

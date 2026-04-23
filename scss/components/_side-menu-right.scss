@@ -216,50 +216,11 @@
 @media (max-width: 650px) {
     .side-menu-right {        
         top: 24vh;  
-        right:-5px;
-
+        right:-18px;
         .menu-item-right {
             .label-right {    
-            position:absolute;
-            max-width: 76px;
-            right:12%;
-            top:-80%;            
-            border-radius: 8px;
-            font-size: 13px;
-            font-family: $font-title;
-            letter-spacing: 0.12em;
-            background: rgb(0, 0, 0,0.4);
-            opacity: 0;
-            transform: translateX(6px);
-            transition: $transition-fast;
-            pointer-events: none;
-            @include light {
-                border-right-color: rgba(0, 0, 0, 0.070);
-                background:rgba(0, 0, 0, 0.070);
-            }
-
-                &::after {
-                    content: "";
-                    position: absolute;
-                    right: 40%;
-                    top: 80%;
-                    transform: translateY(100%);
-                    width: 0;
-                    height: 0;
-                    border-left: 6px solid transparent;
-                    border-right: 6px solid transparent;
-                    border-top: 6px solid rgba(0, 0, 0, 0.350); 
-                    @include light  {
-                        border-left: 6px solid transparent;
-                        border-right: 6px solid transparent;
-                        border-top: 6px solid rgba(0, 0, 0, 0.08); 
-                    }
-                  }
-          }
-          
-        }
-        
-        
+              display: none;
+          }          
+        }    
     }
-    
 }

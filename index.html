@@ -253,15 +253,135 @@
     <section id="about" data-title="About"></section>
     <section id="stack" data-title="Stack"></section>
     <section id="projects" data-title="Projects"></section>
-    <section id="contact" data-title="Contact">
+   <section id="contact" data-title="Contact">
 
       <div class="contact-content">
-        <div class="mail-content">
 
+        <!-- ── IZQUIERDA: datos de contacto ── -->
+        <div class="contact-info">
+
+          <div class="contact-info__container-title">
+            <h2 class="contact-info__title">Hablemos<span class="cf-slash">.</span></h2>
+            <p class="contact-info__subtitle">
+              Estoy disponible para proyectos freelance,<br>
+              oportunidades laborales o simplemente charlar.
+            </p>
+          </div>
+
+          <div class="contact-info__mail">
+            <div class="contact-info__icon-wrap" aria-hidden="true">
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+            <div class="contact-info__detail">
+              <span class="contact-info__label">Email</span>
+              <a href="mailto:mariano.corino@gmail.com" class="contact-info__value">
+                mariano.corino@gmail.com
+              </a>
+            </div>
+          </div>
+
+          <p class="contact-info__note">
+            Respondo en menos de 24&nbsp;h.
+          </p>
+
+        </div>
+
+        <!-- ── DERECHA: formulario ── -->
+        <div class="contact-form-wrap">
+
+          <form id="contact-form" class="contact-form" novalidate>
+
+            <!-- Título del mensaje -->
+            <div class="cf-field">
+              <label class="cf-label" for="cf-subject"> <span class="cf-slash">/</span>Asunto</label>
+              <input
+                id="cf-subject"
+                name="subject"
+                type="text"
+                class="cf-input"
+                placeholder="¿De qué se trata?"
+                maxlength="80"
+                required
+                autocomplete="off"
+              />
+            </div>
+
+            <!-- Selector de tipo de contacto + campo dinámico -->
+            <div class="cf-field">
+              <label class="cf-label"> <span class="cf-slash">/</span>Tu contacto</label>
+              <div class="cf-contact-toggle">
+                <button
+                  type="button"
+                  class="cf-toggle-btn active"
+                  data-type="email"
+                  aria-pressed="true"
+                  aria-label="Usar correo electrónico"
+                >
+                  <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                  <span>Mail</span>
+                </button>
+                <button
+                  type="button"
+                  class="cf-toggle-btn"
+                  data-type="phone"
+                  aria-pressed="false"
+                  aria-label="Usar teléfono"
+                >
+                  <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                  <span>Teléfono</span>
+                </button>
+              </div>
+
+              <input
+                id="cf-contact"
+                name="contact"
+                type="email"
+                class="cf-input"
+                placeholder="tu@email.com"
+                required
+                autocomplete="email"
+              />
+            </div>
+
+            <!-- Mensaje -->
+            <div class="cf-field">
+              <label class="cf-label" for="cf-message">
+                <span>
+                  <span class="cf-slash">/</span>Mensaje
+                </span>
+                 <span class="cf-char-count" aria-live="polite">0 / 800</span>
+              </label>
+              <textarea
+                id="cf-message"
+                name="message"
+                class="cf-textarea"
+                placeholder="Contame tu idea, propuesta o lo que quieras..."
+                maxlength="800"
+                required
+                rows="5"
+              ></textarea>
+            </div>
+
+
+            <div class="cf-actions">
+              <!-- Estado del envío -->
+              <div class="cf-status" role="status" aria-live="polite"></div>
+
+              <!-- Submit -->
+              <button type="submit" class="cf-submit" id="cf-submit-btn">
+                <span class="cf-submit__text">Enviar mensaje</span>
+                <span class="cf-submit__icon" aria-hidden="true">
+                  <i class="fa-solid fa-paper-plane"></i>
+                </span>
+              </button>
+            </div>
+
+          </form>
         </div>
 
       </div>
     </section>
+
     
   </main>
 
@@ -291,6 +411,10 @@
     </div>
   </footer>
 
+
   <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+
 </body>
 </html>

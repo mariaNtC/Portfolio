@@ -1,5 +1,546 @@
+// ==============================
+// CONTACT SECTION
+// ==============================
+
 #contact {
-  min-height: 600px;
-  background-color: rgb(93, 93, 252);
-  opacity: 0.2;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 145px 0px 80px ;
+  scroll-snap-align: none;
 }
+
+.contact-content {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+// ==============================
+// IZQUIERDA — INFO
+// ==============================
+.contact-info {
+  flex: 0 0 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;  
+  
+
+  &__container-title {    
+    width: 92%;
+    box-shadow: $shadow-text;
+    background-color: rgba(0, 0, 0, 0.384);
+    padding: 4px 0px;
+    border-radius: 14px;
+    border-end-end-radius: 0px; 
+    @include light {
+     background-color: rgba(0, 0, 0, 0.08);
+     box-shadow: $shadow-text-soft;
+  }
+  }
+  &__title {
+    font-family: $font-title;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    margin: 0;
+    color: $text-dark;
+    letter-spacing: 0.06em;
+    padding: 0px 10px;
+
+    @include light {
+      color: $text-light;
+    }
+  }
+
+  &__subtitle {
+    font-family: $font-body;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    opacity: 0.60;
+    margin: 0;
+    color: $text-dark;
+    padding: 0px 10px;
+    @include light {
+      color: $text-light;
+    }
+  }
+
+  &__mail {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 14px;
+    border-start-end-radius: 0px;
+    background: rgba(6, 56, 48, 0.4);
+    border: 2px solid rgba(127, 255, 233, 0.15);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.18);
+    transition: border-color $transition-fast, box-shadow $transition-fast;
+    @include light {
+      background: rgba(99, 102, 241, 0.10);
+      border-color: rgba(129, 140, 248, 0.2);
+    }
+
+    &:hover {
+      border-color: rgba(127, 255, 233, 0.4);
+      box-shadow: $glow-dark;
+
+      @include light {
+        border-color: rgba(129, 140, 248, 0.5);
+        box-shadow: $glow-light;
+      }
+    }
+  }
+  
+  &__icon-wrap {
+    @include flex-center;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    font-size: 18px;
+    color: $neon;
+    background: rgba(127, 255, 233, 0.1);
+    border: 1px solid rgba(127, 255, 233, 0.2);
+
+    @include light {
+      color: $accent-dark;
+      background: rgba(129, 140, 248, 0.1);
+      border-color: rgba(129, 140, 248, 0.2);
+    }
+  }
+
+  &__detail {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  &__label {
+    font-family: $font-title;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    font-weight: bold;
+    opacity: 0.7;
+    text-transform: uppercase;
+    color: $text-dark;
+
+    @include light {
+      color: $text-light;
+    }
+  }
+
+  &__value {
+    font-family: $font-body;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: $neon;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: opacity $transition-fast;
+
+    @include light {
+      color: $accent-light;
+    }
+
+    &:hover {
+      opacity: 0.75;
+    }
+  }
+
+  &__note {    
+    text-align: center;
+    width: 80%;
+    font-family: $font-body;
+    font-size: 0.78rem;
+    opacity: 0.6;
+    margin-top: -6px;
+    letter-spacing: 0.04em;
+    color: $text-dark;
+    background: rgba(6, 56, 48, 0.4);
+    box-shadow: $shadow-text-soft;
+    border: 1px solid rgba(127, 255, 233, 0.15);
+    padding: 5px;    
+    border-end-start-radius: 8px;
+    border-end-end-radius: 8px;
+    @include light {
+      color: $text-light;      
+      border-color: rgba(129, 140, 248, 0.2);
+      border: 1px solid rgba(129, 140, 248, 0.2);
+      background: rgba(99, 102, 241, 0.25);
+      opacity: 0.4;
+    }
+  }
+}
+
+// ==============================
+// DERECHA — FORMULARIO
+// ==============================
+.contact-form-wrap {
+  flex: 1;
+  width: 85%;
+  min-width: 244px;  
+  box-shadow: $shadow-text;
+  background-color: rgba(0, 0, 0, 0.384);
+  padding: 12px 16px;
+  border-radius: 14px;
+   @include light {
+     background-color: rgba(0, 0, 0, 0.08);
+     box-shadow: $shadow-text-soft;
+  }
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+// Campo genérico
+.cf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cf-label {
+  display: flex;
+  align-items: center;
+  
+  font-family: $font-title;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  color: $text-dark;
+  font-weight: bold;
+
+    @include light {
+      color: #111111;
+    }
+}
+.cf-slash {
+  margin-right: 6px;
+  font-weight: 600;
+  color: $neon;
+  @include light {
+    color: $accent-dark;
+  }
+}
+
+// Input base compartido por input y textarea
+%cf-input-base {
+  width: 100%;
+  font-family: $font-body;
+  font-size: 0.9rem;
+  color: $text-dark;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(127, 255, 233, 0.15);
+  border-radius: 12px;
+  padding: 12px 16px;
+  outline: none;
+  transition:
+    border-color $transition-fast,
+    box-shadow $transition-fast,
+    background $transition-fast;
+  box-sizing: border-box;
+
+  &::placeholder {
+    opacity: 0.3;
+    color: $text-dark;
+  }
+
+  &:hover {
+    border-color: rgba(127, 255, 233, 0.3);
+  }
+
+  &:focus {
+    border-color: $neon;
+    box-shadow: $glow-dark;
+    background: rgba(127, 255, 233, 0.14);
+  }
+
+  &.cf-error {   
+    border-color: rgba(255, 100, 100, 0.6);
+    box-shadow: 0 0 5px rgba(255, 100, 100, 0.3);
+  }
+
+  @include light {
+    color: $text-light;
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(129, 140, 248, 0.2);
+
+    &::placeholder {
+      color: $text-light;
+    }
+
+    &:hover {
+      border-color: rgba(129, 140, 248, 0.4);
+    }
+
+    &:focus {
+      border-color: $accent-dark;
+      box-shadow: $glow-light;
+      background: rgba(129, 140, 248, 0.04);
+    }
+    &.cf-error {   
+    border-color: rgba(255, 100, 100, 0.6);
+    box-shadow: 0 0 5px rgba(255, 100, 100, 0.3);
+  }
+  }
+}
+
+.cf-input {
+  @extend %cf-input-base;
+}
+
+// Textarea — redimensionable solo verticalmente hasta 320px
+.cf-textarea {
+  @extend %cf-input-base;
+  resize: vertical;
+  min-height: 130px;
+  max-height: 320px;
+  line-height: 1.6;
+}
+
+// Contador de caracteres
+.cf-char-count {
+  display: flex;
+  width: 100%;
+  justify-content: end;
+  font-family: $font-body;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  opacity: 0.4;
+  transition: color $transition-fast, opacity $transition-fast;
+  text-transform: none;
+
+  &.cf-char-warn {
+    color: #f59e0b;
+    opacity: 0.8;
+  }
+
+  &.cf-char-limit {
+    color: #ef4444;
+    opacity: 1;
+  }
+}
+
+// ==============================
+// TOGGLE MAIL / TELÉFONO
+// ==============================
+.cf-contact-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.cf-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(127, 255, 233, 0.2);
+  background: transparent;
+  color: $text-dark;
+  font-family: $font-body;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  opacity: 0.5;
+  transition:
+    opacity $transition-mid,
+    border-color $transition-mid,
+    background $transition-mid,
+    box-shadow $transition-mid;
+
+  i { font-size: 13px; }
+
+  @include light {
+    color: $text-light;
+    border-color: rgba(129, 140, 248, 0.2);
+  }
+
+  &:hover {
+    opacity: 0.8;
+    border-color: rgba(127, 255, 233, 0.4);
+
+    @include light {
+      border-color: rgba(129, 140, 248, 0.4);
+    }
+  }
+
+  &.active {
+    opacity: 1;
+    border-color: $neon;
+    background: rgba(127, 255, 233, 0.08);
+    box-shadow: $glow-dark;
+    color: $neon;
+
+    @include light {
+      border-color: $accent-dark;
+      background: rgba(129, 140, 248, 0.1);
+      box-shadow: $glow-light;
+      color: $accent-dark;
+    }
+  }
+}
+
+// ==============================
+// ESTADO — feedback del envío
+// ==============================
+.cf-actions {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 12px;    
+  }
+.cf-status {
+  flex: 1;
+  font-family: $font-body;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  transition: opacity $transition-fast;
+  &:empty { display: none; }
+  &.cf-status--ok {
+    color: $neon;
+    @include light { 
+      color: $accent-light; 
+    }
+  }
+  &.cf-status--error {   
+    color: #ff6b6b;
+  }
+}
+
+// ==============================
+// BOTÓN SUBMIT
+// ==============================
+.cf-submit {
+  align-self: flex-end;
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+  padding: 12px 28px;
+  border-radius: 50px;
+  border: 1px solid $neon;
+  background: transparent;
+  color: $neon;
+  font-family: $font-title;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  opacity: 0.8;
+  transition:
+    opacity $transition-fast,
+    background $transition-fast,
+    box-shadow $transition-fast,
+    transform $transition-fast;
+
+  @include light {
+    border-color: $accent-dark;
+    color: $accent-dark;
+  }
+  
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  &.cf-submit--sending {
+    .cf-submit__icon { animation: cf-spin 0.8s linear infinite; }
+  }
+
+  &__icon {
+    display: inline-flex;
+    font-size: 14px;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .cf-submit:hover:not(:disabled) {
+    opacity: 1;
+    color:white;
+    font-weight: bold;
+    background: $neon-gradiant-l;
+    box-shadow: $glow-dark-strong;
+    transform: translateY(-1px);
+
+    @include light {
+      background: $accent-dark-gradiant-l;
+      box-shadow: $glow-light-strong;
+    }
+  }
+}
+
+@keyframes cf-spin {
+  to { transform: rotate(360deg); }
+}
+
+// ==============================
+// RESPONSIVE
+// ==============================
+@media (max-width: 850px) {
+  #contact {
+    margin-top: 40px;
+    padding: 0px 0px 0px 0px;
+  }
+  .contact-content {
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+  }
+  .contact-info {
+    flex: none;
+    width: auto;  
+    align-items: center;
+    gap:12px;    
+  }
+  .contact-info__mail {      
+      border-top-left-radius: 0px;
+  }
+  .contact-info__container-title {
+    width: 278px;
+    border-bottom-left-radius: 0px;
+  }
+  .contact-form-wrap {
+    width: 58%;
+  }
+  .cf-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+  }
+  .cf-submit {
+    align-self: stretch;
+    justify-content: center;
+    background: $neon-gradiant-l;
+    color: white;
+    font-weight: bold;
+    opacity: 1;
+      @include light {
+        background: $accent-dark-gradiant-l;
+          border-color: $accent-dark;
+          color: white;
+        }
+      &:hover:not(:disabled) {
+          opacity:1;
+      }
+      &:active:not(:disabled) {
+        transform: scale(0.96);
+      }
+    }
+  
+ 
+}
+
+

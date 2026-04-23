@@ -279,3 +279,200 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: [0.3, 0.6, 0.9] })
 
 sections.forEach(section => observer.observe(section))
+
+
+
+// ==============================
+// CONTACT FORM
+// Requiere EmailJS cargado en el HTML:
+// <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+//
+// Reemplazá estas 3 constantes con tus datos de EmailJS:
+const EMAILJS_SERVICE_ID  = 'service_uf2r8pm'
+const EMAILJS_TEMPLATE_ID = 'template_uvtqknv'
+const EMAILJS_PUBLIC_KEY  = 'L99uG3OEvEM77pPqh'
+// ==============================
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  const form       = document.getElementById('contact-form')
+  const submitBtn  = document.getElementById('cf-submit-btn')
+  const statusEl   = form?.querySelector('.cf-status')
+  const contactInput = document.getElementById('cf-contact')
+  const textarea   = document.getElementById('cf-message')
+  const charCount  = form?.querySelector('.cf-char-count')
+  const toggleBtns = form?.querySelectorAll('.cf-toggle-btn')
+
+  if (!form) return
+
+  // ==============================
+  // INICIALIZAR EMAILJS
+  // ==============================
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init(EMAILJS_PUBLIC_KEY)
+  }
+
+  // ==============================
+  // TOGGLE MAIL / TELÉFONO
+  // ==============================
+  let contactType = 'email'
+
+  toggleBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const type = btn.dataset.type
+
+      toggleBtns.forEach(b => {
+        b.classList.remove('active')
+        b.setAttribute('aria-pressed', 'false')
+      })
+      btn.classList.add('active')
+      btn.setAttribute('aria-pressed', 'true')
+
+      contactType = type
+      contactInput.value = ''
+      clearError(contactInput)
+
+      if (type === 'email') {
+        contactInput.type        = 'email'
+        contactInput.placeholder = 'tu@email.com'
+        contactInput.autocomplete = 'email'
+      } else {
+        contactInput.type        = 'tel'
+        contactInput.placeholder = '+54 11 1234-5678'
+        contactInput.autocomplete = 'tel'
+      }
+
+      contactInput.focus()
+    })
+  })
+
+  // ==============================
+  // CONTADOR DE CARACTERES
+  // ==============================
+  if (textarea && charCount) {
+    const max = parseInt(textarea.maxLength)
+
+    textarea.addEventListener('input', () => {
+      const len = textarea.value.length
+      charCount.textContent = `${len} / ${max}`
+
+      charCount.classList.remove('cf-char-warn', 'cf-char-limit')
+      if (len >= max) {
+        charCount.classList.add('cf-char-limit')
+      } else if (len >= max * 0.85) {
+        charCount.classList.add('cf-char-warn')
+      }
+    })
+  }
+
+  // ==============================
+  // VALIDACIÓN
+  // ==============================
+  const showError = (input) => input.classList.add('cf-error')
+  const clearError = (input) => input.classList.remove('cf-error')
+
+  const validateForm = () => {
+    let valid = true
+    const subject = document.getElementById('cf-subject')
+    const message = document.getElementById('cf-message')
+
+    ;[subject, contactInput, message].forEach(clearError)
+
+    if (!subject.value.trim()) {
+      showError(subject)
+      valid = false
+    }
+
+    if (contactType === 'email') {
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRe.test(contactInput.value.trim())) {
+        showError(contactInput)
+        valid = false
+      }
+    } else {
+      // Teléfono: mínimo 7 dígitos
+      const phoneRe = /[\d]{7,}/
+      if (!phoneRe.test(contactInput.value.replace(/\s|-/g, ''))) {
+        showError(contactInput)
+        valid = false
+      }
+    }
+
+    if (!message.value.trim()) {
+      showError(message)
+      valid = false
+    }
+
+    return valid
+  }
+
+  // Limpiar error al escribir
+  form.querySelectorAll('.cf-input, .cf-textarea').forEach(el => {
+    el.addEventListener('input', () => clearError(el))
+  })
+
+  // ==============================
+  // ESTADO DE ENVÍO
+  // ==============================
+  const setStatus = (type, msg) => {
+    statusEl.textContent = msg
+    statusEl.className   = `cf-status cf-status--${type}`
+  }
+
+  const setSending = (sending) => {
+    submitBtn.disabled = sending
+    submitBtn.classList.toggle('cf-submit--sending', sending)
+
+    const icon = submitBtn.querySelector('.cf-submit__icon i')
+    const text = submitBtn.querySelector('.cf-submit__text')
+
+    if (sending) {
+      icon.className  = 'fa-solid fa-circle-notch'
+      text.textContent = 'Enviando...'
+    } else {
+      icon.className  = 'fa-solid fa-paper-plane'
+      text.textContent = 'Enviar mensaje'
+    }
+  }
+
+  // ==============================
+  // SUBMIT
+  // ==============================
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault()
+
+    if (!validateForm()) {
+      setStatus('error', '✖ Revisá los campos marcados.')
+      return
+    }
+
+    setSending(true)
+    setStatus('', '')
+
+    const templateParams = {
+      subject:      document.getElementById('cf-subject').value.trim(),
+      contact_type: contactType === 'email' ? 'Email' : 'Teléfono',
+      contact:      contactInput.value.trim(),
+      message:      document.getElementById('cf-message').value.trim(),
+    }
+
+    try {
+      if (typeof emailjs === 'undefined') {
+        throw new Error('EmailJS no está cargado.')
+      }
+
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+
+      setStatus('ok', '✓ Mensaje enviado. Te respondo pronto.')
+      form.reset()
+      if (charCount) charCount.textContent = '0 / 800'
+
+    } catch (err) {
+      console.error('EmailJS error:', err)
+      setStatus('error', 'No se pudo enviar. Intentá por mail directamente.')
+    } finally {
+      setSending(false)
+    }
+  })
+
+})
