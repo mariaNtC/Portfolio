@@ -93,28 +93,35 @@ if (profileImage) {
     return images[next]
   }
 
-  const isMobile = window.matchMedia('(hover: none)').matches
+  const isMobile = window.matchMedia('(max-width: 768px)').matches 
+              || window.matchMedia('(hover: none)').matches
 
-  // 👉 DESKTOP → hover
-  if (!isMobile) {
-    profileImage.addEventListener('mouseenter', () => {
-      profileImage.src = getRandomImage()
-    })
-  }
+let intervalId = null
 
-  // 👉 MOBILE → autoplay
-  else {
-    setInterval(() => {
-      profileImage.style.opacity = 0
-
-      setTimeout(() => {
-        profileImage.src = getRandomImage()
-        profileImage.style.opacity = 1
-      }, 200)
-
-    }, 2500) // ⏱️ podés ajustar el tiempo
-  }
+// 👉 DESKTOP → hover
+if (!isMobile) {
+  profileImage.addEventListener('mouseenter', () => {
+    profileImage.src = getRandomImage()
+  })
 }
+
+// 👉 MOBILE → autoplay
+if (isMobile) {
+  intervalId = setInterval(() => {
+    profileImage.style.opacity = 0.7
+
+    setTimeout(() => {
+      profileImage.src = getRandomImage()
+      profileImage.style.opacity = 1
+    }, 200)
+
+  }, 3000)
+}
+
+
+}
+
+
 
 // ==============================
 // THEME TOGGLE

@@ -1,4 +1,11 @@
 
+
+#home {
+ scroll-snap-align: none;
+}
+#profile-image {
+  transition: opacity 0.3s ease;
+}
 .home-content {
     position: relative;
     max-width: 50%;
