@@ -1,10 +1,12 @@
 html {
   scroll-snap-type: y proximity;
   scroll-padding-top: 64px;  
-  scroll-behavior:smooth; 
+  scroll-behavior:auto; 
 }
 section {
   padding-top: 12px;
+   scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 body {
   position: relative;
@@ -13,6 +15,7 @@ body {
   overflow-x: hidden;
   background-color: $bg-light;
   color: $text-light;
+   overscroll-behavior-y: contain;
   transition: background-color 0.6s ease, color 0.6s ease;
   // Imagen base (light)
   &::before {

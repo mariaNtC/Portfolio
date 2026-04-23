@@ -15,6 +15,7 @@ const allMenuLinks  = document.querySelectorAll('a[href^="#"]')
 let currentTitle = ''
 let currentIndex = 0
 let isScrolling  = false
+let scrollTimeout = null
 
 // ==============================
 // INIT NAV
@@ -75,19 +76,44 @@ if (profileImage) {
     'images/profile/7.jpg'
   ]
 
-  // Precargamos las imágenes para evitar flash en el primer hover
+  // Precarga
   images.forEach(src => {
     const img = new Image()
     img.src = src
   })
 
   let lastIndex = 0
-  profileImage.addEventListener('mouseenter', () => {
+
+  const getRandomImage = () => {
     let next
-    do { next = Math.floor(Math.random() * images.length) } while (next === lastIndex)
-    lastIndex      = next
-    profileImage.src = images[next]
-  })
+    do {
+      next = Math.floor(Math.random() * images.length)
+    } while (next === lastIndex)
+    lastIndex = next
+    return images[next]
+  }
+
+  const isMobile = window.matchMedia('(hover: none)').matches
+
+  // 👉 DESKTOP → hover
+  if (!isMobile) {
+    profileImage.addEventListener('mouseenter', () => {
+      profileImage.src = getRandomImage()
+    })
+  }
+
+  // 👉 MOBILE → autoplay
+  else {
+    setInterval(() => {
+      profileImage.style.opacity = 0
+
+      setTimeout(() => {
+        profileImage.src = getRandomImage()
+        profileImage.style.opacity = 1
+      }, 200)
+
+    }, 2500) // ⏱️ podés ajustar el tiempo
+  }
 }
 
 // ==============================
@@ -193,8 +219,8 @@ const animateTitleChange = (newTitle, newIndex) => {
       titleEl.style.filter     = 'blur(0)'
     })
 
-    setTimeout(() => titleEl.classList.remove('is-animating'), 400)
-  }, 250)
+    setTimeout(() => titleEl.classList.remove('is-animating'), 0)
+  }, 0)
 
   currentTitle = newTitle
   currentIndex = newIndex
@@ -218,7 +244,11 @@ const scrollToSection = (id) => {
 
   target.scrollIntoView({ behavior: 'smooth', block: 'start' })
 
-  setTimeout(() => { isScrolling = false }, 500)
+  clearTimeout(scrollTimeout)
+
+  scrollTimeout = setTimeout(() => {
+    isScrolling = false
+  }, 700)
 }
 
 // ==============================
@@ -276,7 +306,7 @@ const observer = new IntersectionObserver((entries) => {
   setActiveDot(id)
   animateTitleChange(visible.target.dataset.title, newIndex)
 
-}, { threshold: [0.3, 0.6, 0.9] })
+}, { threshold: [0.3, 0.3, 0.3] })
 
 sections.forEach(section => observer.observe(section))
 
