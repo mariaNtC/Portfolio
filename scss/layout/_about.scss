@@ -1,3 +1,537 @@
+// ==============================
+// ABOUT SECTION
+// Menú izquierdo: fixed left:26px, ocupa ~70px
+// Menú derecho:   fixed right:50px, ocupa ~80px
+// ==============================
+
 #about {
-  min-height: 600px;  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 130px 40px 70px;
+  scroll-snap-align: none;
+  overflow: hidden;
+}
+
+.about-content {
+  width: 98%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;  // reducido: dots + cards quedan más juntos visualmente
+}
+
+// ==============================
+// HEADER — título
+// ==============================
+.about-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-title {
+  font-family: $font-title;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  margin: 0;
+  text-align: center;
+  color: $text-dark;
+
+  @include light {
+    color: $text-light;
+  }
+}
+
+// ==============================
+// DOTS — arriba de las cards, debajo del título
+// Más grandes y claros para que actúen como indicador real
+// ==============================
+.about-dots {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 4px 0;
+}
+
+.about-dot {
+  width: 24px;
+  height: 4px;
+  border-radius: 2px;     // pastilla en lugar de círculo — más moderno y legible
+  border: none;
+  background: rgba(127, 255, 233, 0.2);
+  cursor: pointer;
+  padding: 0;
+  transition:
+    background $transition-fast,
+    width $transition-fast,
+    box-shadow $transition-fast,
+    opacity $transition-fast;
+
+  @include light {
+    background: rgba(129, 140, 248, 0.25);
+  }
+
+  &.active {
+    width: 40px;            // se expande cuando está activo
+    background: $neon;
+    box-shadow: $glow-dark;
+
+    @include light {
+      background: $accent-dark;
+      box-shadow: $glow-light;
+    }
+  }
+
+  &:hover:not(.active) {
+    background: rgba(127, 255, 233, 0.45);
+    opacity: 1;
+
+    @include light {
+      background: rgba(129, 140, 248, 0.5);
+    }
+  }
+}
+
+// ==============================
+// WRAPPER — flechas + carrusel
+// ==============================
+.about-carousel-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+// ==============================
+// FLECHAS — en los márgenes laterales,
+// sutiles para no obstruir las cards
+// ==============================
+.about-arrow {
+  @include flex-center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 100px;
+  border-radius: 8px;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border: 2px solid rgba(127, 255, 233, 0.15);  // borde muy sutil
+  background: $neon;                        // sin fondo sólido
+  color: white;
+  margin: auto;
+  font-size: 21px;
+  cursor: pointer;
+  opacity: 1;                                  // muy suave en reposo
+  z-index: 10;
+  transition:
+    opacity $transition-fast,
+    border-color $transition-fast,
+    box-shadow $transition-fast,
+    transform $transition-fast,
+    background $transition-fast;
+
+  @include light {
+    border-color: rgba(129, 140, 248, 0.2);
+    color: $accent-dark;
+  }
+
+  &:hover:not(:disabled) {
+    opacity: 0.85;
+    border-color: rgba(127, 255, 233, 0.5);
+    color:$neon;
+    background: rgba(127, 255, 233, 0.06);
+    transform: scale(1.1);
+
+    @include light {
+      border-color: rgba(129, 140, 248, 0.5);
+      background: rgba(129, 140, 248, 0.06);
+    }
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+
+  &:disabled {
+    opacity: 0;               // invisible cuando no hay a dónde ir
+    pointer-events: none;
+  }
+}
+
+.about-arrow--next {
+  border-radius: 8px;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+// ==============================
+// CAROUSEL
+// ==============================
+.about-carousel {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  padding: 16px 0 24px;
+
+  mask-image: linear-gradient(
+    to right,
+    transparent 0px,
+    black 15px,
+    black calc(100% - 48px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0px,
+    black 15px,
+    black calc(100% - 20px),
+    transparent 100%
+  );
+}
+
+.about-track {
+  display: flex;
+  gap: 20px;
+  padding: 0 30px 0 45px;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+// ==============================
+// CARD
+// ==============================
+.about-card {
+  flex: 0 0 calc((100% - 40px) / 3);
+  height: calc(100vh - 220px);
+  min-height: 320px;
+  max-height: 620px;
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+  text-align: center;
+
+  @include light {
+    background: rgba(255, 255, 255, 0.45);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 22px;
+    z-index: 0;
+    background: conic-gradient(
+      from var(--angle, 0deg),
+      transparent 0deg,
+      transparent 60deg,
+      rgba(127, 255, 233, 0.9) 90deg,
+      rgba(127, 255, 233, 0.3) 120deg,
+      transparent 160deg,
+      transparent 360deg
+    );
+    animation: about-border-spin 10s linear infinite;
+    opacity: 0.6;
+    transition: opacity $transition-fast;
+
+    @include light {
+      background: conic-gradient(
+        from var(--angle, 0deg),
+        transparent 0deg,
+        transparent 60deg,
+        rgba(129, 140, 248, 0.9) 90deg,
+        rgba(129, 140, 248, 0.3) 120deg,
+        transparent 160deg,
+        transparent 360deg
+      );
+    }
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border-radius: 18px;
+    background: rgba(5, 11, 20, 1);
+    z-index: 1;
+
+    @include light {
+      background: rgba(245, 247, 255, 0.95);
+    }
+  }
+
+  > * { position: relative; z-index: 2; }
+
+  &:hover::before {
+    animation: about-glow-pulse 1.8s ease-in-out infinite;
+    background: $neon;
+    opacity: 1;
+
+    @include light {
+      background: $accent-dark;
+      animation: about-glow-pulse-light 1.8s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes about-border-spin {
+  from { --angle: 0deg; }
+  to   { --angle: 360deg; }
+}
+
+@keyframes about-glow-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 6px rgba(127, 255, 233, 0.6),
+      0 0 16px rgba(127, 255, 233, 0.3),
+      0 0 32px rgba(127, 255, 233, 0.1);
+  }
+  50% {
+    box-shadow:
+      0 0 12px rgba(127, 255, 233, 1),
+      0 0 28px rgba(127, 255, 233, 0.6),
+      0 0 50px rgba(127, 255, 233, 0.25);
+  }
+}
+
+@keyframes about-glow-pulse-light {
+  0%, 100% {
+    box-shadow:
+      0 0 6px rgba(129, 140, 248, 0.6),
+      0 0 16px rgba(129, 140, 248, 0.3),
+      0 0 32px rgba(129, 140, 248, 0.1);
+  }
+  50% {
+    box-shadow:
+      0 0 12px rgba(129, 140, 248, 1),
+      0 0 28px rgba(129, 140, 248, 0.6),
+      0 0 50px rgba(129, 140, 248, 0.25);
+  }
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+// ==============================
+// INTERIOR DE LA CARD
+// ==============================
+.about-card__icon-wrap {
+  @include flex-center;
+  width: 52px;
+  height: 52px;
+  margin: 24px auto 0;
+  border-radius: 16px;
+  font-size: 22px;
+  color: $neon;
+  background: rgba(127, 255, 233, 0.08);
+  border: 1px solid rgba(127, 255, 233, 0.2);
+  flex-shrink: 0;
+  transition: box-shadow $transition-fast, transform $transition-fast;
+
+  @include light {
+    color: $accent-dark;
+    background: rgba(129, 140, 248, 0.1);
+    border-color: rgba(129, 140, 248, 0.25);
+  }
+
+  .about-card:hover & {
+    box-shadow: $glow-dark;
+    transform: scale(1.08);
+
+    @include light { box-shadow: $glow-light; }
+  }
+}
+
+.about-card__title {
+  font-family: $font-title;
+  font-size: 1.15rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-align: center;
+  margin: 14px 0 6px;
+  padding: 0 20px;
+  color: $text-dark;
+  flex-shrink: 0;
+
+  @include light { color: $text-light; }
+
+  &::after {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: $neon;
+    margin: 10px auto 0;
+    opacity: 0.5;
+    transition: width $transition-fast, opacity $transition-fast;
+
+    @include light { background: $accent-dark; }
+  }
+}
+
+.about-card:hover .about-card__title::after {
+  width: 56px;
+  opacity: 1;
+}
+
+.about-card__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 22px 24px;
+  font-family: $font-body;
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: $text-dark;
+  opacity: 0.75;
+  text-align: left;
+
+  @include light { color: $text-light; }
+
+  p {
+    margin: 0 0 12px;
+    &:last-child { margin-bottom: 0; }
+  }
+
+  &::-webkit-scrollbar        { width: 4px; }
+  &::-webkit-scrollbar-track  { background: transparent; }
+  &::-webkit-scrollbar-thumb  {
+    background: rgba(127, 255, 233, 0.25);
+    border-radius: 2px;
+    @include light { background: rgba(129, 140, 248, 0.3); }
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(127, 255, 233, 0.55);
+    @include light { background: rgba(129, 140, 248, 0.6); }
+  }
+
+  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+
+  &:hover, &:focus-within {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+}
+
+// ==============================
+// RESPONSIVE
+// ==============================
+
+@media (max-width: 1024px) {
+ 
+
+  .about-card {
+    flex: 0 0 calc((100% - 20px) / 2);
+    max-height: 500px;
+  }
+}
+
+@media (max-width: 850px) {
+  #about {
+    width: 73%;
+    padding: 40px 50px 40px 70px;
+  }
+
+  .about-content {
+    width: 97%;
+  }
+
+  .about-track {
+    gap: 14px;
+  }
+
+ .about-carousel {
+    mask-image: linear-gradient(
+      to right,
+      transparent 0px,
+      black 16px,
+      black calc(100% - 30px),
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0px,
+      black 16px,
+      black calc(100% - 16px),
+      transparent 100%
+    );
+  }
+
+  .about-card {
+    flex: 0 0 calc((100% - 14px) / 2);
+    min-width: 300px;
+    max-height: 500px;
+  }
+}
+
+@media (max-width: 650px) {
+  #about {
+    
+
+
+  padding: 10px 50px 40px 50px;
+ 
+  }
+  .about-content{
+    width: 96%;
+  }
+  .about-track {
+    width: 78%;
+    padding: 0 0px 0 00px;
+    gap: 8px;
+  }
+
+  .about-card {
+    flex: 0 0 calc(100% - 96px);
+    height: calc(100vh - 280px);
+    min-width: 232px;
+    max-width: 260px;
+    margin: 0 0 0 3px;
+    
+    max-height: 460px;
+  }
+
+  .about-carousel {
+    padding: 0;
+    mask-image: linear-gradient(
+      to right,
+      transparent 0px,
+      black 6px,
+      black calc(100% - 5px),
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0px,
+      black 6px,
+      black calc(100% - 5px),
+      transparent 100%
+    );
+  }
+  .about-carousel-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 104%;
+}
+
+  
+
+  // En mobile las flechas son un poco más visibles
+  // porque son el único control además del swipe
+  .about-arrow {
+    opacity: 0.5;
+
+    &:hover:not(:disabled) {
+      opacity: 0.9;
+    }
+  }
 }

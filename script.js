@@ -513,3 +513,136 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
 })
+
+// ==============================
+// ABOUT — CAROUSEL
+// ==============================
+;(function () {
+
+  // Breakpoints deben coincidir exactamente con los del SCSS
+  const BP_MOBILE  = 650    // ≤ 650 → 1 card
+  const BP_TABLET_SM = 850  // 651–850 → 2 cards, gap 14px
+  const BP_TABLET  = 1024   // 851–1024 → 2 cards, gap 20px
+                            // > 1024 → 3 cards, gap 20px
+
+  const track    = document.querySelector('.about-track')
+  const prevBtn  = document.querySelector('.about-arrow--prev')
+  const nextBtn  = document.querySelector('.about-arrow--next')
+  const dotsWrap = document.querySelector('.about-dots')
+
+  if (!track || !prevBtn || !nextBtn) return
+
+  const cards = [...track.querySelectorAll('.about-card')]
+  const total = cards.length
+
+  let current = 0
+
+  // ── Cuántas cards mostrar según viewport ──
+  const getVisible = () => {
+    const w = window.innerWidth
+    if (w <= BP_MOBILE)  return 1
+    if (w <= BP_TABLET_SM)  return 1 
+    if (w <= BP_TABLET)  return 2
+     // cubre 651–1024px (incluye tablet chica)
+    return 3
+  }
+
+  // ── Gap real según breakpoint (debe coincidir con SCSS) ──
+  const getGap = () => {
+    const w = window.innerWidth
+    if (w <= BP_MOBILE)    return 10
+    if (w <= BP_TABLET_SM) return 5  // @media (max-width: 850px)
+    return 20
+  }
+
+  // ── Máximo índice de desplazamiento ──
+  const maxIndex = () => Math.max(0, total - getVisible())
+
+  // ── Generar dots ──
+  const buildDots = () => {
+    dotsWrap.innerHTML = ''
+    const count = maxIndex() + 1
+    for (let i = 0; i < count; i++) {
+      const dot = document.createElement('button')
+      dot.type = 'button'
+      dot.className = 'about-dot' + (i === current ? ' active' : '')
+      dot.setAttribute('aria-label', `Ir a posición ${i + 1}`)
+      dot.setAttribute('role', 'tab')
+      dot.addEventListener('click', () => goTo(i))
+      dotsWrap.appendChild(dot)
+    }
+  }
+
+  // ── Actualizar dots activos ──
+  const updateDots = () => {
+    const dotEls = dotsWrap.querySelectorAll('.about-dot')
+    dotEls.forEach((d, i) => d.classList.toggle('active', i === current))
+  }
+
+  // ── Calcular y aplicar transform ──
+  const goTo = (index) => {
+    current = Math.max(0, Math.min(index, maxIndex()))
+
+    // Medimos el ancho real de la card en el DOM + el gap del CSS
+    const cardEl = cards[0]
+    const cardW  = cardEl.getBoundingClientRect().width + getGap()
+
+    track.style.transform = `translateX(-${current * cardW}px)`
+
+    prevBtn.disabled = current === 0
+    nextBtn.disabled = current >= maxIndex()
+
+    updateDots()
+  }
+
+  // ── Navegación ──
+  prevBtn.addEventListener('click', () => goTo(current - 1))
+  nextBtn.addEventListener('click', () => goTo(current + 1))
+
+  // ── Teclado ──
+  document.addEventListener('keydown', (e) => {
+    const section = document.getElementById('about')
+    if (!section) return
+    const rect = section.getBoundingClientRect()
+    const inView = rect.top < window.innerHeight && rect.bottom > 0
+    if (!inView) return
+
+    if (e.key === 'ArrowLeft')  goTo(current - 1)
+    if (e.key === 'ArrowRight') goTo(current + 1)
+  })
+
+  // ── Swipe táctil ──
+  let touchStartX = 0
+  let touchDeltaX = 0
+
+  track.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX
+    touchDeltaX = 0
+  }, { passive: true })
+
+  track.addEventListener('touchmove', (e) => {
+    touchDeltaX = e.touches[0].clientX - touchStartX
+  }, { passive: true })
+
+  track.addEventListener('touchend', () => {
+    if (Math.abs(touchDeltaX) > 50) {
+      touchDeltaX < 0 ? goTo(current + 1) : goTo(current - 1)
+    }
+    touchDeltaX = 0
+  })
+
+  // ── Resize — debounced ──
+  let resizeTimer
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer)
+    resizeTimer = setTimeout(() => {
+      buildDots()
+      goTo(Math.min(current, maxIndex()))
+    }, 150)
+  })
+
+  // ── Init ──
+  buildDots()
+  goTo(0)
+
+})()
