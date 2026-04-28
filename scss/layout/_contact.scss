@@ -32,10 +32,9 @@
   
 
   &__container-title {    
-    width: 92%;
     box-shadow: $shadow-text;
     background-color: rgba(0, 0, 0, 0.384);
-    padding: 4px 0px;
+    padding: 4px 6px;
     border-radius: 14px;
     border-end-end-radius: 0px; 
     @include light {
@@ -93,7 +92,10 @@
       @include light {
         border-color: rgba(129, 140, 248, 0.5);
         box-shadow: $glow-light;
+
+        
       }
+      
     }
   }
   
@@ -135,22 +137,44 @@
     }
   }
 
-  &__value {
-    font-family: $font-body;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: $neon;
-    text-decoration: none;
-    letter-spacing: 0.02em;
-    transition: opacity $transition-fast;
+ &__value {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 
-    @include light {
-      color: $accent-light;
-    }
+  font-family: $font-body;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: $neon;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: opacity $transition-fast;
 
-    &:hover {
-      opacity: 0.75;
-    }
+  @include light {
+    color: $accent-light;
+  }
+
+  &:hover {
+    opacity: 0.5;
+  }
+}
+&__arrow {
+  width: 6px;
+  height: 10px;
+  flex-shrink: 0;
+
+  background: currentColor;
+
+  /* forma flecha izquierda */
+  clip-path: polygon(0% 50%, 100% 0%, 100% 100%);
+
+  opacity: 0.78; 
+}
+
+
+  .contact-info__mail:hover &__arrow {
+    animation: contactArrow 0.8s ease-in-out infinite;
+    
   }
 
   &__note {    
@@ -502,7 +526,7 @@
     align-items: center;
     gap:12px;    
   }
-  .contact-info__mail {      
+  .contact-info__mail {          
       border-top-left-radius: 0px;
   }
   .contact-info__container-title {
@@ -536,11 +560,17 @@
           opacity:1;
       }
       &:active:not(:disabled) {
-        transform: scale(0.96);
+        transform: scale(0.94);
       }
     }
-  
- 
+    .contact-info__arrow {
+      animation: contactArrow 0.8s ease-in-out infinite;    
+    }
 }
 
 
+@keyframes contactArrow {
+  0%   { transform: translateX(0); opacity: 0.8; }
+  50%  { transform: translateX(-3px); opacity: 1; }
+  100% { transform: translateX(0); opacity: 0.8; }
+}

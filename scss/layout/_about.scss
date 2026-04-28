@@ -79,11 +79,11 @@
   &.active {
     width: 40px;            // se expande cuando está activo
     background: $neon;
-    box-shadow: $glow-dark;
+    box-shadow: $glow-dark-strong;
 
     @include light {
       background: $accent-dark;
-      box-shadow: $glow-light;
+      box-shadow: $glow-light-strong;
     }
   }
 
@@ -113,6 +113,7 @@
 .about-arrow {
   @include flex-center;
   flex-shrink: 0;
+  text-align: center;
   width: 20px;
   height: 100px;
   border-radius: 8px;
@@ -135,19 +136,21 @@
 
   @include light {
     border-color: rgba(129, 140, 248, 0.2);
-    color: $accent-dark;
+    color: white;
+    background: $accent-dark;    
   }
 
   &:hover:not(:disabled) {
-    opacity: 0.85;
-    border-color: rgba(127, 255, 233, 0.5);
+    
+    border-color: rgba(127, 255, 233, 1);
     color:$neon;
-    background: rgba(127, 255, 233, 0.06);
+    background: rgba(127, 255, 233, 0.3);
     transform: scale(1.1);
 
     @include light {
       border-color: rgba(129, 140, 248, 0.5);
       background: rgba(129, 140, 248, 0.06);
+      color: $accent-dark;
     }
   }
 
@@ -216,16 +219,18 @@
   background: rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(6px);
   text-align: center;
+  box-shadow: $shadow-text-soft;
 
   @include light {
     background: rgba(255, 255, 255, 0.45);
+    
   }
 
   &::before {
     content: '';
     position: absolute;
     inset: -2px;
-    border-radius: 22px;
+    border-radius: 20px;
     z-index: 0;
     background: conic-gradient(
       from var(--angle, 0deg),
@@ -328,26 +333,23 @@
   @include flex-center;
   width: 52px;
   height: 52px;
-  margin: 24px auto 0;
+  margin: 12px auto 0px;
   border-radius: 16px;
-  font-size: 22px;
+  font-size: 30px;
   color: $neon;
-  background: rgba(127, 255, 233, 0.08);
-  border: 1px solid rgba(127, 255, 233, 0.2);
+ 
   flex-shrink: 0;
   transition: box-shadow $transition-fast, transform $transition-fast;
 
   @include light {
     color: $accent-dark;
-    background: rgba(129, 140, 248, 0.1);
-    border-color: rgba(129, 140, 248, 0.25);
+   
   }
 
   .about-card:hover & {
-    box-shadow: $glow-dark;
-    transform: scale(1.08);
+    
+    transform: scale(1.15);
 
-    @include light { box-shadow: $glow-light; }
   }
 }
 
@@ -357,7 +359,7 @@
   font-weight: 400;
   letter-spacing: 0.12em;
   text-align: center;
-  margin: 14px 0 6px;
+  margin: 0px 0 6px;
   padding: 0 20px;
   color: $text-dark;
   flex-shrink: 0;
@@ -386,7 +388,8 @@
 .about-card__body {
   flex: 1;
   overflow-y: auto;
-  padding: 16px 22px 24px;
+  margin-right: 6px;
+  padding: 16px 22px 36px;
   font-family: $font-body;
   font-size: 0.88rem;
   line-height: 1.75;
@@ -401,11 +404,13 @@
     &:last-child { margin-bottom: 0; }
   }
 
-  &::-webkit-scrollbar        { width: 4px; }
+  &::-webkit-scrollbar { 
+    width: 5px;
+    margin: 10px; }
   &::-webkit-scrollbar-track  { background: transparent; }
   &::-webkit-scrollbar-thumb  {
     background: rgba(127, 255, 233, 0.25);
-    border-radius: 2px;
+    border-radius: 4px;
     @include light { background: rgba(129, 140, 248, 0.3); }
   }
   &::-webkit-scrollbar-thumb:hover {
@@ -413,13 +418,21 @@
     @include light { background: rgba(129, 140, 248, 0.6); }
   }
 
-  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  mask-image: linear-gradient(
+   to bottom,
+  transparent 0,
+  black 6%,
+  black 70%,
+  transparent 96%
+);
 
-  &:hover, &:focus-within {
-    mask-image: none;
-    -webkit-mask-image: none;
-  }
+-webkit-mask-image: linear-gradient(
+  to bottom,
+  transparent 0,
+  black 10%,
+  black 70%,
+  transparent 95%
+);
 }
 
 // ==============================
@@ -474,64 +487,63 @@
 }
 
 @media (max-width: 650px) {
-  #about {
-    
-
-
-  padding: 10px 50px 40px 50px;
- 
+  #about {   
+    width: 74%;
+    padding: 10px 50px 40px 50px;
   }
+  
   .about-content{
-    width: 96%;
+    width: 98%;
   }
   .about-track {
     width: 78%;
-    padding: 0 0px 0 00px;
+    padding: 0px;
     gap: 8px;
   }
 
   .about-card {
     flex: 0 0 calc(100% - 96px);
     height: calc(100vh - 280px);
-    min-width: 232px;
+    min-width: 222px;
     max-width: 260px;
-    margin: 0 0 0 3px;
-    
+    margin: 0 0 0 2px;    
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);    
     max-height: 460px;
   }
-
+   // En mobile las flechas son un poco más visibles
+  // porque son el único control además del swipe
+  .about-arrow {
+    margin: auto 4px;
+        &:hover:not(:disabled) {
+          background-color: $neon;
+          color:white;
+          transform: scale(1);
+        }
+         &:active:not(:disabled) {
+    transform: scale(0.90);
+  }
+  }
   .about-carousel {
-    padding: 0;
     mask-image: linear-gradient(
       to right,
       transparent 0px,
-      black 6px,
-      black calc(100% - 5px),
+      black 3px,
+      black calc(100% - 2px),
       transparent 100%
     );
     -webkit-mask-image: linear-gradient(
       to right,
       transparent 0px,
-      black 6px,
-      black calc(100% - 5px),
+      black 3px,
+      black calc(100% - 3px),
       transparent 100%
     );
   }
-  .about-carousel-wrapper {
-  display: flex;
-  justify-content: space-between;
-  width: 104%;
+    .about-carousel-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 101%;
 }
 
-  
-
-  // En mobile las flechas son un poco más visibles
-  // porque son el único control además del swipe
-  .about-arrow {
-    opacity: 0.5;
-
-    &:hover:not(:disabled) {
-      opacity: 0.9;
-    }
-  }
+ 
 }
