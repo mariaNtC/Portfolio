@@ -176,7 +176,7 @@
   flex: 1;
   min-width: 0;
   overflow: hidden;
-  padding: 16px 0 24px;
+  padding: 0px 0 24px;
 
   mask-image: linear-gradient(
     to right,
@@ -389,7 +389,7 @@
   flex: 1;
   overflow-y: auto;
   margin-right: 6px;
-  padding: 16px 22px 36px;
+  padding: 16px 22px 50px;
   font-family: $font-body;
   font-size: 0.88rem;
   line-height: 1.75;
@@ -422,16 +422,16 @@
    to bottom,
   transparent 0,
   black 6%,
-  black 70%,
-  transparent 96%
+  black 80%,
+  transparent 100%
 );
 
 -webkit-mask-image: linear-gradient(
   to bottom,
   transparent 0,
-  black 10%,
-  black 70%,
-  transparent 95%
+  black 6%,
+  black 80%,
+  transparent 100%
 );
 }
 
@@ -528,7 +528,7 @@
       to right,
       transparent 0px,
       black 3px,
-      black calc(100% - 2px),
+      black calc(100% - 3px),
       transparent 100%
     );
     -webkit-mask-image: linear-gradient(
