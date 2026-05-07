@@ -646,3 +646,208 @@ document.addEventListener('DOMContentLoaded', () => {
   goTo(0)
 
 })()
+
+// ==============================
+// STACK — Canvas (banda + malla hex + halo) + Tilt 3D
+// ==============================
+;(function () {
+
+  const canvas  = document.querySelector('.stack-bg-canvas')
+  const section = document.getElementById('stack')
+  if (!canvas || !section) return
+
+  const ctx  = canvas.getContext('2d')
+  const NEON = '127, 255, 233'
+
+  let mouseX = -9999
+  let mouseY = -9999
+
+  // ══════════════════════════════════════════
+  // BANDA — altura fija, centrada verticalmente
+  // ══════════════════════════════════════════
+  const BAND_H     = 460    // px — alto de la banda (supera un poco las cards)
+  const HEX_SIZE   = 22     // px — tamaño del hexágono
+  const HALO_R     = 200    // px — radio del halo del mouse
+
+  const getBand = (w, h) => ({
+    x: 0,
+    y: h / 2 - BAND_H / 2,  // siempre centrada verticalmente
+    w: w,
+    h: BAND_H,
+  })
+
+  // ══════════════════════════════════════════
+  // DRAW
+  // ══════════════════════════════════════════
+  const draw = () => {
+    const w = canvas.width
+    const h = canvas.height
+    ctx.clearRect(0, 0, w, h)
+
+    // Fondo negro
+    ctx.fillStyle = '#03060d'
+    ctx.fillRect(0, 0, w, h)
+
+    const band = getBand(w, h)
+
+    // ── Clip a la banda ──
+    ctx.save()
+    ctx.beginPath()
+    ctx.rect(band.x, band.y, band.w, band.h)
+    ctx.clip()
+
+    // ── Malla hexagonal ──
+    const colW = HEX_SIZE * Math.sqrt(3)
+    const rowH = HEX_SIZE * 1.5
+
+    for (let row = -1; row * rowH < h + HEX_SIZE * 2; row++) {
+      for (let col = -1; col * colW < w + colW; col++) {
+        const ox = row % 2 === 0 ? 0 : colW / 2
+        const cx = col * colW + ox
+        const cy = row * rowH
+
+        ctx.beginPath()
+        for (let v = 0; v < 6; v++) {
+          const angle = (Math.PI / 3) * v - Math.PI / 6
+          const vx = cx + HEX_SIZE * 0.78 * Math.cos(angle)
+          const vy = cy + HEX_SIZE * 0.78 * Math.sin(angle)
+          v === 0 ? ctx.moveTo(vx, vy) : ctx.lineTo(vx, vy)
+        }
+        ctx.closePath()
+        ctx.strokeStyle = `rgba(${NEON}, 0.07)`
+        ctx.lineWidth = 0.5
+        ctx.stroke()
+      }
+    }
+
+    // ── Halo del mouse (solo si está sobre la sección) ──
+    if (mouseX > 0 && mouseY > 0) {
+      // Gradiente radial desde el mouse
+      const grad = ctx.createRadialGradient(
+        mouseX, mouseY, 0,
+        mouseX, mouseY, HALO_R
+      )
+      grad.addColorStop(0,    `rgba(${NEON}, 0.18)`)
+      grad.addColorStop(0.45, `rgba(${NEON}, 0.06)`)
+      grad.addColorStop(1,    `rgba(${NEON}, 0)`)
+      ctx.fillStyle = grad
+      ctx.fillRect(0, 0, w, h)
+
+      // Nodos de la malla iluminados por el halo
+      for (let row = -1; row * rowH < h + HEX_SIZE * 2; row++) {
+        for (let col = -1; col * colW < w + colW; col++) {
+          const ox = row % 2 === 0 ? 0 : colW / 2
+          const nx = col * colW + ox
+          const ny = row * rowH
+          const dist = Math.hypot(nx - mouseX, ny - mouseY)
+          if (dist < HALO_R * 0.65) {
+            const alpha = (1 - dist / (HALO_R * 0.65)) * 0.65
+            ctx.beginPath()
+            ctx.arc(nx, ny, 1.8, 0, Math.PI * 2)
+            ctx.fillStyle = `rgba(${NEON}, ${alpha})`
+            ctx.fill()
+          }
+        }
+      }
+    }
+
+    ctx.restore() // fin del clip de la banda
+
+    // ── Bordes de la banda con glow ──
+    const drawBandEdge = (y, blur, alpha, lw) => {
+      ctx.save()
+      ctx.shadowBlur  = blur
+      ctx.shadowColor = `rgba(${NEON}, ${alpha})`
+      ctx.strokeStyle = `rgba(${NEON}, ${alpha})`
+      ctx.lineWidth   = lw
+      ctx.beginPath()
+      ctx.moveTo(0, y)
+      ctx.lineTo(w, y)
+      ctx.stroke()
+      ctx.restore()
+    }
+
+    // Borde superior
+    drawBandEdge(band.y, 24, 0.12, 4)
+    drawBandEdge(band.y,  8, 0.35, 1.5)
+    drawBandEdge(band.y,  2, 0.70, 0.8)
+
+    // Borde inferior
+    drawBandEdge(band.y + band.h, 24, 0.12, 4)
+    drawBandEdge(band.y + band.h,  8, 0.35, 1.5)
+    drawBandEdge(band.y + band.h,  2, 0.70, 0.8)
+  }
+
+  // ══════════════════════════════════════════
+  // RESIZE
+  // ══════════════════════════════════════════
+  const resize = () => {
+    canvas.width  = section.offsetWidth
+    canvas.height = section.offsetHeight
+    draw()
+  }
+
+  // ══════════════════════════════════════════
+  // LOOP — solo cuando la sección es visible
+  // ══════════════════════════════════════════
+  let rafId  = null
+  let active = false
+
+  const loop = () => {
+    if (!active) return
+    draw()
+    rafId = requestAnimationFrame(loop)
+  }
+
+  new IntersectionObserver((entries) => {
+    active = entries[0].isIntersecting
+    if (active) loop()
+    else { cancelAnimationFrame(rafId); rafId = null }
+  }, { threshold: 0.05 }).observe(section)
+
+  // Mouse tracking
+  section.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect()
+    mouseX = e.clientX - rect.left
+    mouseY = e.clientY - rect.top
+  }, { passive: true })
+
+  section.addEventListener('mouseleave', () => {
+    mouseX = -9999
+    mouseY = -9999
+  })
+
+  // Resize debounced
+  let resizeTimer
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer)
+    resizeTimer = setTimeout(resize, 150)
+  })
+
+  resize()
+
+  // ══════════════════════════════════════════
+  // TILT 3D — cards
+  // ══════════════════════════════════════════
+  const MAX_TILT = 8
+
+  document.querySelectorAll('#stack .stack-card[data-tilt]').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect()
+      const dx   = (e.clientX - rect.left - rect.width  / 2) / (rect.width  / 2)
+      const dy   = (e.clientY - rect.top  - rect.height / 2) / (rect.height / 2)
+
+      card.style.transform = `perspective(800px) rotateX(${-dy * MAX_TILT}deg) rotateY(${dx * MAX_TILT}deg) scale3d(1.02,1.02,1.02)`
+
+      const mx = ((e.clientX - rect.left) / rect.width  * 100).toFixed(1)
+      const my = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1)
+      card.style.setProperty('--mx', `${mx}%`)
+      card.style.setProperty('--my', `${my}%`)
+    }, { passive: true })
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = ''
+    })
+  })
+
+})()
