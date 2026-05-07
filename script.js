@@ -664,13 +664,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const COLOR_DARK  = '127, 255, 233'
   const COLOR_LIGHT = '129, 140, 248'
 
-  // Lee el tema actual del DOM en cada llamada — el draw loop
-  // se ejecuta en cada frame, por lo que el cambio es instantáneo
-  // al alternar el toggle, sin necesidad de listeners adicionales.
-  const getColor = () =>
+  // Fondos reactivos al tema
+  const BG_DARK  = '#03060d'   // negro azulado profundo
+  const BG_LIGHT = '#eef0f7'   // gris muy claro con leve tinte azul
+
+  // Helpers reactivos — leen el tema en cada frame
+  const isLight = () =>
     document.documentElement.getAttribute('data-theme') === 'light'
-      ? COLOR_LIGHT
-      : COLOR_DARK
+
+  const getColor = () => isLight() ? COLOR_LIGHT : COLOR_DARK
+  const getBg    = () => isLight() ? BG_LIGHT   : BG_DARK
+
+  // Multiplicador de intensidad — light necesita más opacidad
+  // porque el accent indigo tiene menos contraste sobre fondo claro
+  const getBoost = () => isLight() ? 1.6 : 1
 
   let mouseX = -9999
   let mouseY = -9999
@@ -679,7 +686,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // BANDA — altura fija, centrada verticalmente
   // ══════════════════════════════════════════
   const BAND_H     = 460    // px — alto de la banda (supera un poco las cards)
-  const HEX_SIZE   = 22     // px — tamaño del hexágono
+  const HEX_SIZE   = 16     // px — tamaño del hexágono
   const HALO_R     = 200    // px — radio del halo del mouse
 
   const getBand = (w, h) => ({
@@ -698,7 +705,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.clearRect(0, 0, w, h)
 
     // Fondo negro
-    ctx.fillStyle = '#03060d'
+    ctx.fillStyle = getBg()
     ctx.fillRect(0, 0, w, h)
 
     const band = getBand(w, h)
@@ -727,7 +734,7 @@ document.addEventListener('DOMContentLoaded', () => {
           v === 0 ? ctx.moveTo(vx, vy) : ctx.lineTo(vx, vy)
         }
         ctx.closePath()
-        ctx.strokeStyle = `rgba(${getColor()}, 0.07)`
+        ctx.strokeStyle = `rgba(${getColor()}, ${0.12 * getBoost()})`
         ctx.lineWidth = 0.5
         ctx.stroke()
       }
@@ -740,8 +747,8 @@ document.addEventListener('DOMContentLoaded', () => {
         mouseX, mouseY, 0,
         mouseX, mouseY, HALO_R
       )
-      grad.addColorStop(0,    `rgba(${getColor()}, 0.18)`)
-      grad.addColorStop(0.45, `rgba(${getColor()}, 0.06)`)
+      grad.addColorStop(0,    `rgba(${getColor()}, ${0.18 * getBoost()})`)
+      grad.addColorStop(0.45, `rgba(${getColor()}, ${0.06 * getBoost()})`)
       grad.addColorStop(1,    `rgba(${getColor()}, 0)`)
       ctx.fillStyle = grad
       ctx.fillRect(0, 0, w, h)
@@ -757,7 +764,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const alpha = (1 - dist / (HALO_R * 0.65)) * 0.65
             ctx.beginPath()
             ctx.arc(nx, ny, 1.8, 0, Math.PI * 2)
-            ctx.fillStyle = `rgba(${getColor()}, ${alpha})`
+            ctx.fillStyle = `rgba(${getColor()}, ${alpha * getBoost()})`
             ctx.fill()
           }
         }
@@ -768,10 +775,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ── Bordes de la banda con glow ──
     const drawBandEdge = (y, blur, alpha, lw) => {
+      const a = alpha * getBoost()
       ctx.save()
       ctx.shadowBlur  = blur
-      ctx.shadowColor = `rgba(${getColor()}, ${alpha})`
-      ctx.strokeStyle = `rgba(${getColor()}, ${alpha})`
+      ctx.shadowColor = `rgba(${getColor()}, ${a})`
+      ctx.strokeStyle = `rgba(${getColor()}, ${a})`
       ctx.lineWidth   = lw
       ctx.beginPath()
       ctx.moveTo(0, y)
