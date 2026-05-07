@@ -656,8 +656,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const section = document.getElementById('stack')
   if (!canvas || !section) return
 
-  const ctx  = canvas.getContext('2d')
-  const NEON = '127, 255, 233'
+  const ctx = canvas.getContext('2d')
+
+  // Color reactivo al tema:
+  //   dark  → neon teal     (127, 255, 233) → #7fffe9
+  //   light → accent indigo (129, 140, 248) → #818cf8
+  const COLOR_DARK  = '127, 255, 233'
+  const COLOR_LIGHT = '129, 140, 248'
+
+  // Lee el tema actual del DOM en cada llamada — el draw loop
+  // se ejecuta en cada frame, por lo que el cambio es instantáneo
+  // al alternar el toggle, sin necesidad de listeners adicionales.
+  const getColor = () =>
+    document.documentElement.getAttribute('data-theme') === 'light'
+      ? COLOR_LIGHT
+      : COLOR_DARK
 
   let mouseX = -9999
   let mouseY = -9999
@@ -714,7 +727,7 @@ document.addEventListener('DOMContentLoaded', () => {
           v === 0 ? ctx.moveTo(vx, vy) : ctx.lineTo(vx, vy)
         }
         ctx.closePath()
-        ctx.strokeStyle = `rgba(${NEON}, 0.07)`
+        ctx.strokeStyle = `rgba(${getColor()}, 0.07)`
         ctx.lineWidth = 0.5
         ctx.stroke()
       }
@@ -727,9 +740,9 @@ document.addEventListener('DOMContentLoaded', () => {
         mouseX, mouseY, 0,
         mouseX, mouseY, HALO_R
       )
-      grad.addColorStop(0,    `rgba(${NEON}, 0.18)`)
-      grad.addColorStop(0.45, `rgba(${NEON}, 0.06)`)
-      grad.addColorStop(1,    `rgba(${NEON}, 0)`)
+      grad.addColorStop(0,    `rgba(${getColor()}, 0.18)`)
+      grad.addColorStop(0.45, `rgba(${getColor()}, 0.06)`)
+      grad.addColorStop(1,    `rgba(${getColor()}, 0)`)
       ctx.fillStyle = grad
       ctx.fillRect(0, 0, w, h)
 
@@ -744,7 +757,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const alpha = (1 - dist / (HALO_R * 0.65)) * 0.65
             ctx.beginPath()
             ctx.arc(nx, ny, 1.8, 0, Math.PI * 2)
-            ctx.fillStyle = `rgba(${NEON}, ${alpha})`
+            ctx.fillStyle = `rgba(${getColor()}, ${alpha})`
             ctx.fill()
           }
         }
@@ -757,8 +770,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const drawBandEdge = (y, blur, alpha, lw) => {
       ctx.save()
       ctx.shadowBlur  = blur
-      ctx.shadowColor = `rgba(${NEON}, ${alpha})`
-      ctx.strokeStyle = `rgba(${NEON}, ${alpha})`
+      ctx.shadowColor = `rgba(${getColor()}, ${alpha})`
+      ctx.strokeStyle = `rgba(${getColor()}, ${alpha})`
       ctx.lineWidth   = lw
       ctx.beginPath()
       ctx.moveTo(0, y)

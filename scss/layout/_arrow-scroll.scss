@@ -70,7 +70,7 @@
         opacity: 0.5;
         animation: mainLogoGlow 2.5s ease-in-out infinite;       
             @include light {
-                background: rgba(0,0,0,0.3);
+                background: rgba(134, 134, 134, 0.7);
                 animation: mainLogoGlowLight 2.5s ease-in-out infinite;
             }        
             &::after {
@@ -130,14 +130,14 @@
     filter 0.3s ease,
     color 0.3s ease;
         @include light {
-            color: rgba(0,0,0,0.3);
+            color: rgba(151, 151, 151, 0.5);
         }
             &:hover {
                 color: white;
                 transform: scale(1.2);
                 filter: drop-shadow(0 0 4px rgba(127,255,233,0.6));
                 @include light {
-                    color: rgba(0,0,0,0.5);
+                    color: rgba(177, 177, 177, 0.959);
                     filter: drop-shadow(0 0 6px rgba(129,140,248,0.9));
                 }
             }

@@ -119,8 +119,8 @@
   border-radius: 8px;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
-  border: 2px solid rgba(127, 255, 233, 0.15);  // borde muy sutil
-  background: $neon;                        // sin fondo sólido
+  border: none;  // borde muy sutil
+  background: $neon-gradiant-r;                        // sin fondo sólido
   color: white;
   margin: auto;
   font-size: 21px;
@@ -135,14 +135,13 @@
     background $transition-fast;
 
   @include light {
-    border-color: rgba(129, 140, 248, 0.2);
+    border: none;
     color: white;
-    background: $accent-dark;    
+    background: $accent-dark-gradiant-r;    
   }
 
   &:hover:not(:disabled) {
-    
-    border-color: rgba(127, 255, 233, 1);
+    border: 2px solid rgba(127, 255, 233, 1) ;    
     color:$neon;
     background: rgba(127, 255, 233, 0.3);
     transform: scale(1.1);
