@@ -135,6 +135,9 @@
     }     
 }
 @media  (max-width: 650px) {
+    .footer-icon-container{
+        padding-bottom: 2px;
+    }
     .footer .footer-icon-container .buton-footer-lk{
         
             border-radius: 2px;
@@ -147,4 +150,17 @@
             .footer .footer-icon-container .buton-footer-lk {
                 opacity: 1;
             }
+}
+@media (max-height: 350px) and (orientation: landscape) {
+    .footer{
+        padding-top: 0px;
+        padding-bottom: 90px;
+        .footer-icon-container .buton-footer-ig{
+            border-radius: 2px;
+            border-bottom-left-radius: 20px;
+        }    
+         .footer-logo-label{
+            display: none;
+         }
+    }
 }

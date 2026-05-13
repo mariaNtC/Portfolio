@@ -4,7 +4,9 @@
 }
 html {
   scroll-snap-type: y proximity;
-  scroll-padding-top: 64px;  
+  scroll-padding-top: 64px;
+  // iOS Safari: altura correcta del viewport
+  height: -webkit-fill-available;
 }
 section {
   padding-top: 12px;
@@ -14,11 +16,15 @@ section {
 body {
   position: relative;
   min-height: 100vh;
+  // iOS Safari: usar -webkit-fill-available como fallback
+  min-height: -webkit-fill-available;
   font-family: $font-body;
   overflow-x: hidden;
   background-color: $bg-light;
   color: $text-light;
-   overscroll-behavior-y: contain;
+  overscroll-behavior-y: contain;
+  // iOS Safari: evitar el rebote que muestra el fondo blanco del sistema
+  -webkit-overflow-scrolling: touch;
   transition: background-color 0.6s ease, color 0.6s ease;
   // Imagen base (light)
   &::before {
@@ -30,7 +36,8 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    // background-attachment: fixed — eliminado: no funciona en iOS Safari
+    // El efecto fixed viene de position: fixed del elemento, no del background
     opacity: 1;
     transition: opacity 0.8s ease;
   }
@@ -44,7 +51,7 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    // background-attachment: fixed — eliminado: no funciona en iOS Safari
     opacity: 0;
     transition: opacity 0.6s ease;
   }

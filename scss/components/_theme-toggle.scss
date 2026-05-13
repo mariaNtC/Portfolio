@@ -17,7 +17,7 @@
     /* Ambos íconos superpuestos */
     #theme-toggle img {    
     position: absolute;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity $transition-mid, transform $transition-mid;
         .toggle-dark {
             width: 50px;
             height: 50px;
@@ -27,7 +27,6 @@
     .toggle-light,
     .toggle-dark {
     opacity: 0;
-    transform: scale(0.9);
     }
     .label-toggle , .label-toggle-light {           
         display: flex;
@@ -72,13 +71,11 @@
 .toggle-container:hover .label-toggle,
 .toggle-container:hover .label-toggle-light {
   opacity: 1;
-  transform: translateY(0);
   font-weight: 900;
 }
 /* Cuando el tema es dark mostramos el icono light */
 html[data-theme="dark"] .toggle-light {
   opacity: 1;
-  transform: scale(1);
     filter: 
     drop-shadow(0 0 2px rgba(255, 255, 255, 0.8))
     drop-shadow(0 0 12px rgba(127, 255, 233, 0.8));
@@ -86,14 +83,31 @@ html[data-theme="dark"] .toggle-light {
 /* Cuando el tema es light mostramos el icono dark */
 html[data-theme="light"] .toggle-dark {    
   opacity: 1;
-  transform: scale(1);
    filter: 
     drop-shadow(0 0 2px rgba(255, 239, 9, 0.8))
     drop-shadow(0 0 12px rgba(255, 240, 101, 0.8));
 }
 @media (max-width: 800px) {
-   .toggle-container  {    
-        
+   .toggle-container  {            
         margin: 5px 27px;
+    }
+}
+@media (max-height: 350px) and (orientation: landscape) {
+    .toggle-container {   
+        flex-direction: row-reverse;
+        padding: 0;
+        margin: 0 8px;
+
+        .label-toggle , .label-toggle-light {   
+            font-size: 8px;
+        }
+    }
+    .toggle-dark {
+        width: 50px;
+        height: 50px;
+    }
+    .toggle-light{
+        width: 28px;
+        height: 28px;
     }
 }

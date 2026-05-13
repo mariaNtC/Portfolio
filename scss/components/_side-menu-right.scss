@@ -72,6 +72,7 @@
     right:85px;
     padding: 5px 10px;
     border-radius: 8px;
+    backdrop-filter: blur(4px);
     font-size: 13px;
     font-family: $font-title;
     letter-spacing: 0.12em;
@@ -82,13 +83,13 @@
     pointer-events: none;
     @include light {
         border-right-color: rgba(0, 0, 0, 0.070);
-        background:rgba(0, 0, 0, 0.070);
+        background:rgba(255, 255, 255, 0.6);
         }
   }
   .label-right::after {
   content: "";
   position: absolute;
-  right: -6px;
+  right: -5px;
   top: 50%;
   transform: translateY(-50%);
   width: 0;
@@ -98,7 +99,7 @@
   border-left: 6px solid rgba(0, 0, 0, 0.350);
   @include light {
     border-right-color: rgba(0, 0, 0, 0.070);
-    border-left: 6px solid rgba(0, 0, 0, 0.070);
+    border-left: 6px solid rgba(255, 255, 255, 0.6);
   }
 }
 .label-text {  
@@ -227,4 +228,9 @@
             }          
         }    
     }
+}
+@media (max-height: 350px) and (orientation: landscape) {
+  .side-menu-right {                      
+        right:11px;
+  }
 }

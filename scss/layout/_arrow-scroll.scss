@@ -70,7 +70,7 @@
         opacity: 0.5;
         animation: mainLogoGlow 2.5s ease-in-out infinite;       
             @include light {
-                background: rgba(134, 134, 134, 0.7);
+                background: rgba(0,0,0,0.3);
                 animation: mainLogoGlowLight 2.5s ease-in-out infinite;
             }        
             &::after {
@@ -130,14 +130,14 @@
     filter 0.3s ease,
     color 0.3s ease;
         @include light {
-            color: rgba(151, 151, 151, 0.5);
+            color: rgba(0,0,0,0.3);
         }
             &:hover {
                 color: white;
                 transform: scale(1.2);
                 filter: drop-shadow(0 0 4px rgba(127,255,233,0.6));
                 @include light {
-                    color: rgba(177, 177, 177, 0.959);
+                    color: rgba(0,0,0,0.5);
                     filter: drop-shadow(0 0 6px rgba(129,140,248,0.9));
                 }
             }
@@ -198,7 +198,7 @@
 }
 @media (max-width: 650px) {
     .side-scroll-arrow {
-        top: 62vh;  
+        top: 70%;  
         right:-19px;
 
          .dot-scroll {
@@ -222,4 +222,92 @@
             }
         }
     }
+}
+// ==============================
+// LANDSCAPE MOBILE — todo se achica a dots
+// ==============================
+@media (max-height: 350px) and (orientation: landscape) {
+
+  .side-scroll-arrow {
+    right:60px;
+    top: 76%;
+    transform: translateY(-50%);
+    width: auto;
+    gap: 10px;
+
+    // Ocultar la flecha SVG — solo quedan los dots
+    .scroll-arrow-container {
+      display: none;
+    }
+
+    // Dots compactos — todo el panel como columna de puntitos
+    .scroll-dots {
+      position: relative;
+      transform: none;
+      gap: 10px;
+      width: 8px;
+      background-color: transparent;
+      padding: 4px 0;
+    }
+
+    // Cada dot más chico
+    .dot-scroll {
+      width: 6px;
+      height: 6px;
+      opacity: 0.5;
+
+      &.active {
+        transform: scale(1.3);
+        opacity: 1;
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    // El dot de contacto (avión) → pasa a ser un dot igual a los demás
+    .dot-scroll-contact {
+      width: 6px;
+      height: 6px;
+      font-size: 0;                   // oculta el ícono del avión
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      display: block;
+      opacity: 0.5;
+      transition: transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
+      -webkit-text-fill-color: initial;  // resetea el gradient text
+      color: transparent;
+
+      @include light {
+        background: rgba(0, 0, 0, 0.3);
+      }
+
+      &.active {
+        transform: scale(1.3);
+        opacity: 1;
+        background: $neon;
+        filter: drop-shadow(0 0 3px rgba(127, 255, 233, 0.8));
+        // Resetear el gradient-text del estado normal
+        -webkit-background-clip: initial;
+        background-clip: initial;
+
+        @include light {
+          background: $accent-dark;
+          filter: drop-shadow(0 0 3px rgba(129, 140, 248, 0.8));
+        }
+      }
+
+      &:hover {
+        color: transparent;
+        transform: scale(1.2);
+        opacity: 1;
+        filter: drop-shadow(0 0 3px rgba(127, 255, 233, 0.5));
+
+        @include light {
+          filter: drop-shadow(0 0 3px rgba(129, 140, 248, 0.5));
+        }
+      }
+    }
+  }
 }

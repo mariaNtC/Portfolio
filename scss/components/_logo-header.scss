@@ -86,3 +86,14 @@
          white-space: nowrap;        
     }
 }
+@media (max-height: 350px) and (orientation: landscape) {
+  .logo-header {
+    .logo-img-container {
+      .logo-img,
+      .logo-img-light {
+        width: 30px;
+      }
+      
+    }
+  }
+}

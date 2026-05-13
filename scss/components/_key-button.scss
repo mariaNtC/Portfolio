@@ -23,4 +23,29 @@
       background: transparent !important;
     }
   }
+  // Landscape mobile — sin efectos 3D, sin bordes, solo opacity
+  @media (max-height: 350px) and (orientation: landscape) {
+    height: auto;
+    width: auto;
+    pointer-events: none;
+
+    .face {
+      transform: none !important;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      opacity: 0.35;
+      transition: opacity 0.45s ease !important;
+
+      // Suprimir el ::after del mixin (el anillo de expansión)
+      &::after {
+        display: none !important;
+      }
+    }
+
+    .depth {
+      display: none !important;
+    }
+  }
 }

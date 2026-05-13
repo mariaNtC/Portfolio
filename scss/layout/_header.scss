@@ -49,3 +49,23 @@
 }
 
 
+
+// ==============================
+// LANDSCAPE MOBILE — header más chico
+// ==============================
+@media (max-height: 350px) and (orientation: landscape) {
+  .section-nav {
+    height: 44px;    // era 70px — reducido para no robar espacio vertical
+
+    .nav-animator {
+      margin: 8px 12px;
+    }
+
+    .menu-top {
+      .nav-title {
+        left:17px;
+        font-size: clamp(0.75rem, 3vw, 1rem);  // más chico en landscape
+      }
+    }
+  }
+}

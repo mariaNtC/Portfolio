@@ -85,8 +85,8 @@
   position: relative;
   z-index: 10;              // sobre ambos fades (::before y ::after)
   width: 100%;
-  display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
   gap: 48px;
 }
@@ -99,6 +99,8 @@
   padding: 0;
   position: relative;
   z-index: 10;
+  
+  margin-bottom: 30px;
 }
 
 .stack-title {
@@ -234,7 +236,7 @@
   border-bottom: 1px solid rgba(127, 255, 233, 0.08);
 
   i {
-    font-size: 16px;
+    font-size: 18px;
     color: $neon;
     opacity: 0.8;
     @include light { color: $accent-dark; }
@@ -260,8 +262,8 @@
 
 .stack-card__title {
   font-family: $font-title;
-  font-size: 0.95rem;
-  font-weight: 400;
+  font-size: 14px;
+  font-weight: bold;
   letter-spacing: 0.16em;
   margin: 0;
   color: #e5e7eb;
@@ -278,7 +280,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
+  display: grid;  
   // 2 columnas cuando el contenido lo permite — mínimo 110px por columna
   grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   gap: 2px 8px;
@@ -384,7 +386,8 @@
 // Mobile — columna apilada, centrada
 @media (max-width: 650px) {
   #stack {
-    padding: 80px 60px 80px;
+    padding: 20px 60px 20px;
+    margin-bottom: 80px;
     align-items: center;
   }
 
@@ -433,4 +436,10 @@
     max-height: none;
     height: auto;
   }
+}
+@media (max-height: 350px) and (orientation: landscape) {
+  #stack {
+    padding: 0px 100px 20px 140px;
+}
+
 }
