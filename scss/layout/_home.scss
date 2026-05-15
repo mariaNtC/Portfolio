@@ -128,13 +128,15 @@
     }
 }
 @media (max-width: 930px) {
+  
     .profile-image-wrapper {
         .home-img-text {
-        max-width: 100px;
+        max-width: 120px;
         }
     }
+  
 }
-@media (max-width: 600px) {
+@media (max-width: 500px) {
     .home-content {
         flex-direction: column;
         text-align: center;
@@ -170,6 +172,7 @@
 
     .hero-text {
         order: 1;
+        
         }
     .profile-image-wrapper::before{  
         left: 5%;

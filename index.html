@@ -343,7 +343,148 @@
 
 
 
-    <section id="projects" data-title="Projects"></section>
+    <section id="projects" data-title="Projects">
+
+      <div class="projects-content">
+
+        <!-- ══════════════════════
+             HEADER: título + subtítulo
+             ══════════════════════ -->
+        <div class="projects-header">
+          <h2 class="projects-title">Proyectos</h2>
+          <p class="projects-subtitle">Una selección del trabajo que realicé</p>
+        </div>
+
+        <!-- ══════════════════════
+             TABS — solapas hijas
+             data-tab corresponde con data-category de las cards
+             ══════════════════════ -->
+        <div class="projects-tabs" role="tablist" aria-label="Categorías de proyectos">
+
+          <button
+            type="button"
+            class="projects-tab is-active"
+            data-tab="all"
+            role="tab"
+            aria-selected="true">
+            <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+            <span>Todos</span>
+          </button>
+
+          <button
+            type="button"
+            class="projects-tab"
+            data-tab="code"
+            role="tab"
+            aria-selected="false">
+            <i class="fa-solid fa-code" aria-hidden="true"></i>
+            <span>Code</span>
+          </button>
+
+          <button
+            type="button"
+            class="projects-tab"
+            data-tab="webs"
+            role="tab"
+            aria-selected="false">
+            <i class="fa-solid fa-globe" aria-hidden="true"></i>
+            <span>Webs</span>
+          </button>
+
+          <button
+            type="button"
+            class="projects-tab"
+            data-tab="design"
+            role="tab"
+            aria-selected="false">
+            <i class="fa-solid fa-palette" aria-hidden="true"></i>
+            <span>Diseño</span>
+          </button>
+
+        </div><!-- /.projects-tabs -->
+
+        <!-- ══════════════════════
+             CONTENEDOR SCROLLEABLE
+             Las cards se ordenan verticalmente, scroll interno cuando exceden
+             ══════════════════════ -->
+        <div class="projects-grid-wrapper">
+          <div class="projects-grid" role="tabpanel">
+
+            <!-- ─── Cards categoría: CODE ─── -->
+            <article class="project-card" data-category="code">
+              <div class="project-card__media" aria-hidden="true"></div>
+              <div class="project-card__body">
+                <span class="project-card__tag">Code</span>
+                <h3 class="project-card__title">Título del proyecto</h3>
+                <p class="project-card__desc">Breve descripción del proyecto.</p>
+              </div>
+            </article>
+
+            <article class="project-card" data-category="code">
+              <div class="project-card__media" aria-hidden="true"></div>
+              <div class="project-card__body">
+                <span class="project-card__tag">Code</span>
+                <h3 class="project-card__title">Título del proyecto</h3>
+                <p class="project-card__desc">Breve descripción del proyecto.</p>
+              </div>
+            </article>
+
+            <!-- ─── Cards categoría: WEBS ─── -->
+            <article class="project-card" data-category="webs">
+              <div class="project-card__media" aria-hidden="true"></div>
+              <div class="project-card__body">
+                <span class="project-card__tag">Webs</span>
+                <h3 class="project-card__title">Título del proyecto</h3>
+                <p class="project-card__desc">Breve descripción del proyecto.</p>
+              </div>
+            </article>
+
+            <article class="project-card" data-category="webs">
+              <div class="project-card__media" aria-hidden="true"></div>
+              <div class="project-card__body">
+                <span class="project-card__tag">Webs</span>
+                <h3 class="project-card__title">Título del proyecto</h3>
+                <p class="project-card__desc">Breve descripción del proyecto.</p>
+              </div>
+            </article>
+
+            <article class="project-card" data-category="webs">
+              <div class="project-card__media" aria-hidden="true"></div>
+              <div class="project-card__body">
+                <span class="project-card__tag">Webs</span>
+                <h3 class="project-card__title">Título del proyecto</h3>
+                <p class="project-card__desc">Breve descripción del proyecto.</p>
+              </div>
+            </article>
+
+            <!-- ─── Cards categoría: DESIGN ─── -->
+            <article class="project-card" data-category="design">
+              <div class="project-card__media" aria-hidden="true"></div>
+              <div class="project-card__body">
+                <span class="project-card__tag">Diseño</span>
+                <h3 class="project-card__title">Título del proyecto</h3>
+                <p class="project-card__desc">Breve descripción del proyecto.</p>
+              </div>
+            </article>
+
+            <article class="project-card" data-category="design">
+              <div class="project-card__media" aria-hidden="true"></div>
+              <div class="project-card__body">
+                <span class="project-card__tag">Diseño</span>
+                <h3 class="project-card__title">Título del proyecto</h3>
+                <p class="project-card__desc">Breve descripción del proyecto.</p>
+              </div>
+            </article>
+
+            <!-- Estado vacío — se muestra cuando un filtro no tiene resultados -->
+            <p class="projects-empty" hidden>No hay proyectos en esta categoría todavía.</p>
+
+          </div>
+        </div><!-- /.projects-grid-wrapper -->
+
+      </div><!-- /.projects-content -->
+    </section>
+
 
 
      <section id="stack" data-title="Stack">

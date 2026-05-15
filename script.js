@@ -872,3 +872,68 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
 })()
+
+// ==============================
+// PROJECTS — Filtrado por tabs
+// ==============================
+;(function () {
+
+  const section = document.getElementById('projects')
+  if (!section) return
+
+  const tabs    = section.querySelectorAll('.projects-tab')
+  const cards   = section.querySelectorAll('.project-card')
+  const empty   = section.querySelector('.projects-empty')
+  const grid    = section.querySelector('.projects-grid')
+
+  if (!tabs.length || !cards.length) return
+
+  // Filtra cards según la categoría activa
+  // 'all' muestra todas, las demás muestran solo las que matchean data-category
+  const filterCards = (category) => {
+    let visibleCount = 0
+
+    cards.forEach(card => {
+      const cardCat = card.dataset.category
+      const shouldShow = category === 'all' || cardCat === category
+
+      if (shouldShow) {
+        card.hidden = false
+        visibleCount++
+      } else {
+        card.hidden = true
+      }
+    })
+
+    // Empty state — visible solo cuando no hay cards en esa categoría
+    if (empty) {
+      empty.hidden = visibleCount > 0
+    }
+
+    // Reseteamos el scroll del grid al cambiar de tab — mejor UX
+    if (grid) grid.scrollTop = 0
+  }
+
+  // Cambia la tab activa actualizando ARIA y clases
+  const setActiveTab = (clickedTab) => {
+    tabs.forEach(tab => {
+      const isActive = tab === clickedTab
+      tab.classList.toggle('is-active', isActive)
+      tab.setAttribute('aria-selected', isActive ? 'true' : 'false')
+    })
+  }
+
+  // Listeners
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const category = tab.dataset.tab
+      setActiveTab(tab)
+      filterCards(category)
+    })
+  })
+
+  // Estado inicial — la tab "all" está activa por defecto en el HTML
+  filterCards('all')
+
+})()
+
