@@ -1,6 +1,11 @@
 // ==============================
 // PROJECTS SECTION
 // Estructura: header → tabs → contenedor scrolleable con cards verticales
+
+
+//CODE: CRTienda
+//WEB: CRT, SEA
+//DESGIN: ROT, GREEN FEED, LOGO NATI, 
 // ==============================
 
 #projects {
@@ -149,7 +154,7 @@
   flex: 1;
   min-height: 0;            // crítico: permite que el flex child se encoja
   position: relative;
-  border-radius: 18px;
+  border-radius: 20px;
   overflow: hidden;
   padding: 0px 3px 45px;
   @include light {
@@ -169,7 +174,7 @@
     transparent 0,
     black 24px,
     black calc(100% - 24px),
-    transparent 100%
+    transparent 100% 
   );
 }
 
@@ -177,7 +182,7 @@
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 24px 8px;
+  padding: 28px 8px;
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -406,6 +411,7 @@
   .projects-tab {
     flex: 1;
     justify-content: center;
+    flex-direction: column;    
     padding: 8px 10px;
     font-size: 0.72rem;
     letter-spacing: 0.04em;

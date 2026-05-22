@@ -280,7 +280,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;  
+  display: grid; 
   // 2 columnas cuando el contenido lo permite — mínimo 110px por columna
   grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
   gap: 2px 8px;

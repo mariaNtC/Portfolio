@@ -10,19 +10,62 @@
 .home-content {
     position: relative;
     max-width: 50%;
-    margin: 50px auto 80px;
+    margin: 50px auto 0px;
     box-shadow: $shadow-text;
-    background-color: rgba(0, 0, 0, 0.384);
+    background-color: rgba(0, 0, 0, 0.7);
     display: flex;
     align-items: center; 
     gap:3px;
     z-index: 1;
     border-radius: 100px;
     @include light  {        
-            background-color: rgba(0, 0, 0, 0.15);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+            background-color: rgba(235, 235, 235, 0.4);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
 }
+.home-content-warp {
+  display: flex;
+  flex-direction: column-reverse;
+
+  .home-link-content{
+  display: flex; 
+  justify-content: center;
+  font-size: 15px;
+  text-shadow: 0px 0px 6px rgba(0, 0, 0, 1);
+ 
+  
+  border-radius: 0 0 14px 14px;
+  width: auto;
+  color: white;
+  margin: 0px auto 70px;
+  animation: mainLogoGlow 2.5s ease-in-out infinite;
+   @include light {
+    animation: mainLogoGlowLight 2.5s ease-in-out infinite;
+   }
+
+    .home-cvlink, .home-projectlink {
+      cursor: pointer;
+      border-radius: 0 0 0px 14px;
+      text-decoration:none;
+      background:  $neon-gradiant-m ;
+      padding: 8px;
+      opacity: 0.6;
+      transition: opacity $transition-fast;
+      color: white;
+        @include light {
+          background:  $accent-dark-gradiant-m ;
+        }
+    }
+    .home-projectlink {
+      border-radius: 0 0 14px 0px;      
+    }
+ 
+  .home-cvlink:hover, .home-projectlink:hover  {
+    opacity: 1;
+  }
+}
+}
+
 
 /* IMAGEN */
 .profile-image-wrapper {
@@ -39,14 +82,14 @@
     width: 100%;
     max-width: 200px ;
     left: 90%;
-    top: 20%;
+    top: 13%;
     transform: translateY(-50%) translateX(-130px);
     background: rgba(127,255,212,0.6);
     color: white;
-    padding: 9px 12px 9px 40px;
+    padding: 4px 12px 4px 40px;
     border-radius: 4px;
     border-top-right-radius: 20px;
-    font-size: 10px;
+    font-size: 8px;
     letter-spacing: .12em;
     opacity: 0;
     transition: 
@@ -64,17 +107,17 @@
   content: "";
   position: absolute;
   left: 100%;
-  top: 20%;
+  top: 13%;
   transform: translate(0,-50%);
   width: 0;
   height: 0;
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;
-  border-left: 20px solid rgba(127,255,212,0.6);
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+  border-left: 16px solid rgba(127,255,212,0.6);
   filter: drop-shadow(0 0 4px rgba(127,255,212,1));
   animation: arrowGlow 25s ease-in-out infinite;  
   @include light  {        
-    border-left: 20px solid $accent-dark;
+    border-left: 16px solid $accent-dark;
     filter: drop-shadow(0 0 4px rgba(129,140,248,1));
     animation: arrowGlowLight 2.5s ease-in-out infinite;    
   }
@@ -106,6 +149,7 @@
 }
 .hero-subtitle {  
   font-size: 1.2rem;
+  font-weight: 400;
   text-align: start;
   opacity: 0.8;
   margin: 0;
@@ -119,7 +163,7 @@
   font-style: italic;
   color: $neon;
   @include light  {
-    color: white;
+    color: $accent-dark;
   }  
 }
 @media (min-width: 1800px) {
@@ -136,12 +180,32 @@
     }
   
 }
-@media (max-width: 500px) {
+@media (max-width: 730px) {
+  .home-content-warp {      
+      display:inline;
+       .home-link-content{          
+          font-size: 12px;
+          margin: 45px auto 0px;        
+
+            .home-cvlink, .home-projectlink { 
+              opacity: 1;   
+              border-radius: 14px 0 0 0px ;      
+              padding: 10px 8px 4px;
+            }
+            .home-projectlink {
+              border-radius: 0 14px 0 0px;      
+            }
+        
+          .home-cvlink:active, .home-projectlink:active  {
+            transform:scale(0.96);
+          }
+        }    
+    }
     .home-content {
         flex-direction: column;
         text-align: center;
+        margin-top: 0;
         border-radius: 40px;
-        min-width: 380px;
         
         .profile-image-wrapper img {
             border-radius: 20px;
@@ -187,13 +251,30 @@
     }
 }
 @media (max-width: 430px) {
+
   #home {
     margin-top: -5px;
+    .home-link-content{          
+          font-size: 8px;
+          margin: 45px auto 0px;        
+
+            .home-cvlink, .home-projectlink { 
+             
+              padding: 10px 8px 4px;
+            }
+          }
+    
   }
+   
   .home-content {
     min-width: 20%;
     font-weight: 8px;
+    margin-top: 0;
   }
+  
+
+ 
+  
   .hero-text{
     padding: 25px 14px;
   }
@@ -211,4 +292,10 @@
       padding: 6px 10px 4px 55px;
     }
   }
+}
+
+@keyframes homeImgArrow {  
+  0%   { transform: translateY(0), translateX(0); opacity: 0.8; }
+  50%  { transform:  translateX(8px); opacity: 1; }
+  100% { transform: translateY(0), translateX(0); opacity: 0.8; }
 }

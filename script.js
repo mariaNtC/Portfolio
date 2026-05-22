@@ -30,34 +30,55 @@ if (animator && titleEl && sections.length > 0) {
 // TEXTO DINÁMICO
 // ==============================
 const words = [
-  'cocinero',
-  'gamer',
-  'amante de los animales',
-  'creativo',
-  'aprendiz constante'
+  { text: 'usuario curioso de IA',   icon: 'fa-robot' },
+  { text: 'de corazón gamer',        icon: 'fa-gamepad' },
+  { text: 'merodeador de la naturaleza', icon: 'fa-tree' },
+  { text: 'esencialmente cocinero',  icon: 'fa-utensils' },
+  { text: 'aprendiz incansable',     icon: 'fa-book-open' },
+  { text: 'fiel ladero del mate',    icon: 'fa-mug-hot' },
+  { text: 'una mente creativa',          icon: 'fa-lightbulb' },
+  { text: 'amante del deporte',      icon: 'fa-basketball' },
+  { text: 'detallista por naturaleza', icon: 'fa-magnifying-glass' },
+  { text: 'de espíritu contemplativo',  icon: 'fa-spa' }
 ]
 
 const dynamicText = document.getElementById('dynamic-text')
 
 if (dynamicText) {
   let index = 0
-  dynamicText.textContent = words[0]
+
+  // Construye el HTML de una frase: texto + ícono
+  const render = (i) =>
+    `${words[i].text} <i class="fa-solid ${words[i].icon}" aria-hidden="true"></i>`
+
+  // Respeta la preferencia de movimiento reducido del sistema
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  dynamicText.innerHTML = render(0)
 
   const animateText = () => {
+    if (reduceMotion) {
+      // Sin animación — solo cambia el contenido
+      index = (index + 1) % words.length
+      dynamicText.innerHTML = render(index)
+      setTimeout(animateText, 2500)
+      return
+    }
+
     dynamicText.style.opacity   = 0
     dynamicText.style.transform = 'translateY(-4px)'
 
     setTimeout(() => {
       index = (index + 1) % words.length
-      dynamicText.textContent  = words[index]
+      dynamicText.innerHTML       = render(index)
       dynamicText.style.opacity   = 1
       dynamicText.style.transform = 'translateY(0)'
 
-      setTimeout(animateText, 1200)
-    }, 300)
+      setTimeout(animateText, 2200)
+    }, 350)
   }
 
-  setTimeout(animateText, 1200)
+  setTimeout(animateText, 2200)
 }
 
 // ==============================
