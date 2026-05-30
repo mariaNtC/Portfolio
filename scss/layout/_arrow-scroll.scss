@@ -21,10 +21,8 @@
     }   
     .scroll-arrow{
         position:absolute;  
-        display: flex;
-        
-        width: 25px;
-        height: 45px;
+        display: flex;        
+        width: 18px;
         opacity: 0.6;
         transition: opacity 1s ease;
         animation: mainLogoGlow 2.5s ease-in-out infinite;
@@ -34,8 +32,7 @@
     }  
     .scroll-arrow-light {
     position:absolute;   
-    width: 25px;
-    height: 45px;
+    width: 18px;
     opacity: 0;
     transition: opacity 1s ease;
     animation: mainLogoGlowLight 2.5s ease-in-out infinite;

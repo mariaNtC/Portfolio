@@ -1,5 +1,3 @@
-
-
 #home {
  scroll-snap-align: none;
  padding-bottom: 45px;
@@ -14,11 +12,12 @@
     box-shadow: $shadow-text;
     background-color: rgba(0, 0, 0, 0.7);
     display: flex;
-    align-items: center; 
+    align-items: center;
     gap:3px;
     z-index: 1;
     border-radius: 100px;
-    @include light  {        
+    overflow: hidden;          // ← el label se recorta a la curvatura
+    @include light  {
             background-color: rgba(235, 235, 235, 0.4);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
@@ -27,45 +26,93 @@
   display: flex;
   flex-direction: column-reverse;
 
-  .home-link-content{
-  display: flex; 
-  justify-content: center;
-  font-size: 15px;
-  text-shadow: 0px 0px 6px rgba(0, 0, 0, 1);
- 
-  
-  border-radius: 0 0 14px 14px;
-  width: auto;
-  color: white;
-  margin: 0px auto 70px;
-  animation: mainLogoGlow 2.5s ease-in-out infinite;
-   @include light {
-    animation: mainLogoGlowLight 2.5s ease-in-out infinite;
-   }
+  // ══════════════════════════════════════════
+  // CTA "Ver proyectos" — flecha neon animada
+  // En reposo: flecha pequeña apuntando al texto, animándose en X.
+  // En hover del .home-content: la flecha se expande al 100%.
+  // ══════════════════════════════════════════
+  .home-projectlink {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: auto;
+    bottom: 0;
+    z-index: 2;
+    padding-right: 23%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    height: 38px;    
+    text-decoration: none;
+    color: $neon;
+    font-size: 13px;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.644);
+    background: transparent;
+    transition: color 0.8s ease;
 
-    .home-cvlink, .home-projectlink {
-      cursor: pointer;
-      border-radius: 0 0 0px 14px;
-      text-decoration:none;
-      background:  $neon-gradiant-m ;
-      padding: 8px;
-      opacity: 0.6;
-      transition: opacity $transition-fast;
-      color: white;
-        @include light {
-          background:  $accent-dark-gradiant-m ;
-        }
+    @include light {
+      color: $accent-dark;
+      text-shadow: 0 0 1px rgba(0, 0, 0, 0.644);
     }
-    .home-projectlink {
-      border-radius: 0 0 14px 0px;      
+    
+    // ── Flecha neon — pseudo-elemento ──
+    // Forma de flecha lograda con clip-path. En reposo mide ~30% del ancho
+    // y se anima oscilando en eje X. En hover del padre, se expande al 100%
+    // y la flecha "apunta" al texto desde la izquierda.
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 55%;
+      background: $neon-gradiant-m;
+      // clip-path: rectángulo + flecha en la punta derecha
+      clip-path: polygon(
+        0 0,
+        calc(100% - 10px) 0,
+        100% 50%,
+        calc(100% - 10px) 100%,
+        0 100%
+      );
+      transform-origin: left center;
+      animation: ctaArrowPulse 1.8s ease-in-out infinite;
+      transition:
+        width 1s,
+        animation 0.3s ease;
+      z-index: -1;
+
+      @include light {
+        background: $accent-dark-gradiant-m;
+      }
     }
+
+    .img-home-project {
+      font-size: 10px;
+      transition: transform 0.4s ease;
+    }
+   
+  }
+  
+
  
-  .home-cvlink:hover, .home-projectlink:hover  {
-    opacity: 1;
+}
+
+// ── Hover del contenedor padre — expande la flecha ──
+.home-content:hover .home-projectlink {
+  color: white;
+
+  &::before {
+    
+    width: 100%;
+    animation: none;            // detiene el pulso al expandirse
+  }
+
+  .img-home-project {
+    transform: scale(1.2);
   }
 }
-}
-
 
 /* IMAGEN */
 .profile-image-wrapper {
@@ -86,19 +133,19 @@
     transform: translateY(-50%) translateX(-130px);
     background: rgba(127,255,212,0.6);
     color: white;
-    padding: 4px 12px 4px 40px;
+    padding: 4px 12px 4px 60px;
     border-radius: 4px;
     border-top-right-radius: 20px;
     font-size: 8px;
     letter-spacing: .12em;
     opacity: 0;
-    transition: 
+    transition:
       transform .75s ease,
       opacity .15s ease;
     backdrop-filter: blur(0.5px);
     z-index: 2;
-    @include light  {        
-            background: rgb(129, 140, 248,0.6);            
+    @include light  {
+            background: rgb(129, 140, 248,0.6);
         }
   }
 }
@@ -111,20 +158,20 @@
   transform: translate(0,-50%);
   width: 0;
   height: 0;
-  border-top: 16px solid transparent;
-  border-bottom: 16px solid transparent;
-  border-left: 16px solid rgba(127,255,212,0.6);
-  filter: drop-shadow(0 0 4px rgba(127,255,212,1));
-  animation: arrowGlow 25s ease-in-out infinite;  
-  @include light  {        
+  border-top: 22px solid transparent;
+  border-bottom: 22px solid transparent;
+  border-left: 16px solid rgb(127, 255, 233, 0.8);
+  filter: drop-shadow(0 0 4px rgb(127, 255, 233));
+  animation: arrowGlow 25s ease-in-out infinite;
+  @include light  {
     border-left: 16px solid $accent-dark;
     filter: drop-shadow(0 0 4px rgba(129,140,248,1));
-    animation: arrowGlowLight 2.5s ease-in-out infinite;    
+    animation: arrowGlowLight 2.5s ease-in-out infinite;
   }
 }
 .profile-image-wrapper:hover .home-img-text{
   opacity: 1;
-  transform: translateY(-50%);  
+  transform: translateY(-50%);
 }
 .profile-image-wrapper img {
   position: relative;
@@ -143,17 +190,17 @@
 /* TEXTO */
 .hero-text {
   flex: 1;
-  padding: 25px 25px 0px 25px; 
+  padding: 25px 25px 0px 25px;
   flex-direction: column;
   gap: 1.2rem;
 }
-.hero-subtitle {  
+.hero-subtitle {
   font-size: 1.2rem;
   font-weight: 400;
   text-align: start;
   opacity: 0.8;
   margin: 0;
-  @include light  {        
+  @include light  {
          color: black;
     }
 }
@@ -164,7 +211,7 @@
   color: $neon;
   @include light  {
     color: $accent-dark;
-  }  
+  }
 }
 @media (min-width: 1800px) {
     .profile-image-wrapper::before{
@@ -172,41 +219,83 @@
     }
 }
 @media (max-width: 930px) {
-  
+
     .profile-image-wrapper {
+
         .home-img-text {
-        max-width: 120px;
+        padding:  4px 10px 4px 18px;
         }
+
+
     }
-  
+
+    .home-content-warp .home-projectlink::before  {
+      width: 48%;
+    }
+    .hero-subtitle {
+          font-size: 1rem;
+        }
+
 }
 @media (max-width: 730px) {
-  .home-content-warp {      
+  .home-content-warp {
       display:inline;
-       .home-link-content{          
-          font-size: 12px;
-          margin: 45px auto 0px;        
 
-            .home-cvlink, .home-projectlink { 
-              opacity: 1;   
-              border-radius: 14px 0 0 0px ;      
-              padding: 10px 8px 4px;
-            }
             .home-projectlink {
-              border-radius: 0 14px 0 0px;      
+              height: 20px;
+              opacity: 1;
+              margin-bottom: 150%;
+              justify-content: center;
+              padding: 10px 30px 10px 30px ;
+              
+              &::before{
+                clip-path: polygon(
+                  0 0,           /* esquina superior izquierda */
+                  85% 0,         /* arriba, antes de la punta */
+                  100% 20%,      /* la punta que sobresale a la derecha */
+                  85% 40%,       /* vuelve hacia adentro */
+                  85% 100%,      /* baja recto por el lado derecho */
+                  0 100%         /* esquina inferior izquierda */
+                );
+                animation: ctaArrowPulseResponsive 1.8s ease-in-out infinite;
+                width: 25%;
+                height: 100px;
+                background: $neon-gradiant-l;
+                @include light {
+                  background: $accent-dark-gradiant-l;
+                }
+              }
             }
-        
-          .home-cvlink:active, .home-projectlink:active  {
-            transform:scale(0.96);
+            
+
+          .home-projectlink:active  {
+            transform:scale(1.02);
           }
-        }    
+          .home-content:hover .home-projectlink {
+
+              &::before {
+                clip-path: polygon(
+                    0 0,
+                    calc(100% - 0px) 0,
+                    100% 100%,
+                    calc(100% - 0px) 100%,
+                    0 100%
+                  );
+                width: 100%;
+                height: 100px;
+                transition: height 1s ease, width 1s ease, clip-path 0.3s ease;
+                animation: none;            // detiene el pulso al expandirse
+                
+              }
+}
+
     }
     .home-content {
         flex-direction: column;
         text-align: center;
         margin-top: 0;
         border-radius: 40px;
-        
+        overflow:visible;
         .profile-image-wrapper img {
             border-radius: 20px;
             border-top-left-radius: 10px;
@@ -217,66 +306,83 @@
     .profile-image-wrapper {
         order: 2;
 
-        .home-img-text {    
+        .home-img-text {
             width: auto;
             opacity: 1;
             max-width: 100%;
-            top:95%;
+            top:90%;
             left: 0;
             transform: translateY(-50%) translateX(0px);
             background: rgba(127,255,212,0.6);
             color: white;
-            padding: 30px 30px 9px 30px;
+            padding: 60px 30px 9px 30px;
             margin-top: 35px;
             border-radius: 6px;
             border-bottom-right-radius: 30px;
-            backdrop-filter: blur(0.5px);           
-        }    
+            backdrop-filter: blur(0.5px);
+        }
     }
 
     .hero-text {
         order: 1;
-        
+        padding-bottom: 50px;
         }
-    .profile-image-wrapper::before{  
+    .profile-image-wrapper::before{
         left: 5%;
-        top: 103%; 
+        top: 103%;
         border-left: 15px solid transparent;
         border-right: 15px solid transparent;
         border-top: 15px solid rgba(127,255,212,0.6);
-        @include light  {   
+        @include light  {
           border-left: 20px solid transparent;
-          border-top: 20px solid$accent-dark;            
-        }   
+          border-top: 20px solid$accent-dark;
+        }
     }
 }
-@media (max-width: 430px) {
+@media (max-width: 500px) {
 
   #home {
     margin-top: -5px;
-    .home-link-content{          
+    padding-top: 50px;
+    padding-bottom: 90px;
+    .home-link-content{
           font-size: 8px;
-          margin: 45px auto 0px;        
+          margin: 45px auto 0px;
 
-            .home-cvlink, .home-projectlink { 
-             
-              padding: 10px 8px 4px;
-            }
+           
           }
-    
+
   }
-   
+
   .home-content {
     min-width: 20%;
     font-weight: 8px;
     margin-top: 0;
+    .home-projectlink {
+      align-items: center;
+      justify-content: center;
+      padding: 10px 10px 10px 10px;
+      &::before{      
+      left: 0;
+      top: 0;
+      bottom: 0;      
+      width: 20%;
+      background: $neon-gradiant-m;
+      // clip-path: rectángulo + flecha en la punta derecha     
+      transform-origin: left center;
+      }
+      }
   }
-  
 
- 
-  
+.profile-image-wrapper{
+ .home-img-text {
+
+   padding:30px 20px 9px 30px;
+   }
+   }
+
   .hero-text{
-    padding: 25px 14px;
+    padding: 25px 14px 60px;
   }
      .hero-subtitle {
           font-size: 17px;
@@ -286,16 +392,27 @@
 @media (max-height: 350px) and (orientation: landscape) {
    #home {
     margin-top: -20px;
+    padding-top: 6px;
 
     .home-img-text{
       font-size: 8px;
-      padding: 6px 10px 4px 55px;
+      padding: 6px 10px 4px 20px;
     }
   }
 }
 
-@keyframes homeImgArrow {  
+@keyframes homeImgArrow {
   0%   { transform: translateY(0), translateX(0); opacity: 0.8; }
   50%  { transform:  translateX(8px); opacity: 1; }
   100% { transform: translateY(0), translateX(0); opacity: 0.8; }
+}
+
+// Animación del pulso lateral de la flecha en reposo
+@keyframes ctaArrowPulse {
+  0%, 100% { transform: scaleX(1.05); }
+  50%      { transform: scaleX(1); }
+}// Animación del pulso lateral de la flecha en reposo
+@keyframes ctaArrowPulseResponsive {
+  0%, 100% { transform: scaleX(1); }
+  50%      { transform: scaleX(0.7); }
 }

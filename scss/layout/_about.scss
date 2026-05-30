@@ -185,7 +185,7 @@
 .about-track {
   display: flex;
   gap: 20px;
-  padding: 20px 30px 0 45px;
+  padding: 4px 30px 0 45px;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
 }
@@ -315,7 +315,7 @@
   width: 30px;
   height: 36px;
   margin: 6px auto 0px;
-  font-size: 18px;
+  font-size: 20px;
   color: $neon;
   flex-shrink: 0;
   transition: box-shadow $transition-fast, transform $transition-fast;
@@ -327,6 +327,22 @@
   .about-card:hover & {
     transform: scale(1.17);
   }
+  
+  .icon-about-svg {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    // El fill de los paths hereda currentColor → tomado de `color`
+    fill: currentColor;
+    color: $neon;
+    transition: color $transition-fast;
+
+    @include light {
+      color: $accent-dark;
+    }
+  
+}
+
 }
 
 .about-card__title {

@@ -266,6 +266,7 @@ const scrollToSection = (id) => {
   clearActiveStates()
   setActiveById(id)
   setActiveDot(id)
+  document.body.dataset.activeSection = id
 
   const newIndex = sections.findIndex(sec => sec.id === id)
   animateTitleChange(target.dataset.title, newIndex)
@@ -332,6 +333,7 @@ const observer = new IntersectionObserver((entries) => {
   clearActiveStates()
   setActiveById(id)
   setActiveDot(id)
+  document.body.dataset.activeSection = id
   animateTitleChange(visible.target.dataset.title, newIndex)
 
 }, { threshold: [0.3, 0.3, 0.3] })

@@ -1,4 +1,3 @@
-
 .side-menu-right {
   position: fixed;
   right:50px;
@@ -89,7 +88,7 @@
   .label-right::after {
   content: "";
   position: absolute;
-  right: -5px;
+  right: -6px;
   top: 50%;
   transform: translateY(-50%);
   width: 0;
@@ -110,7 +109,9 @@
     opacity: 1;
     transform: translateX(0);
     font-weight: 900;    
+    
   }
+
   
 
    &.active .face-right {
@@ -136,7 +137,6 @@
 .cv-actions{
   display:none;  
   gap:6px;
-  margin-left:6px;
 }
 .cv-confirm{  
   text-align: center;
@@ -214,23 +214,127 @@
   pointer-events: auto;
 }
 }
+
+// ══════════════════════════════════════════
+// DESKTOP — label de CV fijo en la sección HOME
+// El label del botón currículum aparece a la izquierda,
+// con su flecha apuntando a la derecha (hacia el botón) y animada.
+// Solo visible cuando data-active-section vale "home".
+// ══════════════════════════════════════════
+body[data-active-section="home"] .side-menu-right {
+
+  // Mostramos el label del botón de CV (primer .cv-item)
+  .cv-item .label-right {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  // La flecha del tooltip — animada apuntando a la derecha
+  .cv-item .label-right::after {
+    animation: cvArrowRight 1.2s ease-in-out infinite;
+  }
+}
+
 @media (max-width: 650px) {
-    .side-menu-right {               
-        top: 24vh;  
-        right:-18px;
-        .menu-item-right {
-            .label-right {
-              transition: 0s all;
-              background: rgba(0, 0, 0, 0.750);
-            }
-            .label-right-contact {    
-              display: none;
-            }          
-        }    
+  .side-menu-right {
+    top: 24vh;
+    right: -18px;
+
+    .menu-item-right {
+      .label-right {
+        
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;
+        transform: translateY(4px);
+        max-width: auto;
+        width: 50px;
+        right: 26px;
+        bottom: 110px;
+        padding: 6px 4px;
+        border-radius: 8px;
+        backdrop-filter: blur(4px);
+        font-size: 8px;
+        font-family: $font-title;
+        letter-spacing: 0.12em;
+        background: rgba(0, 0, 0, 0.350);
+        opacity: 0;                    // ← oculto por defecto        
+        transition: opacity 0s ease, transform 0s ease;
+        pointer-events: none;
+
+        @include light {
+          border-right-color: rgba(0, 0, 0, 0.070);
+          background: rgba(238, 238, 238, 0.514);
+          font-weight: 900;
+        }
+      }
+
+      .label-right::after {
+        content: "";
+        position: absolute;
+        right: 35%;
+        top: 100%;
+        width: 0;
+        margin-top: 7px;
+        height: 0;
+        border-top: 7px solid rgba(127, 255, 234, 0.7);
+        border-bottom: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-left: 7px solid transparent;
+        animation: none;
+        opacity: 0;                    // ← flecha oculta por defecto
+        z-index: 10000;
+
+        @include light {
+          border-top: 7px solid rgba(129, 141, 248, 0.7);
+          border-bottom: 7px solid transparent;
+          border-right: 7px solid transparent;
+          border-left: 7px solid transparent;
+        }
+      }
+
+      .label-right-contact {
+        display: none;
+      }
     }
+  }
+
+ // ── Solo en la sección inicio: mostrar el label + activar la flecha ──
+ // En mobile la flecha apunta hacia ABAJO (cvArrow), el label va arriba del botón.
+  body[data-active-section="home"] .side-menu-right {
+    .menu-item-right .label-right {
+      opacity: 1;
+      transform: translateX(0px) translateY(0px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .menu-item-right .label-right::after {
+      opacity: 1;
+      // En mobile sobreescribimos: la flecha apunta hacia abajo
+      animation: cvArrow 1.2s ease-in-out infinite;
+    }
+  }
 }
 @media (max-height: 350px) and (orientation: landscape) {
   .side-menu-right {                      
         right:11px;
   }
+}
+
+// Animación mobile — flecha apuntando hacia abajo
+@keyframes cvArrow {
+  0%   { transform: translateY(0px); opacity: 1;  }
+  50%  { transform: translateY(-4px); opacity: 0.5; }
+  100% { transform: translateY(0px); opacity: 1; }
+}
+
+// Animación desktop — flecha apuntando hacia la derecha
+// Mantiene el translateY(-50%) del centrado vertical y anima en X
+@keyframes cvArrowRight {
+  0%   { transform: translateY(-50%) translateX(0px); opacity: 1;   }
+  50%  { transform: translateY(-50%) translateX(4px); opacity: 0.5; }
+  100% { transform: translateY(-50%) translateX(0px); opacity: 1;   }
 }
