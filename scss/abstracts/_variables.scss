@@ -75,5 +75,22 @@ $accent-dark-gradiant-l: linear-gradient(
                                         #6f7df0 75%,
                                         #818cf8 100%
                                         );
+                                        
+$dark-gradiant-row: linear-gradient(
+                                        135deg,
+                                        #00000000 0%,
+                                        #0000003f 20%,
+                                        #000000 50%,
+                                        #0000003f 80%,
+                                        #00010500 100%
+                                        );
+$light-gradiant-row: linear-gradient(
+                                        135deg,
+                                        #00000000 0%,
+                                        #ffffff3f 20%,
+                                        #ffffff 50%,
+                                        #ffffff3f 80%,
+                                        #00010500 100%
+                                        );
 
 // BACKGROUNDS

@@ -88,13 +88,13 @@ const profileImage = document.getElementById('profile-image')
 
 if (profileImage) {
   const images = [
-    'images/profile/1.jpg',
-    'images/profile/2.jpg',
-    'images/profile/3.jpg',
-    'images/profile/4.jpg',
-    'images/profile/5.jpg',
-    'images/profile/6.jpg',
-    'images/profile/7.jpg'
+    'images/profile/1.webp',
+    'images/profile/2.webp',
+    'images/profile/3.webp',
+    'images/profile/4.webp',
+    'images/profile/5.webp',
+    'images/profile/6.webp',
+    'images/profile/7.webp'
   ]
 
   // Precarga
@@ -708,15 +708,21 @@ document.addEventListener('DOMContentLoaded', () => {
   // ══════════════════════════════════════════
   // BANDA — altura fija, centrada verticalmente
   // ══════════════════════════════════════════
-  const BAND_H     = 460    // px — alto de la banda (supera un poco las cards)
-  const HEX_SIZE   = 16     // px — tamaño del hexágono
+ const HEX_SIZE   = 16     // px — tamaño del hexágono
   const HALO_R     = 200    // px — radio del halo del mouse
 
+  // Margen superior reservado para el título "Stack & Skills"
+  const TOP_OFFSET = 120    // px — espacio del título arriba
+  const BOTTOM_PAD = 40     // px — pequeño respiro abajo
+
+  // La banda ahora se calcula dinámicamente: ocupa casi toda la sección,
+  // dejando afuera el título arriba y un respiro abajo. Se adapta a la
+  // altura real del contenido (cards + timeline de formación).
   const getBand = (w, h) => ({
     x: 0,
-    y: h / 2 - BAND_H / 2,  // siempre centrada verticalmente
+    y: TOP_OFFSET,
     w: w,
-    h: BAND_H,
+    h: h - TOP_OFFSET - BOTTOM_PAD,
   })
 
   // ══════════════════════════════════════════
@@ -960,3 +966,118 @@ document.addEventListener('DOMContentLoaded', () => {
 
 })()
 
+// ==============================
+// EDU TIMELINE — tap para expandir en mobile
+// En desktop el hover maneja todo por CSS; este JS solo agrega
+// el toggle por click/tap (necesario en touch donde no hay hover).
+// ==============================
+;(function () {
+
+  const timeline = document.querySelector('.edu-timeline')
+  if (!timeline) return
+
+  const nodes = timeline.querySelectorAll('.edu-node')
+  if (!nodes.length) return
+
+  nodes.forEach(node => {
+    node.addEventListener('click', (e) => {
+      const isOpen = node.getAttribute('aria-expanded') === 'true'
+
+      // Cerrar todos los demás
+      nodes.forEach(n => n.setAttribute('aria-expanded', 'false'))
+
+      // Alternar el actual
+      node.setAttribute('aria-expanded', isOpen ? 'false' : 'true')
+    })
+  })
+
+  // Cerrar al hacer click fuera del timeline
+  document.addEventListener('click', (e) => {
+    if (!timeline.contains(e.target)) {
+      nodes.forEach(n => n.setAttribute('aria-expanded', 'false'))
+    }
+  })
+
+})()
+
+// ==============================
+// MODAL DE DIPLOMAS
+// ==============================
+;(function () {
+  const modal = document.getElementById('diploma-modal')
+  if (!modal) return
+
+  const modalImg     = document.getElementById('diploma-modal-img')
+  const officialLink = document.getElementById('diploma-official-link')
+  const codeBtn      = document.getElementById('diploma-code-btn')
+  const codeText     = codeBtn?.querySelector('.diploma-modal__code-text')
+  const diplomaLinks = document.querySelectorAll('[data-diploma]')
+
+  let currentCode = ''
+
+  const openModal = (imgSrc, officialUrl, name, code) => {
+    modalImg.src = imgSrc
+    modalImg.alt = `Diploma: ${name}`
+    officialLink.href = officialUrl
+
+    // Mostrar el botón de código solo si el diploma tiene uno
+    if (code) {
+      currentCode = code
+      codeText.textContent = 'Código de verificación'
+      codeBtn.classList.remove('is-copied')
+      codeBtn.hidden = false
+    } else {
+      codeBtn.hidden = true
+      currentCode = ''
+    }
+
+    modal.setAttribute('aria-hidden', 'false')
+    document.body.classList.add('modal-open')
+  }
+
+  const closeModal = () => {
+    modal.setAttribute('aria-hidden', 'true')
+    document.body.classList.remove('modal-open')
+    setTimeout(() => { modalImg.src = '' }, 300)
+  }
+
+  diplomaLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault()
+      const img      = link.dataset.diplomaImg
+      const official = link.dataset.diplomaOfficial
+      const code     = link.dataset.diplomaCode || ''
+      const card     = link.closest('.edu-card')
+      const name     = card?.querySelector('.edu-card__name')?.textContent || 'Diploma'
+      openModal(img, official, name, code)
+    })
+  })
+
+  // Copiar código al portapapeles
+  if (codeBtn) {
+    codeBtn.addEventListener('click', async () => {
+      if (!currentCode) return
+      try {
+        await navigator.clipboard.writeText(currentCode)
+        codeBtn.classList.add('is-copied')
+        codeText.textContent = '¡Copiado!'
+        setTimeout(() => {
+          codeBtn.classList.remove('is-copied')
+          codeText.textContent = 'Código de verificación'
+        }, 2000)
+      } catch (err) {
+        // Fallback si el navegador bloquea clipboard
+        codeText.textContent = currentCode
+      }
+    })
+  }
+
+  modal.querySelectorAll('[data-close]').forEach(el => {
+    el.addEventListener('click', closeModal)
+  })
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+      closeModal()
+    }
+  })
+})()

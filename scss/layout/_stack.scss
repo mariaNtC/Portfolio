@@ -146,6 +146,7 @@
   flex-wrap: wrap;           // permite que las cards caigan si no hay espacio
   justify-content: center;
   gap: 20px;
+  margin-top: 80px;
   width: 100%;
 }
 
@@ -443,3 +444,793 @@
 }
 
 }
+
+
+
+// ══════════════════════════════════════════
+// TIMELINE DE FORMACIÓN — hexágonos sobre línea temporal
+// Se agrega al final de _stack.scss
+// ══════════════════════════════════════════
+
+.edu-timeline-wrap {
+  position: relative;
+  z-index: 10;
+  max-width: 1100px;
+  margin: 60px auto 0;
+  padding: 0 20px;
+}
+
+.edu-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0px;
+
+  .edu-title {
+    font-family: $font-title;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 400;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    cursor: default;  
+    letter-spacing: 0.08em;
+    margin: 0 0 6px;
+    color: white;
+    background:$dark-gradiant-row;
+
+    @include light { 
+    color: black;
+    background:$light-gradiant-row; }
+  }
+
+  .edu-subtitle {
+    cursor: default;  
+    font-family: $font-body;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    opacity: 0.5;
+    margin: 0;    
+    transition: opacity $transition-fast;
+  }
+
+  &:hover .edu-subtitle {
+    opacity: 1;
+  }
+}
+
+// ── Badge destacado de cursos ──
+.edu-courses-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  max-width: 720px;
+  margin: 0 auto 60px;
+  padding: 16px 22px;
+  border-radius: 14px;
+  background: rgba(127, 255, 233, 0.06);
+  border: 1px solid rgba(127, 255, 233, 0.15);
+  backdrop-filter: blur(6px);
+
+  @include light {
+    background: rgba(129, 140, 248, 0.07);
+    border-color: rgba(129, 140, 248, 0.2);
+  }
+
+  i {
+    font-size: 28px;
+    color: $neon;
+    flex-shrink: 0;
+
+    @include light { color: $accent-dark; }
+  }
+
+  .edu-courses-text {
+    font-family: $font-body;
+    font-size: 0.9rem;
+    line-height: 1.5;
+
+    strong {
+      color: $neon;
+      @include light { color: $accent-dark; }
+    }
+
+    span {
+      display: block;
+      margin-top: 4px;
+      font-size: 0.78rem;
+      opacity: 0.6;
+    }
+  }
+}
+
+// ══════════════════════════════════════════
+// TIMELINE — línea horizontal con items alternados
+// ══════════════════════════════════════════
+.edu-timeline {
+  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 350px;
+  padding: 0 10px;
+
+  // La línea temporal horizontal (centro)
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 2px;
+    transform: translateY(-50%);
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(127, 255, 233, 0.5) 15%,
+      rgba(127, 255, 233, 0.5) 85%,
+      transparent
+    );
+
+    @include light {
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(129, 140, 248, 0.5) 15%,
+        rgba(129, 140, 248, 0.5) 85%,
+        transparent
+      );
+    }
+  }
+}
+
+// ── Cada ítem del timeline ──
+.edu-item {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+
+  // Punto sobre la línea temporal (donde nace la perpendicular)
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: $neon;
+    box-shadow: $glow-dark;
+    z-index: 3;
+
+    @include light {
+      background: $accent-dark;
+      box-shadow: $glow-light;
+    }
+  }
+}
+
+// ── Botón nodo (label + hexágono + línea perpendicular) ──
+.edu-node {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 130px;
+
+  // Línea perpendicular — conecta el hexágono con la línea temporal
+  &::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 2px;
+    height: 36px;
+    transform: translateX(-50%);
+    background: rgba(127, 255, 233, 0.4);
+
+    @include light { background: rgba(129, 140, 248, 0.4); }
+  }
+
+  .edu-node__label {
+    border-radius: 10px;
+    font-family: $font-body;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-align: center;
+    width: 100px;
+    padding: 3px 6px;
+    line-height: 1.3;
+    color: rgba(255, 255, 255, 0.8);
+    transition: color $transition-fast;
+
+    @include light { color: rgba(0, 0, 0, 0.7); }
+  }
+}
+
+// ── Hexágono ──
+.edu-hex {
+  position: relative;
+  width: 42px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(127, 255, 233, 0.12);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  color: $neon;
+  font-size: 14px;
+  transition: background $transition-fast, transform $transition-fast;
+
+  // Borde hexagonal — hexágono de fondo apenas más grande
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -1.5px;
+    background: rgba(127, 255, 233, 0.5);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    z-index: -1;
+    transition: background $transition-fast;
+
+    @include light { background: rgba(129, 140, 248, 0.5); }
+  }
+
+  @include light {
+    background: rgba(129, 140, 248, 0.12);
+    color: $accent-dark;
+  }
+}
+
+// ── Posición ARRIBA de la línea ──
+.edu-item--top {
+  .edu-node {
+    bottom: 30px;
+    margin-bottom: 4px;
+    flex-direction: column;       // label arriba, hex abajo (cerca de la línea)
+    justify-content: flex-end;
+
+    &::before {
+      bottom: -36px;              // la línea baja hacia la temporal
+    }
+  }
+}
+
+// ── Posición ABAJO de la línea ──
+.edu-item--bottom {
+  .edu-node {
+    top: 30px;
+    margin-top: 4px;
+    flex-direction: column-reverse;  // label abajo, hex arriba (cerca de la línea)
+    justify-content: flex-start;
+
+    &::before {
+      top: -36px;                // la línea sube hacia la temporal
+    }
+  }
+}
+
+// ══════════════════════════════════════════
+// HOVER / FOCUS — el hexágono "despliega" la card
+// ══════════════════════════════════════════
+.edu-node:hover .edu-hex,
+.edu-node:focus-visible .edu-hex,
+.edu-node[aria-expanded="true"] .edu-hex {
+  background: $neon;
+  border-color: $neon;
+  color: #03060d;
+  transform: scale(1.1);
+  box-shadow: $glow-dark-strong;
+
+  @include light {
+    background: $accent-dark;
+    border-color: $accent-dark;
+    color: #fff;
+    box-shadow: $glow-light-strong;
+  }
+}
+
+.edu-node:hover .edu-node__label,
+.edu-node:focus-visible .edu-node__label {
+  color: $neon;
+  background: $dark-gradiant-row;
+  @include light { 
+    color: $accent-dark;
+    background:$light-gradiant-row;
+  }
+}
+
+// ── La card de detalle ──
+.edu-card {
+  position: absolute;
+  transform: translateX(0%) scale(0.92);
+  width: 220px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: rgba(5, 11, 20, 0.96);
+  border: 1px solid rgba(127, 255, 233, 0.3);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity $transition-fast, transform 0.6s ease;
+  z-index: 20;
+
+  @include light {
+    background: rgba(255, 255, 255, 0.97);
+    border-color: rgba(129, 140, 248, 0.35);
+  }
+
+  .edu-card__name {
+    font-family: $font-title;
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 0 0 8px;
+    color: $neon;
+    @include light { 
+      color: $accent-dark;
+      font-weight: 800;
+    }
+  }
+
+  .edu-card__place {
+    font-family: $font-body;
+    font-size: 0.82rem;
+    margin: 0 0 4px;
+    opacity: 0.85;
+  }
+
+  .edu-card__date {
+    font-family: $font-body;
+    font-size: 0.75rem;
+    margin: 0;
+    opacity: 0.5;
+    letter-spacing: 0.05em;
+  }
+
+  .edu-card__diploma {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-family: $font-body;
+    font-size: 0.75rem;
+    text-decoration: none;
+    color: $neon;
+    background: rgba(127, 255, 233, 0.1);
+    border: 1px solid rgba(127, 255, 233, 0.3);
+    transition: background $transition-fast;
+
+    @include light {
+      color: $accent-dark;
+      background: rgba(129, 140, 248, 0.12);
+      border-color: rgba(129, 140, 248, 0.3);
+    }
+
+    &:hover {
+      background: rgba(127, 255, 233, 0.2);
+      @include light { background: rgba(129, 140, 248, 0.2); }
+    }
+  }
+}
+
+
+// ══════════════════════════════════════════
+// CARD CENTRADA — siempre sobre la línea temporal (desktop)
+// Tanto en hover como en active, la card aparece centrada
+// entre los hexágonos, nunca arriba ni abajo.
+// ══════════════════════════════════════════
+@media (min-width: 851px) {
+
+  // Estado base de la card: centrada, colapsada (invisible y mini)
+  .edu-card {
+    cursor: default;
+    top: 50%;
+    bottom: auto;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.85);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 40;
+    width: 140px;
+    transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  // Al hover o active del ítem → card centrada visible
+  .edu-item:hover .edu-card,
+  .edu-node:focus-visible ~ .edu-card,
+  .edu-node[aria-expanded="true"] ~ .edu-card {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+// Hexágono ARRIBA de la línea → BAJA hacia ella
+  .edu-item--top:hover .edu-hex,
+  .edu-item--top .edu-node:focus-visible .edu-hex,
+  .edu-item--top .edu-node[aria-expanded="true"] .edu-hex {
+    transform: translateY(35px) scale(0.6);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.3s ease;
+  }
+
+  // Hexágono ABAJO de la línea → SUBE hacia ella
+  .edu-item--bottom:hover .edu-hex,
+  .edu-item--bottom .edu-node:focus-visible .edu-hex,
+  .edu-item--bottom .edu-node[aria-expanded="true"] .edu-hex {
+    transform: translateY(-35px) scale(0.6);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.3s ease;
+  }
+
+  // El título (label) se vuelve invisible
+  .edu-item:hover .edu-node__label,
+  .edu-node:focus-visible .edu-node__label,
+  .edu-node[aria-expanded="true"] .edu-node__label {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  
+
+  // La línea perpendicular se oculta
+  .edu-item:hover .edu-node::before,
+  .edu-node:focus-visible::before,
+  .edu-node[aria-expanded="true"]::before {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+}
+
+// ══════════════════════════════════════════
+// RESPONSIVE — en mobile el timeline pasa a VERTICAL
+// ══════════════════════════════════════════
+@media (max-width: 850px) {
+
+  .edu-header {
+  margin-bottom: 50px;
+}
+.edu-courses-badge {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+}
+  .edu-timeline-wrap { 
+  margin: 60px auto 0;
+  padding: 0 0px;
+}
+  
+  .edu-timeline {
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 0;
+    gap: 0;
+    padding-left: 21px;
+
+    &::before {
+      left: 20px;
+      right: auto;
+      top: 0;
+      bottom: 0;
+      transform: none;
+      width: 2px;
+      height: auto;
+      background: linear-gradient(to bottom, transparent, rgba(127,255,233,.5) 8%, rgba(127,255,233,.5) 92%, transparent);
+      @include light {
+        background: linear-gradient(to bottom, transparent, rgba(129,140,248,.5) 8%, rgba(129,140,248,.5) 92%, transparent);
+      }
+    }
+  }
+
+  .edu-item {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    height: auto;
+    padding: 12px 0 18px;
+
+    // El punto, centrado SOBRE la línea (línea en left:20px, padding-left:20px)
+    // Como el .edu-item ya está dentro del padding-left:20px del timeline,
+    // su left:0 coincide con la línea. Centramos el punto en ese eje.
+    &::after {
+      left: 0;
+      top: 36px;
+      transform: translate(-50%, -50%);   // centra el punto sobre la línea
+    }
+  }
+
+  // Nodo: hexágono pegado al fin de la perpendicular + label a su derecha
+  .edu-item--top .edu-node,
+  .edu-item--bottom .edu-node {
+    position: relative;
+    left: auto; top: auto; bottom: auto;
+    transform: none;
+    margin: 0;
+    padding: 0;
+    flex-direction: row;        // hexágono + label en fila
+    align-items: center;
+    gap: 14px;
+    width: auto;
+
+    // Perpendicular: nace en la línea (left:0) y llega al hexágono
+    &::before {
+      left: 0;
+      top: 24px;                // centro vertical del hexágono (48/2)
+      bottom: auto;
+      width: 28px;
+      height: 2px;
+      transform: translateY(-50%);
+      background: rgba(127,255,233,.4);
+      @include light { background: rgba(129,140,248,.4); }
+    }
+  }
+
+  .edu-item--top .edu-node,
+  .edu-item--bottom .edu-node {
+    /* ...lo de arriba... */
+    flex-direction: row;
+
+    .edu-hex   { order: 1; }    // hexágono primero
+    .edu-node__label { order: 2; }  // texto después
+  }
+  .edu-item .edu-hex {
+    margin-left: 28px;          // = ancho de la perpendicular, pega el hex a su fin
+    flex-shrink: 0;
+  }
+
+  .edu-node .edu-node__label {
+    width: 120px;
+    text-align: left ;
+    font-size: 0.82rem ;
+    flex: 1;
+  }
+
+  // Card: debajo del nodo, empuja el contenido al expandir
+  .edu-item--top .edu-card,
+  .edu-item--bottom .edu-card {
+    position: relative;
+    transform: none;
+    left: -20px;
+    width: 100% ;
+    max-width: 200px;
+    text-align: left;
+    opacity: 0;
+    pointer-events: none;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+    border-width: 0;
+    transition: max-height .4s ease, opacity .3s ease, padding .3s ease, margin .3s ease;
+
+    // Línea desde el vértice del hexágono hacia la card
+    &::before {
+      content: "";
+      position: absolute;
+      left: 21px;
+      top: -14px;
+      width: 2px;
+      height: 14px;
+      background: $neon;
+      opacity: 0;
+      transition: opacity .3s ease;
+      @include light { background: $accent-dark; }
+    }
+  }
+
+  .edu-node[aria-expanded="true"] ~ .edu-card {
+    opacity: 1;
+    pointer-events: auto;
+    max-height: 320px;
+    margin-top: 14px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-width: 1px;
+
+    &::before { opacity: 1; }
+  }
+}
+
+@media (max-height: 350px) and (max-width: 850px) and (orientation: landscape) {
+  .edu-timeline{
+    left: 100px;
+  }
+}
+
+
+
+
+
+
+// ══════════════════════════════════════════
+// MODAL DE DIPLOMAS
+// ══════════════════════════════════════════
+.diploma-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+
+  &[aria-hidden="false"] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    width: 100%;
+    max-height: 90vh;
+    transform: scale(0.92);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    .diploma-modal[aria-hidden="false"] & {
+      transform: scale(1);
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: rgba(5, 11, 20, 0.96);
+    border: 2px solid $neon;
+    color: white;
+    font-size: 18px;
+    opacity: 0.8;
+    cursor: pointer;
+    transition: transform $transition-fast;
+    z-index: 3;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+
+    &:hover { 
+      transform: rotate(90deg) scale(1.1);
+      opacity: 1; }
+
+    @include light {
+      background: rgba(5, 11, 20, 0.96);
+      border: 2px solid $accent-dark;
+    }
+  }
+
+  // Etiqueta que se asoma desde el costado superior izquierdo
+  &__official {
+    position: absolute;
+    top: 18px;
+    left: -10px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px 8px 14px;
+    border-radius: 4px 20px 20px 4px;
+    font-family: $font-body;
+    font-size: 0.8rem;
+    text-decoration: none;
+    color: white;
+    background: rgba(5, 11, 20, 0.96);
+    border: 2px solid $neon;
+    opacity: 0.85;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    transform: translateX(-4px);
+    transition: transform $transition-fast, box-shadow $transition-fast, opacity $transition-fast;
+
+    i { font-size: 0.95rem; }
+
+    &:hover {
+      opacity: 1;
+      transform: translateX(0);
+      box-shadow: 0 6px 22px rgba(127,255,233,0.4);
+    }
+
+    @include light {
+      background: rgba(5, 11, 20, 0.96);
+      border: 2px solid $accent-dark;
+      color: white;
+      &:hover { box-shadow: 0 6px 22px rgba(129,140,248,0.4); }
+    }
+  }
+
+  // Código de verificación — debajo de la etiqueta oficial
+  &__code {
+    position: absolute;
+    top: 62px;              // justo debajo de la etiqueta "Ver certificado oficial"
+    left: -10px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px 4px 14px;
+    border: none;
+    border-radius: 4px 20px 20px 4px;
+    font-family: $font-body;
+    font-size: 0.70rem;
+    cursor: pointer;
+    color: #2c2c2c;
+    background: $neon;
+    border: 1px solid rgba(127, 255, 233, 0.4);
+    border-left: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    transform: translateX(-4px);
+    transition: transform $transition-fast, background $transition-fast;
+
+    i { font-size: 0.9rem; }
+
+    &:hover {
+      box-shadow: 0 6px 22px rgba(127,255,233,0.4);
+      transform: translateX(0);
+    }
+
+    // Estado "copiado" — feedback visual
+    &.is-copied {
+      color: #03060d;
+      background: $neon;
+      border-color: $neon;
+    }
+
+    @include light {
+      background-color: $accent-dark;
+      color: white;
+      border: none;
+
+      &:hover { 
+         box-shadow: 0 6px 22px rgba(129,140,248,0.4); 
+      }
+
+      &.is-copied {
+        color: #fff;
+        background: $accent-dark;
+        border-color: $accent-dark;
+      }
+    }
+  }
+
+  &__body {
+    img {
+      max-width: 100%;
+      max-height: 88vh;
+      border-radius: 12px;
+      display: block;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    }
+  }
+}
+.diploma-modal__code[hidden] {
+  display: none;
+}
+body.modal-open { overflow: hidden; }
