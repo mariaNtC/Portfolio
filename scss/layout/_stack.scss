@@ -671,7 +671,7 @@
   background: rgba(127, 255, 233, 0.12);
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   color: $neon;
-  font-size: 14px;
+  font-size: 16px;
   transition: background $transition-fast, transform $transition-fast;
 
   // Borde hexagonal — hexágono de fondo apenas más grande
@@ -756,7 +756,7 @@
   position: absolute;
   transform: translateX(0%) scale(0.92);
   width: 220px;
-  padding: 16px 18px;
+  padding: 16px 10px;
   border-radius: 14px;
   background: rgba(5, 11, 20, 0.96);
   border: 1px solid rgba(127, 255, 233, 0.3);
@@ -909,7 +909,12 @@
   margin-top: 40px;
 }
   .edu-timeline-wrap { 
+  max-width: 1300px;
   margin: 60px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   padding: 0 0px;
 }
   
@@ -917,7 +922,7 @@
     flex-direction: column;
     align-items: flex-start;
     min-height: 0;
-    gap: 0;
+    gap: 16px;
     padding-left: 21px;
 
     &::before {
@@ -990,6 +995,7 @@
     margin-left: 28px;          // = ancho de la perpendicular, pega el hex a su fin
     flex-shrink: 0;
   }
+ 
 
   .edu-node .edu-node__label {
     width: 120px;
@@ -998,55 +1004,58 @@
     flex: 1;
   }
 
-  // Card: debajo del nodo, empuja el contenido al expandir
+   // Al expandir: el hexágono se acerca a la línea (izquierda) y desaparece
+  .edu-node[aria-expanded="true"] .edu-hex {
+    transform: translateX(-20px) rotate(90deg) scale(0.6);
+    opacity: 1;
+    transition: transform 0.35s ease, opacity 0.3s ease;
+  }
+
+// Card: posicionada en la fila del nodo (sobre el hexágono), al final
+  // de la línea perpendicular. Aparece superpuesta, no debajo.
   .edu-item--top .edu-card,
   .edu-item--bottom .edu-card {
-    position: relative;
-    transform: none;
-    left: -20px;
-    width: 100% ;
-    max-width: 200px;
+    position: absolute;
+    top: 36px;                  // misma altura que el centro del hexágono
+    left: 20px;                 // al final de la perpendicular (línea 0 + ancho 28)
+    transform: translateY(-50%) translateX(-10%) scale(0.85);
+    width: calc(100% - 30px);
+    max-width: 220px;
     text-align: left;
     opacity: 0;
     pointer-events: none;
-    max-height: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    overflow: hidden;
-    border-width: 0;
-    transition: max-height .4s ease, opacity .3s ease, padding .3s ease, margin .3s ease;
+    z-index: 30;
+    transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 
-    // Línea desde el vértice del hexágono hacia la card
-    &::before {
-      content: "";
-      position: absolute;
-      left: 21px;
-      top: -14px;
-      width: 2px;
-      height: 14px;
-      background: $neon;
-      opacity: 0;
-      transition: opacity .3s ease;
-      @include light { background: $accent-dark; }
-    }
+    // Reset de lo que tenías de la versión "desplegable"
+    max-height: none;
+    overflow: visible;
+    border-width: 1px;
+    padding: 16px 18px;
   }
+ 
 
+  // Al expandir: la card aparece centrada en la fila, creciendo desde chico
   .edu-node[aria-expanded="true"] ~ .edu-card {
     opacity: 1;
+    padding: 10px;
+    text-align: center;
     pointer-events: auto;
-    max-height: 320px;
-    margin-top: 14px;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    border-width: 1px;
-
-    &::before { opacity: 1; }
+    transform: translateY(-50%) scale(1);
   }
 }
 
-@media (max-height: 350px) and (max-width: 850px) and (orientation: landscape) {
-  .edu-timeline{
-    left: 100px;
+// Mobile apaisado — landscape en pantallas de poca altura
+@media (max-height: 500px) and (orientation: landscape) {
+  #stack {
+    // Padding simétrico — elimina el hueco derecho y centra el contenido
+    padding: 20px 150px;
+  }
+
+  // El timeline horizontal centrado y con ancho controlado
+  .edu-timeline-wrap {
+    max-width: 100%;
+    padding: 0 20px;
   }
 }
 

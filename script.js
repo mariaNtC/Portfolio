@@ -663,6 +663,7 @@ document.addEventListener('DOMContentLoaded', () => {
       goTo(Math.min(current, maxIndex()))
     }, 150)
   })
+  
 
   // ── Init ──
   buildDots()
@@ -831,8 +832,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // ══════════════════════════════════════════
   // RESIZE
   // ══════════════════════════════════════════
-  const resize = () => {
-    canvas.width  = section.offsetWidth
+ const resize = () => {
+    canvas.width  = document.documentElement.clientWidth   // ancho del viewport
     canvas.height = section.offsetHeight
     draw()
   }
