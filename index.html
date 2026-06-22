@@ -112,15 +112,31 @@
       </div>
 
 
-      <div class="logo-header">
-        <div class="logo-img-container" >
-          
-          <img class="logo-img" src="./images/logo.svg" alt="Mariano Corino logo" width="42" height="42">
-          <img class="logo-img-light" src="./images/logo2.svg" alt="Mariano Corino logo" width="42" height="42">
-          <span class="logo-text">MARIANO TOMÁS CORINO</span> 
-          
-        </div>
-      </div>
+   <div class="logo-header">
+  <div class="logo-img-container">
+    <svg class="logo-img" data-name="logo-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320.03 279.42">
+      <defs>
+        <!-- Degradado neon (tema oscuro) -->
+        <linearGradient id="logo-grad-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#d0faf3"/>          
+          <stop offset="100%" stop-color="#4ccbb7"/>
+        </linearGradient>
+        <!-- Degradado accent (tema claro) -->
+        <linearGradient id="logo-grad-light" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#818cf8"/>
+          <stop offset="100%" stop-color="#4f46e5"/>
+        </linearGradient>
+      </defs>
+      <title>Logo MTC</title>
+      <path d="M301.46,52.38l-22.2,38.45a2.77,2.77,0,0,0,2.4,4.16h11.72a2.77,2.77,0,0,1,2.4,4.16L227.86,216.78a2.81,2.81,0,0,0,0,2.78l24.08,41.71a2.78,2.78,0,0,0,4.81,0l119-206.12a2.77,2.77,0,0,0-2.4-4.16H303.87A2.78,2.78,0,0,0,301.46,52.38Z" transform="translate(-56.09 -50.99)"/>
+      <path d="M138.56,95h10.79a2.77,2.77,0,0,0,2.4-4.16l-22.2-38.45A2.78,2.78,0,0,0,127.14,51H58.87a2.77,2.77,0,0,0-2.4,4.16l118.4,205.07a2.77,2.77,0,0,0,4.8,0l23.94-41.46a2.76,2.76,0,0,0,0-2.78L136.16,99.15A2.77,2.77,0,0,1,138.56,95Z" transform="translate(-56.09 -50.99)"/>
+      <path d="M189.34,286.82,213.71,329a2.77,2.77,0,0,0,4.8,0l24.23-41.95a2.75,2.75,0,0,0,0-2.77l-24.37-42.21a2.77,2.77,0,0,0-4.8,0l-24.23,42A2.79,2.79,0,0,0,189.34,286.82Z" transform="translate(-56.09 -50.99)"/>
+      <path d="M189.41,150.17l24.37,42.2a2.77,2.77,0,0,0,4.8,0l24.23-42a2.75,2.75,0,0,0,0-2.77l-24.37-42.2a2.77,2.77,0,0,0-4.8,0l-24.23,42A2.79,2.79,0,0,0,189.41,150.17Z" transform="translate(-56.09 -50.99)"/>
+      <path d="M256.67,93.62l22.54-38.45A2.78,2.78,0,0,0,276.82,51H155.26a2.78,2.78,0,0,0-2.4,4.18L175.4,93.62A2.77,2.77,0,0,0,177.79,95h76.49A2.75,2.75,0,0,0,256.67,93.62Z" transform="translate(-56.09 -50.99)"/>
+    </svg>
+    <span class="logo-text">MARIANO TOMÁS CORINO</span>
+  </div>
+</div>
   
         <div class="toggle-container">
 
@@ -450,12 +466,57 @@
 
             <!-- ─── Cards categoría: WEBS ─── -->
             <article class="project-card" data-category="webs">
-              <div class="project-card__media" aria-hidden="true"></div>
+              <div class="project-card__media">
+                <img src="images/projects/crteam.webp"
+                    alt="Captura del sitio web Coghlan Running Team"
+                    class="project-card__img" loading="lazy" />
+              </div>
               <div class="project-card__body">
                 <span class="project-card__tag">Webs</span>
-                <h3 class="project-card__title">Título del proyecto</h3>
-                <p class="project-card__desc">Breve descripción del proyecto.</p>
-              </div>
+                <h3 class="project-card__title">Coghlan Running Team</h3>
+                <p class="project-card__desc">
+                  Sitio web multipágina para un equipo de running de CABA. Incluye
+                  carruseles, secciones de identidad, eventos, galería y tienda, con
+                  diseño responsive y animaciones al scroll.
+                </p>
+
+                <!-- Tecnologías -->
+                <ul class="project-card__tech" aria-label="Tecnologías utilizadas">
+                  <li class="project-card__tech-item">
+                    <img src="https://img.icons8.com/?size=100&id=23028&format=png&color=FFFFFF" alt="HTML5" />
+                    <span>HTML5</span>
+                  </li>
+                  <li class="project-card__tech-item">
+                    <img src="https://img.icons8.com/?size=100&id=H997wGMPVphe&format=png&color=FFFFFF" alt="SCSS" />
+                    <span>SCSS</span>
+                  </li>
+                  <li class="project-card__tech-item">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap" />
+                    <span>Bootstrap 5</span>
+                  </li>
+                  <li class="project-card__tech-item">
+                    <img src="https://img.icons8.com/?size=100&id=39854&format=png&color=FFFFFF" alt="JavaScript" />
+                    <span>JavaScript</span>
+                  </li>
+                  <li class="project-card__tech-item">
+                    <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+                    <span>AOS</span>
+                  </li>
+                </ul>
+
+                <!-- Link a la web -->
+                <div class="project-card__actions">
+                  <a href="https://mariantc.github.io/Coghlan-Running-Team/"
+                    class="project-card__link" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                    Ver sitio
+                  </a>
+                  <a href="https://github.com/mariaNtC/Coghlan-Running-Team"
+                    class="project-card__link project-card__link--repo" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-github" aria-hidden="true"></i>
+                    Ver repo
+                  </a>
+                </div>
             </article>
 
             <article class="project-card" data-category="webs">
@@ -478,11 +539,39 @@
 
             <!-- ─── Cards categoría: DESIGN ─── -->
             <article class="project-card" data-category="design">
-              <div class="project-card__media" aria-hidden="true"></div>
+              <div class="project-card__media">
+                <img src="images/projects/rot-logo.webp"
+                    alt="Logo de la marca RÖT"
+                    class="project-card__img__rot" loading="lazy" />
+              </div>
               <div class="project-card__body">
                 <span class="project-card__tag">Diseño</span>
-                <h3 class="project-card__title">Título del proyecto</h3>
-                <p class="project-card__desc">Breve descripción del proyecto.</p>
+                <h3 class="project-card__title">Identidad visual de marca RÖT</h3>
+                <p class="project-card__desc">
+                  Identidad de marca para un e-commerce de artículos para el hogar:
+                  muebles y estanterías de madera, aromatizantes y jabones. Incluye
+                  logotipo, isotipo, paleta, tipografías y aplicaciones.
+                </p>
+
+                <ul class="project-card__tech" aria-label="Herramientas utilizadas">
+                  <li class="project-card__tech-item">
+                    <img src="https://img.icons8.com/?size=100&id=3571&format=png&color=FFFFFF" alt="Illustrator" />
+                    <span>Illustrator</span>
+                  </li>
+                  <li class="project-card__tech-item">
+                    <img src="https://img.icons8.com/?size=100&id=3570&format=png&color=FFFFFF" alt="Photoshop" />
+                    <span>Photoshop</span>
+                  </li>
+                </ul>
+
+                <div class="project-card__actions">
+                  <a type="button" class="project-card__link__design"
+                          data-brandmodal
+                          data-brand-img="images/projects/rot-brandbook.webp">
+                    <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                    Ver más
+                  </a>
+                </div>
               </div>
             </article>
 
@@ -996,6 +1085,44 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal de identidad de marca -->
+<div class="brand-modal" id="brand-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Identidad de marca">
+  <div class="brand-modal__overlay" data-brand-close></div>
+  <div class="brand-modal__content">
+    <button type="button" class="brand-modal__close" data-brand-close aria-label="Cerrar">
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    </button>
+
+    <div class="brand-modal__scroll">
+      <!-- Imagen — click para expandir -->
+      <img id="brand-modal-img" class="brand-modal__img" src="" alt="Identidad visual de marca RÖT" />
+
+      <!-- Descripción detallada -->
+      <div class="brand-modal__text">
+        <h4>RÖT — Identidad visual</h4>
+        <p>
+          RÖT nace como una marca de artículos para el hogar centrada en la
+          calidez de lo natural y lo hecho a mano: muebles y estanterías de
+          madera, aromatizantes y jabones. La identidad busca transmitir
+          esa sensación de hogar, calma y materia noble.
+        </p>
+        <p>
+          La paleta terracota, crema y marrón evoca la tierra, la madera y
+          el barro cocido, con una estética de inspiración wabi-sabi donde
+          la imperfección y lo orgánico son protagonistas. El isotipo —una
+          flor en maceta integrada al monograma— refuerza el vínculo con lo
+          botánico y lo doméstico.
+        </p>
+        <p>
+          El sistema combina una tipografía geométrica para el logotipo con
+          u  serif editorial y un toque manuscrito, equilibrando carácter
+          artesanal y legibilidad moderna.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 
   <script src="script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>

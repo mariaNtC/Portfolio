@@ -1082,3 +1082,76 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 })()
+
+// ==============================
+// MODAL DE IDENTIDAD DE MARCA
+// ==============================
+;(function () {
+  const modal = document.getElementById('brand-modal')
+  if (!modal) return
+
+  const modalImg = document.getElementById('brand-modal-img')
+  const scrollBox = modal.querySelector('.brand-modal__scroll')
+  const triggers = document.querySelectorAll('[data-brandmodal]')
+
+  const openModal = (imgSrc) => {
+    modalImg.src = imgSrc
+    modal.classList.remove('is-zoomed')
+    modal.setAttribute('aria-hidden', 'false')
+    document.body.classList.add('modal-open')
+  }
+
+  const closeModal = () => {
+    modal.setAttribute('aria-hidden', 'true')
+    modal.classList.remove('is-zoomed')
+    document.body.classList.remove('modal-open')
+    setTimeout(() => { modalImg.src = '' }, 300)
+  }
+
+  // Click en la imagen → zoom hacia el punto clickeado
+  modalImg.addEventListener('click', (e) => {
+    const isZoomed = modal.classList.contains('is-zoomed')
+
+    if (!isZoomed) {
+      // Calcular en qué porcentaje de la imagen cayó el click
+      const rect = modalImg.getBoundingClientRect()
+      const clickX = (e.clientX - rect.left) / rect.width   // 0 a 1
+      const clickY = (e.clientY - rect.top) / rect.height   // 0 a 1
+
+      // Agrandar
+      modal.classList.add('is-zoomed')
+
+      // Tras el reflow, scrollear para centrar el punto clickeado
+      requestAnimationFrame(() => {
+        const newW = modalImg.offsetWidth
+        const newH = modalImg.offsetHeight
+        // Posición objetivo del punto dentro de la imagen ampliada
+        const targetX = clickX * newW
+        const targetY = clickY * newH
+        // Centrar ese punto en el viewport del contenedor
+        scrollBox.scrollLeft = targetX - scrollBox.clientWidth / 2
+        scrollBox.scrollTop  = targetY - scrollBox.clientHeight / 2
+      })
+    } else {
+      // Volver a normal
+      modal.classList.remove('is-zoomed')
+      scrollBox.scrollLeft = 0
+      scrollBox.scrollTop = 0
+    }
+  })
+
+  triggers.forEach(btn => {
+    btn.addEventListener('click', () => {
+      openModal(btn.dataset.brandImg)
+    })
+  })
+
+  modal.querySelectorAll('[data-brand-close]').forEach(el => {
+    el.addEventListener('click', closeModal)
+  })
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+      closeModal()
+    }
+  })
+})()
