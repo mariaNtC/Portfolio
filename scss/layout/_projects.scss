@@ -17,10 +17,7 @@
   scroll-snap-align: start;
   overflow: hidden;
 }
-
-.projects-content {
-  
-  width: 100%;
+.projects-content {    
   max-width: 900px;
   display: flex;
   flex-direction: column;
@@ -28,6 +25,7 @@
   // Altura total controlada para que el grid pueda calcular su scroll interno
   height: calc(100vh - 80px);
   max-height: 760px;
+  cursor: default;
 }
 
 // ==============================
@@ -35,17 +33,21 @@
 // ==============================
 .projects-header {
   text-align: center;
+   &:hover .projects-subtitle {
+    opacity: 1;
+  }
 }
 
 .projects-title {
-  font-family: $font-title;
+  font-family: $font-title;  
   font-size: clamp(1.6rem, 3vw, 2.4rem);
   font-weight: 400;
   letter-spacing: 0.08em;
   margin: 0 0 8px;
-  color: $text-dark;
-
-  @include light { color: $text-light; }
+  padding: 2px 0 6px;
+  color: $text-dark; 
+  background:$dark-gradiant-row;
+  @include light { background:$light-gradiant-row; color: $text-light; }
 }
 
 .projects-subtitle {
@@ -54,9 +56,14 @@
   letter-spacing: 0.12em;
   opacity: 0.45;
   margin: 0;
+  cursor: default;
   color: $text-dark;
-
+  transition: opacity $transition-fast;
   @include light { color: $text-light; }
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
 // ==============================
@@ -280,7 +287,10 @@
     border-color: rgba(129, 140, 248, 0.25);
   }
 
- 
+ &-CRTienda {
+  background-color: transparent;
+  border: none;
+ }
 }
 
 // ── Body ──
@@ -319,6 +329,7 @@
   font-size: 1.15rem;
   font-weight: 400;
   letter-spacing: 0.06em;
+  padding: 3px 12px;
   margin: 0;
   color: $text-dark;
 
@@ -333,6 +344,7 @@
   line-height: 1.55;
   opacity: 0.65;
   margin: 0;
+  padding: 0 24px;
   color: $text-dark;
 
   @include light { color: $text-light; }
@@ -348,7 +360,7 @@
 // Lista de tecnologías
 .project-card__tech {
   list-style: none;
-  margin: 12px 0 0;
+  margin: 8px 0 6px;
   padding: 0;
   display: flex;
   justify-content: center;
@@ -408,7 +420,7 @@
 .project-card__actions {
   display: flex;
   gap: 4px;
-  margin-top: 16px;
+  margin-top: 8px;
 }
 
 // Botón "Ver sitio"
@@ -428,6 +440,7 @@
   font-size: 0.8rem;
   text-decoration: none;
   color: #03060d;
+  cursor: pointer;
   background: $neon;
   transition: transform $transition-fast, box-shadow $transition-fast;
 
@@ -441,7 +454,24 @@
     background: $accent-dark;
     &:hover { box-shadow: $glow-light-strong; }
   }
+
+  &--download {
+    border: none;
+      border-start-start-radius: 10px;
+      border-end-start-radius: 50px;
+      border-start-end-radius: 4px;
+      border-end-end-radius: 4px;
+      
+  }
+  &--repo { 
+      border-start-start-radius: 4px;
+      border-end-start-radius: 4px;
+      border-start-end-radius: 10px;
+      border-end-end-radius: 50px;
+  }
+  
 }
+
 
 .project-card__link__design{
   flex: 1;                    // 50% cada uno
@@ -474,12 +504,7 @@
     &:hover { box-shadow: $glow-light-strong; }
   }
 }
-.project-card__link--repo { 
-  border-start-start-radius: 4px;
-  border-end-start-radius: 4px;
-  border-start-end-radius: 10px;
-  border-end-end-radius: 50px;
-}
+
 // ==============================
 // EMPTY STATE
 // ==============================
@@ -605,7 +630,9 @@
       font-weight: 400;
       margin: 0 0 12px;
       color: $neon;
-      @include light { color: $accent-dark; }
+      @include light { 
+          font-weight: 800;
+        color: $accent-dark; }
     }
 
     p {
@@ -632,6 +659,182 @@
   }
 
 body.modal-open { overflow: hidden; }
+
+
+// Labels del botón de descarga — mostrar según dispositivo
+.apk-label-mobile { display: none; }
+.apk-label-desktop { display: inline; }
+
+
+
+// ══════════════════════════════════════════
+// MODAL QR
+// ══════════════════════════════════════════
+.qr-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+
+  &[aria-hidden="false"] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 360px;
+    background: rgba(8, 14, 24, 0.98);
+    border: 1px solid rgba(127, 255, 233, 0.3);
+    border-radius: 16px;
+    padding: 32px 28px 28px;
+    text-align: center;
+    transform: scale(0.92);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    .qr-modal[aria-hidden="false"] & { transform: scale(1); }
+
+    @include light {
+      background: rgba(255, 255, 255, 0.99);
+      border-color: rgba(129, 140, 248, 0.4);
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: rgba(5, 11, 20, 0.9);
+    border: 2px solid $neon;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform $transition-fast;
+
+    &:hover { transform: rotate(90deg); }
+    @include light { border-color: $accent-dark; }
+  }
+
+  &__title {
+    font-family: $font-title;
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin: 0 0 8px;
+    color: $neon;
+    @include light { color: $accent-dark; }
+  }
+
+  &__text {
+    font-family: $font-body;
+    font-size: 0.82rem;
+    opacity: 0.7;
+    margin: 0 0 20px;
+    color: $text-dark;
+    @include light { color: $text-light; }
+  }
+
+  &__qr {
+    width: 200px;
+    height: 200px;
+    border-radius: 12px;
+    border: 1px solid $neon;
+    display: block;
+    margin: 0 auto 20px;
+    background: transparent;
+    padding: 10px;
+    @include light {
+      border: 1px solid $accent-dark;
+    }
+  }
+
+  &__direct {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-family: $font-body;
+    font-size: 0.82rem;
+    text-decoration: none;
+    color: #03060d;
+    background: $neon;
+    transition: transform $transition-fast;
+
+    &:hover { transform: translateY(-2px); }
+    @include light { color: #fff; background: $accent-dark; }
+  }
+  // Separador "o"
+  &__divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 18px 0;
+    color: $text-dark;
+    opacity: 0.4;
+    font-family: $font-body;
+    font-size: 0.75rem;
+
+    @include light { color: $text-light; }
+
+    &::before,
+    &::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: currentColor;
+    }
+  }
+
+  // Botón "Ver app en desktop" — estilo secundario (borde)
+  &__web {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-family: $font-body;
+    font-size: 0.82rem;
+    text-decoration: none;
+    color: $neon;
+    background: transparent;
+    border: 1px solid rgba(127, 255, 233, 0.4);
+    transition: background $transition-fast, transform $transition-fast;
+
+    &:hover {
+      background: rgba(127, 255, 233, 0.1);
+      transform: translateY(-2px);
+    }
+
+    @include light {
+      color: $accent-dark;
+      border-color: rgba(129, 140, 248, 0.4);
+      &:hover { background: rgba(129, 140, 248, 0.1); }
+    }
+  }
+}
 
 // ==============================
 // RESPONSIVE
@@ -711,6 +914,8 @@ body.modal-open { overflow: hidden; }
     &::before { font-size: 32px; }
   }
 
+  .apk-label-desktop { display: none; }
+  .apk-label-mobile { display: inline; }
   
 }
 

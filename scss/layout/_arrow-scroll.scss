@@ -13,7 +13,7 @@
 
   .scroll-arrow-container {
     position: relative;
-    margin-top: 60px;
+    margin-top: 45px;
     cursor: pointer;    
     display: flex;
     justify-content: center;
@@ -22,8 +22,8 @@
     .scroll-arrow{
         position:absolute;  
         display: flex;        
-        width: 18px;
-        opacity: 0.6;
+        width: 24px;
+        opacity: 1;
         transition: opacity 1s ease;
         animation: mainLogoGlow 2.5s ease-in-out infinite;
         @include light  {
@@ -32,7 +32,7 @@
     }  
     .scroll-arrow-light {
     position:absolute;   
-    width: 18px;
+    width: 24px;
     opacity: 0;
     transition: opacity 1s ease;
     animation: mainLogoGlowLight 2.5s ease-in-out infinite;
@@ -76,7 +76,7 @@
             inset: -1px;
             border-radius: 12px;
             opacity: 0;
-            transform: scale(2.5);
+            transform: scale(3);
             transition: $transition-fast;
             pointer-events: none;
                 @include light {      
@@ -173,8 +173,8 @@
 }
 .scroll-arrow-container:hover .scroll-arrow-light{    
     opacity: 0;
-    transform: scale(1.1);
-    transition: 0.3s;   
+    transform: scale(1.3);
+    transition: all 0.3s;   
       @include light  {
         opacity: 1;        
         filter: 
@@ -184,13 +184,13 @@
 }
 .scroll-arrow-container:hover .scroll-arrow{    
     opacity: 1;
-    transform: scale(1.1);
+    transform: scale(1.3);
     transition: 0.3s;
     filter: 
         drop-shadow(0 0 2px rgba(127, 255, 233, 0.3))
         drop-shadow(0 0 2px rgba(127, 255, 233, 0.3));
             @include light  {
-                opacity: 1;       
+                opacity: 0;       
             }
 }
 @media (max-width: 650px) {

@@ -79,17 +79,21 @@ $accent-dark-gradiant-l: linear-gradient(
 $dark-gradiant-row: linear-gradient(
                                         135deg,
                                         #00000000 0%,
+                                        #00000000 10%,
                                         #0000003f 20%,
                                         #000000 50%,
                                         #0000003f 80%,
+                                        #00000000 90%,
                                         #00010500 100%
                                         );
 $light-gradiant-row: linear-gradient(
                                         135deg,
                                         #00000000 0%,
-                                        #ffffff3f 20%,
+                                        #00000000 10%,
+                                        #ffffff3f 35%,
                                         #ffffff 50%,
-                                        #ffffff3f 80%,
+                                        #ffffff3f 65%,
+                                        #00000000 90%,
                                         #00010500 100%
                                         );
 

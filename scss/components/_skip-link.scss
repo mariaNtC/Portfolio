@@ -1,0 +1,29 @@
+// ══════════════════════════════════════════
+// SKIP-LINK — accesibilidad (saltar al contenido)
+// Invisible hasta que recibe foco con Tab
+// ══════════════════════════════════════════
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: 12px;
+  z-index: 100000;
+  padding: 10px 20px;
+  border-radius: 0 0 10px 10px;
+  font-family: $font-body;
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: #03060d;
+  background: $neon;
+  transition: top 0.25s ease;
+
+  &:focus {
+    top: 0;
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+
+  [data-theme="light"] & {
+    color: #fff;
+    background: $accent-dark;
+  }
+}

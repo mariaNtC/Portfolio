@@ -17,6 +17,28 @@ let currentIndex = 0
 let isScrolling  = false
 let scrollTimeout = null
 
+
+// ==============================
+// LOADER INICIAL
+// ==============================
+;(function () {
+  const loader = document.getElementById('page-loader')
+  if (!loader) return
+
+  const hideLoader = () => {
+    loader.classList.add('is-loaded')
+    // Lo removemos del DOM tras la transición
+    setTimeout(() => loader.remove(), 700)
+  }
+
+  // Espera a que TODOS los recursos (imágenes, fuentes, CSS) terminen
+  if (document.readyState === 'complete') {
+    hideLoader()
+  } else {
+    window.addEventListener('load', hideLoader)
+  }
+})()
+
 // ==============================
 // INIT NAV
 // ==============================
@@ -1152,6 +1174,48 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
       closeModal()
+    }
+  })
+})()
+
+// ==============================
+// DESCARGA APK / QR
+// ==============================
+;(function () {
+  const qrModal = document.getElementById('qr-modal')
+  const downloadBtns = document.querySelectorAll('[data-apk-download]')
+  if (!qrModal || !downloadBtns.length) return
+
+  const qrImg      = document.getElementById('qr-modal-img')
+  const directLink = document.getElementById('qr-modal-direct')
+  const webLink    = document.getElementById('qr-modal-web')
+
+  const openQR = (qrSrc, apkUrl, webUrl) => {
+    qrImg.src = qrSrc
+    directLink.href = apkUrl
+    webLink.href = webUrl
+    qrModal.setAttribute('aria-hidden', 'false')
+    document.body.classList.add('modal-open')
+  }
+
+  const closeQR = () => {
+    qrModal.setAttribute('aria-hidden', 'true')
+    document.body.classList.remove('modal-open')
+  }
+
+  // Siempre abre el modal — las opciones de descarga están adentro
+  downloadBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      openQR(btn.dataset.qrImg, btn.dataset.apkUrl, btn.dataset.appWeb)
+    })
+  })
+
+  qrModal.querySelectorAll('[data-qr-close]').forEach(el => {
+    el.addEventListener('click', closeQR)
+  })
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && qrModal.getAttribute('aria-hidden') === 'false') {
+      closeQR()
     }
   })
 })()

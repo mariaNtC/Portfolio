@@ -1,0 +1,46 @@
+// ══════════════════════════════════════════
+// LOADER INICIAL
+// ══════════════════════════════════════════
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $bg-dark;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+
+  [data-theme="light"] & {
+    background: $bg-light;
+  }
+
+  // Estado "cargado" — se desvanece y deja de bloquear
+  &.is-loaded {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  &__logo {
+    width: 90px;
+    height: auto;
+    fill: url(#loader-grad);
+    animation: loaderPulse 1.6s ease-in-out infinite;
+
+    [data-theme="light"] & {
+      fill: $accent-light;
+    }
+  }
+}
+
+@keyframes loaderPulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

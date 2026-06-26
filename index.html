@@ -87,15 +87,34 @@
     "jobTitle": "Desarrollador de Apps",
     "description": "Desarrollador de aplicaciones y diseñador web especializado en tecnologías frontend modernas.",
     "sameAs": [
-      "https://github.com/TU_USUARIO",
-      "https://linkedin.com/in/TU_USUARIO",
-      "https://instagram.com/TU_USUARIO"
+      "https://github.com/mariaNtC",
+      "https://www.linkedin.com/in/marianocorino/",
+      "https://instagram.com/"
     ]
   }
   </script>
 
 </head>
 <body>
+
+    <a href="#main-content" class="skip-link">Saltar al contenido</a>
+
+  <!-- Loader inicial -->
+<div class="page-loader" id="page-loader" aria-hidden="true">
+  <svg class="page-loader__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320.03 279.42">
+    <defs>
+      <linearGradient id="loader-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#d0faf3"/>
+        <stop offset="100%" stop-color="#4ccbb7"/>
+      </linearGradient>
+    </defs>
+    <path d="M301.46,52.38l-22.2,38.45a2.77,2.77,0,0,0,2.4,4.16h11.72a2.77,2.77,0,0,1,2.4,4.16L227.86,216.78a2.81,2.81,0,0,0,0,2.78l24.08,41.71a2.78,2.78,0,0,0,4.81,0l119-206.12a2.77,2.77,0,0,0-2.4-4.16H303.87A2.78,2.78,0,0,0,301.46,52.38Z" transform="translate(-56.09 -50.99)"/>
+    <path d="M138.56,95h10.79a2.77,2.77,0,0,0,2.4-4.16l-22.2-38.45A2.78,2.78,0,0,0,127.14,51H58.87a2.77,2.77,0,0,0-2.4,4.16l118.4,205.07a2.77,2.77,0,0,0,4.8,0l23.94-41.46a2.76,2.76,0,0,0,0-2.78L136.16,99.15A2.77,2.77,0,0,1,138.56,95Z" transform="translate(-56.09 -50.99)"/>
+    <path d="M189.34,286.82,213.71,329a2.77,2.77,0,0,0,4.8,0l24.23-41.95a2.75,2.75,0,0,0,0-2.77l-24.37-42.21a2.77,2.77,0,0,0-4.8,0l-24.23,42A2.79,2.79,0,0,0,189.34,286.82Z" transform="translate(-56.09 -50.99)"/>
+    <path d="M189.41,150.17l24.37,42.2a2.77,2.77,0,0,0,4.8,0l24.23-42a2.75,2.75,0,0,0,0-2.77l-24.37-42.2a2.77,2.77,0,0,0-4.8,0l-24.23,42A2.79,2.79,0,0,0,189.41,150.17Z" transform="translate(-56.09 -50.99)"/>
+    <path d="M256.67,93.62l22.54-38.45A2.78,2.78,0,0,0,276.82,51H155.26a2.78,2.78,0,0,0-2.4,4.18L175.4,93.62A2.77,2.77,0,0,0,177.79,95h76.49A2.75,2.75,0,0,0,256.67,93.62Z" transform="translate(-56.09 -50.99)"/>
+  </svg>
+</div>
   
 
   <!-- Indicador de sección -->
@@ -106,7 +125,7 @@
       <div class="nav-animator">
         <div class="nav-track">
           <div class="nav-past"></div>
-          <h1 class="nav-title"></h1>
+          <span class="nav-title"></span>
           <div class="nav-future"></div>
         </div>
       </div>
@@ -236,13 +255,13 @@
           </div>
         
         <div  class="scroll-arrow-container">          
-          <img class="scroll-arrow" src="./images/arrowD.svg" alt="logo">
-          <img class="scroll-arrow-light" src="./images/arrowDLight.svg" alt="logo">
+          <img class="scroll-arrow" src="./images/arrow.svg" alt="logo">
+          <img class="scroll-arrow-light" src="./images/arrow2.svg" alt="logo">
         </div>        
       </nav>
 
   <!-- Secciones -->
-  <main>
+  <main id="main-content">
 
     <section id="home" data-title="Inicio">
       <div class="home-content-warp">
@@ -447,14 +466,57 @@
 
             <!-- ─── Cards categoría: CODE ─── -->
             <article class="project-card" data-category="code">
-              <div class="project-card__media" aria-hidden="true"></div>
+          
               <div class="project-card__body">
                 <span class="project-card__tag">Code</span>
-                <h3 class="project-card__title">Título del proyecto</h3>
-                <p class="project-card__desc">Breve descripción del proyecto.</p>
+                <h3 class="project-card__title">CRTienda — App e-commerce</h3>
+                <p class="project-card__desc">
+                  App móvil de e-commerce para el Coghlan Running Team. Catálogo por
+                  categorías, carrito, autenticación, gestión de sesión y perfil.
+                  Construida con React Native y Expo.
+                </p>
+
+                <ul class="project-card__tech" aria-label="Tecnologías utilizadas">
+                  <li class="project-card__tech-item">
+                    <img src="https://img.icons8.com/?size=100&id=35989&format=png&color=FFFFFF" alt="React Native" />
+                    <span>React Native</span>
+                  </li>
+                  <li class="project-card__tech-item">
+                    <i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i>
+                    <span>Expo</span>
+                  </li>
+                  <li class="project-card__tech-item">
+                    <img src="https://img.icons8.com/?size=100&id=rIVA76uxbjJj&format=png&color=FFFFFF" alt="Redux" />
+                    <span>Redux</span>
+                  </li>
+                  <li class="project-card__tech-item">
+                    <img src="https://img.icons8.com/?size=100&id=62452&format=png&color=FFFFFF" alt="Firebase" />
+                    <span>Firebase</span>
+                  </li>
+                </ul>
+
+               <div class="project-card__actions">
+                 
+                  <button type="button"
+                          class="project-card__link project-card__link--download"
+                          data-apk-download
+                          data-apk-url="https://github.com/mariaNtC/TiendaAppCRT/releases/download/v1.0.0/AppCRTienda.apk"
+                          data-qr-img="images/projects/crtienda-qr.webp"
+                          data-app-web="URL_DE_LA_APP_WEB">
+                    <i class="fa-solid fa-download" aria-hidden="true"></i>
+                    <span class="apk-label-desktop">Obtener APP Mobile</span>
+                    <span class="apk-label-mobile">Obtener APP</span>
+                  </button>
+                   <a href="https://github.com/mariaNtC/TiendaAppCRT.git"
+                    class="project-card__link project-card__link--repo" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-github" aria-hidden="true"></i>
+                    Ver repo
+                  </a>
+                </div>
               </div>
             </article>
 
+            <!-- ══════════════════════
             <article class="project-card" data-category="code">
               <div class="project-card__media" aria-hidden="true"></div>
               <div class="project-card__body">
@@ -463,14 +525,10 @@
                 <p class="project-card__desc">Breve descripción del proyecto.</p>
               </div>
             </article>
-
+            ─── -->
             <!-- ─── Cards categoría: WEBS ─── -->
             <article class="project-card" data-category="webs">
-              <div class="project-card__media">
-                <img src="images/projects/crteam.webp"
-                    alt="Captura del sitio web Coghlan Running Team"
-                    class="project-card__img" loading="lazy" />
-              </div>
+            
               <div class="project-card__body">
                 <span class="project-card__tag">Webs</span>
                 <h3 class="project-card__title">Coghlan Running Team</h3>
@@ -511,7 +569,7 @@
                     <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
                     Ver sitio
                   </a>
-                  <a href="https://github.com/mariaNtC/Coghlan-Running-Team"
+                  <a href="https://github.com/mariaNtC/Coghlan-Running-Team.git"
                     class="project-card__link project-card__link--repo" target="_blank" rel="noopener noreferrer">
                     <i class="fa-brands fa-github" aria-hidden="true"></i>
                     Ver repo
@@ -519,14 +577,7 @@
                 </div>
             </article>
 
-            <article class="project-card" data-category="webs">
-              <div class="project-card__media" aria-hidden="true"></div>
-              <div class="project-card__body">
-                <span class="project-card__tag">Webs</span>
-                <h3 class="project-card__title">Título del proyecto</h3>
-                <p class="project-card__desc">Breve descripción del proyecto.</p>
-              </div>
-            </article>
+            <!-- ══════════════════════
 
             <article class="project-card" data-category="webs">
               <div class="project-card__media" aria-hidden="true"></div>
@@ -537,6 +588,15 @@
               </div>
             </article>
 
+            <article class="project-card" data-category="webs">
+              <div class="project-card__media" aria-hidden="true"></div>
+              <div class="project-card__body">
+                <span class="project-card__tag">Webs</span>
+                <h3 class="project-card__title">Título del proyecto</h3>
+                <p class="project-card__desc">Breve descripción del proyecto.</p>
+              </div>
+            </article>
+             ─── -->
             <!-- ─── Cards categoría: DESIGN ─── -->
             <article class="project-card" data-category="design">
               <div class="project-card__media">
@@ -575,6 +635,8 @@
               </div>
             </article>
 
+            <!-- ══════════════════════
+
             <article class="project-card" data-category="design">
               <div class="project-card__media" aria-hidden="true"></div>
               <div class="project-card__body">
@@ -583,7 +645,7 @@
                 <p class="project-card__desc">Breve descripción del proyecto.</p>
               </div>
             </article>
-
+            ─── -->
             <!-- Estado vacío — se muestra cuando un filtro no tiene resultados -->
             <p class="projects-empty" hidden>No hay proyectos en esta categoría todavía.</p>
 
@@ -753,7 +815,7 @@
                   <p class="edu-card__date">2024 – 2025</p>
                   <a href="./files/diploma-apps.png"
                     class="edu-card__diploma" data-diploma
-                    data-diploma-img="./files/diploma-apps.png"
+                    data-diploma-img="./files/diploma-apps.webp"
                     data-diploma-official="https://pub.coderhouse.com/legacy-certificates/67a9317d2ef356373bdd7be4?lang"
                     target="_blank" rel="noopener noreferrer">
                     <i class="fa-solid fa-scroll" aria-hidden="true"></i> Ver diploma
@@ -774,9 +836,9 @@
                   <h4 class="edu-card__name">Desarrollador React</h4>
                   <p class="edu-card__place">Coder House</p>
                   <p class="edu-card__date">2024</p>
-                  <a href="./files/diploma-react.png"
+                  <a href="./files/diploma-react.webp"
                     class="edu-card__diploma" data-diploma
-                    data-diploma-img="./files/diploma-react.png"
+                    data-diploma-img="./files/diploma-react.webp"
                     data-diploma-official="https://pub.coderhouse.com/legacy-certificates/6710a59b35ecd9b0103b2768?lang"
                     target="_blank" rel="noopener noreferrer">
                     <i class="fa-solid fa-scroll" aria-hidden="true"></i> Ver diploma
@@ -796,9 +858,9 @@
                   <h4 class="edu-card__name">Desarrollador JavaScript</h4>
                   <p class="edu-card__place">Coder House</p>
                   <p class="edu-card__date">2024</p>
-                  <a href="./files/diploma-javascript.png"
+                  <a href="./files/diploma-javascript.webp"
                     class="edu-card__diploma" data-diploma
-                    data-diploma-img="./files/diploma-javascript.png"
+                    data-diploma-img="./files/diploma-javascript.webp"
                     data-diploma-official="https://pub.coderhouse.com/legacy-certificates/66bd0aaa9cd46f29df0d6527?lang"
                     target="_blank" rel="noopener noreferrer">
                     <i class="fa-solid fa-scroll" aria-hidden="true"></i> Ver diploma
@@ -818,9 +880,9 @@
                   <h4 class="edu-card__name">Desarrollador Web</h4>
                   <p class="edu-card__place">Coder House</p>
                   <p class="edu-card__date">2024</p>
-                  <a href="./files/diploma-web.png"
+                  <a href="./files/diploma-web.webp"
                     class="edu-card__diploma" data-diploma
-                    data-diploma-img="./files/diploma-web.png"
+                    data-diploma-img="./files/diploma-web.webp"
                     data-diploma-official="https://pub.coderhouse.com/legacy-certificates/664e5cbc0876bd816e6a62f0?lang"
                     target="_blank" rel="noopener noreferrer">
                     <i class="fa-solid fa-scroll" aria-hidden="true"></i> Ver diploma
@@ -840,9 +902,9 @@
                   <h4 class="edu-card__name">Desarrollador SAP ABAP</h4>
                   <p class="edu-card__place">Universidad Tecnológica Nacional (UTN)</p>
                   <p class="edu-card__date">2021 – 2022</p>
-                  <a href="./files/diploma-sap-abap.png"
+                  <a href="./files/diploma-sap-abap.webp"
                     class="edu-card__diploma" data-diploma
-                    data-diploma-img="./files/diploma-sap-abap.png"
+                    data-diploma-img="./files/diploma-sap-abap.webp"
                     data-diploma-official="https://sigead.utnba.centrodeelearning.com/alumnos/validar_certificado"
                     data-diploma-code="CER-PX4A2A84-692303"
                     target="_blank" rel="noopener noreferrer">
@@ -1034,7 +1096,7 @@
     <div id="footer" class="footer">
       <div class="footer-icon-container">
 
-        <a href="https://instagram.com/TU_USUARIO" target="_blank" rel="noopener noreferrer"
+        <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer"
            class="buton-footer-ig" aria-label="Instagram de Mariano Corino">
           <i class="fa-brands fa-instagram logo-footer" aria-hidden="true"></i>
           <span class="footer-logo-label">Instagram</span>
@@ -1087,42 +1149,68 @@
     </div>
 
     <!-- Modal de identidad de marca -->
-<div class="brand-modal" id="brand-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Identidad de marca">
-  <div class="brand-modal__overlay" data-brand-close></div>
-  <div class="brand-modal__content">
-    <button type="button" class="brand-modal__close" data-brand-close aria-label="Cerrar">
-      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-    </button>
+    <div class="brand-modal" id="brand-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Identidad de marca">
+      <div class="brand-modal__overlay" data-brand-close></div>
+      <div class="brand-modal__content">
+        <button type="button" class="brand-modal__close" data-brand-close aria-label="Cerrar">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
 
-    <div class="brand-modal__scroll">
-      <!-- Imagen — click para expandir -->
-      <img id="brand-modal-img" class="brand-modal__img" src="" alt="Identidad visual de marca RÖT" />
+        <div class="brand-modal__scroll">
+          <!-- Imagen — click para expandir -->
+          <img id="brand-modal-img" class="brand-modal__img" src="" alt="Identidad visual de marca RÖT" />
 
-      <!-- Descripción detallada -->
-      <div class="brand-modal__text">
-        <h4>RÖT — Identidad visual</h4>
-        <p>
-          RÖT nace como una marca de artículos para el hogar centrada en la
-          calidez de lo natural y lo hecho a mano: muebles y estanterías de
-          madera, aromatizantes y jabones. La identidad busca transmitir
-          esa sensación de hogar, calma y materia noble.
-        </p>
-        <p>
-          La paleta terracota, crema y marrón evoca la tierra, la madera y
-          el barro cocido, con una estética de inspiración wabi-sabi donde
-          la imperfección y lo orgánico son protagonistas. El isotipo —una
-          flor en maceta integrada al monograma— refuerza el vínculo con lo
-          botánico y lo doméstico.
-        </p>
-        <p>
-          El sistema combina una tipografía geométrica para el logotipo con
-          u  serif editorial y un toque manuscrito, equilibrando carácter
-          artesanal y legibilidad moderna.
-        </p>
+          <!-- Descripción detallada -->
+          <div class="brand-modal__text">
+            <h4>RÖT — Identidad visual</h4>
+            <p>
+              RÖT nace como una marca de artículos para el hogar centrada en la
+              calidez de lo natural y lo hecho a mano: muebles y estanterías de
+              madera, aromatizantes y jabones. La identidad busca transmitir
+              esa sensación de hogar, calma y materia noble.
+            </p>
+            <p>
+              La paleta terracota, crema y marrón evoca la tierra, la madera y
+              el barro cocido, con una estética de inspiración wabi-sabi donde
+              la imperfección y lo orgánico son protagonistas. El isotipo —una
+              flor en maceta integrada al monograma— refuerza el vínculo con lo
+              botánico y lo doméstico.
+            </p>
+            <p>
+              El sistema combina una tipografía geométrica para el logotipo con
+              u  serif editorial y un toque manuscrito, equilibrando carácter
+              artesanal y legibilidad moderna.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+
+    <!-- Modal QR de descarga -->
+    <div class="qr-modal" id="qr-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Descargar app">
+      <div class="qr-modal__overlay" data-qr-close></div>
+      <div class="qr-modal__content">
+        <button type="button" class="qr-modal__close" data-qr-close aria-label="Cerrar">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+        <h4 class="qr-modal__title">Probá CRTienda</h4>
+        <p class="qr-modal__text">
+          Escaneá el código con la cámara de tu celular para descargar la app.
+          <br><small>App Android · requiere permitir instalación de orígenes desconocidos.</small>
+        </p>
+        <img src=""  id="qr-modal-img" class="qr-modal__qr" alt="Código QR de descarga" />
+        <a id="qr-modal-direct" class="qr-modal__direct" href="" download>
+          <i class="fa-solid fa-download" aria-hidden="true"></i> Descargar APK directo
+        </a>
+
+        <!-- Separador + acceso a la versión desktop -->
+        <div class="qr-modal__divider"><span>o</span></div>
+
+        <a id="qr-modal-web" class="qr-modal__web" href="" target="_blank" rel="noopener noreferrer">
+          <i class="fa-solid fa-desktop" aria-hidden="true"></i> Ver app en desktop
+        </a>
+      </div>
+    </div>
 
   <script src="script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>

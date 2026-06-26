@@ -34,11 +34,16 @@
   font-weight: 400;
   letter-spacing: 0.08em;
   margin: 0;
+  padding: 1px 0 2px;
   text-align: center;
+  width: 100%;
   color: $text-dark;
+  background:$dark-gradiant-row;
+  cursor: default;
 
   @include light {
     color: $text-light;
+    background:$light-gradiant-row;
   }
 }
 
