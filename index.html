@@ -22,7 +22,7 @@
   <meta property="og:url" content="https://marianocorino.dev/" />
   <meta property="og:title" content="Mariano Tomás Corino — Desarrollador de Apps" />
   <meta property="og:description" content="Portfolio de Mariano Tomás Corino, desarrollador de aplicaciones y diseñador web. Especializado en HTML, CSS, SCSS y JavaScript." />
-  <meta property="og:image" content="https://TU-URL/images/og-preview.webp" />
+  <meta property="og:image" content="./images/og-preview.webp" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:locale" content="es_AR" />
@@ -34,7 +34,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Mariano Tomás Corino — Desarrollador de App" />
   <meta name="twitter:description" content="Portfolio de Mariano Tomás Corino, desarrollador de aplicaciones y diseñador web." />
-  <meta name="twitter:image" content="https://TU-URL/images/og-preview.webp" />
+  <meta name="twitter:image" content="./images/og-preview.webp" />
 
   <!-- ==============================
        FAVICON
@@ -98,19 +98,20 @@
 <body>
   <!-- Loader inicial -->
 <div class="page-loader" id="page-loader" aria-hidden="true">
-  <svg class="page-loader__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320.03 279.42">
-    <defs>
-      <linearGradient id="loader-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#d0faf3"/>
-        <stop offset="100%" stop-color="#4ccbb7"/>
-      </linearGradient>
-    </defs>
-    <path d="M301.46,52.38l-22.2,38.45a2.77,2.77,0,0,0,2.4,4.16h11.72a2.77,2.77,0,0,1,2.4,4.16L227.86,216.78a2.81,2.81,0,0,0,0,2.78l24.08,41.71a2.78,2.78,0,0,0,4.81,0l119-206.12a2.77,2.77,0,0,0-2.4-4.16H303.87A2.78,2.78,0,0,0,301.46,52.38Z" transform="translate(-56.09 -50.99)"/>
-    <path d="M138.56,95h10.79a2.77,2.77,0,0,0,2.4-4.16l-22.2-38.45A2.78,2.78,0,0,0,127.14,51H58.87a2.77,2.77,0,0,0-2.4,4.16l118.4,205.07a2.77,2.77,0,0,0,4.8,0l23.94-41.46a2.76,2.76,0,0,0,0-2.78L136.16,99.15A2.77,2.77,0,0,1,138.56,95Z" transform="translate(-56.09 -50.99)"/>
-    <path d="M189.34,286.82,213.71,329a2.77,2.77,0,0,0,4.8,0l24.23-41.95a2.75,2.75,0,0,0,0-2.77l-24.37-42.21a2.77,2.77,0,0,0-4.8,0l-24.23,42A2.79,2.79,0,0,0,189.34,286.82Z" transform="translate(-56.09 -50.99)"/>
-    <path d="M189.41,150.17l24.37,42.2a2.77,2.77,0,0,0,4.8,0l24.23-42a2.75,2.75,0,0,0,0-2.77l-24.37-42.2a2.77,2.77,0,0,0-4.8,0l-24.23,42A2.79,2.79,0,0,0,189.41,150.17Z" transform="translate(-56.09 -50.99)"/>
-    <path d="M256.67,93.62l22.54-38.45A2.78,2.78,0,0,0,276.82,51H155.26a2.78,2.78,0,0,0-2.4,4.18L175.4,93.62A2.77,2.77,0,0,0,177.79,95h76.49A2.75,2.75,0,0,0,256.67,93.62Z" transform="translate(-56.09 -50.99)"/>
-  </svg>
+  <canvas class="page-loader__canvas" id="loader-canvas"></canvas>   
+      <svg class="page-loader__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320.03 279.42">
+        <defs>
+          <linearGradient id="loader-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#d0faf3"/>
+            <stop offset="100%" stop-color="#4ccbb7"/>
+          </linearGradient>
+        </defs>
+        <path d="M301.46,52.38l-22.2,38.45a2.77,2.77,0,0,0,2.4,4.16h11.72a2.77,2.77,0,0,1,2.4,4.16L227.86,216.78a2.81,2.81,0,0,0,0,2.78l24.08,41.71a2.78,2.78,0,0,0,4.81,0l119-206.12a2.77,2.77,0,0,0-2.4-4.16H303.87A2.78,2.78,0,0,0,301.46,52.38Z" transform="translate(-56.09 -50.99)"/>
+        <path d="M138.56,95h10.79a2.77,2.77,0,0,0,2.4-4.16l-22.2-38.45A2.78,2.78,0,0,0,127.14,51H58.87a2.77,2.77,0,0,0-2.4,4.16l118.4,205.07a2.77,2.77,0,0,0,4.8,0l23.94-41.46a2.76,2.76,0,0,0,0-2.78L136.16,99.15A2.77,2.77,0,0,1,138.56,95Z" transform="translate(-56.09 -50.99)"/>
+        <path d="M189.34,286.82,213.71,329a2.77,2.77,0,0,0,4.8,0l24.23-41.95a2.75,2.75,0,0,0,0-2.77l-24.37-42.21a2.77,2.77,0,0,0-4.8,0l-24.23,42A2.79,2.79,0,0,0,189.34,286.82Z" transform="translate(-56.09 -50.99)"/>
+        <path d="M189.41,150.17l24.37,42.2a2.77,2.77,0,0,0,4.8,0l24.23-42a2.75,2.75,0,0,0,0-2.77l-24.37-42.2a2.77,2.77,0,0,0-4.8,0l-24.23,42A2.79,2.79,0,0,0,189.41,150.17Z" transform="translate(-56.09 -50.99)"/>
+        <path d="M256.67,93.62l22.54-38.45A2.78,2.78,0,0,0,276.82,51H155.26a2.78,2.78,0,0,0-2.4,4.18L175.4,93.62A2.77,2.77,0,0,0,177.79,95h76.49A2.75,2.75,0,0,0,256.67,93.62Z" transform="translate(-56.09 -50.99)"/>
+      </svg>    
 </div>
   
 

@@ -1,5 +1,6 @@
 .logo-header {
   position: relative;
+  right: 3%;
 
   .logo-img-container {
     position: relative;
@@ -68,6 +69,7 @@
 }
 @media (max-width: 500px) {
   .logo-header {
+    right: 0%;
     .logo-img-container {
       .logo-img {
         width: 50px;
@@ -77,6 +79,7 @@
 }
 @media (max-height: 350px) and (orientation: landscape) {
   .logo-header {
+    right: 0%;
     .logo-img-container {
       .logo-img {
         width: 30px;

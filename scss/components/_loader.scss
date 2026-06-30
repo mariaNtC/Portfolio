@@ -15,6 +15,15 @@
     background: $bg-light;
   }
 
+    &__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;          // detrás del logo
+    pointer-events: none;
+  }
+
   // Estado "cargado" — se desvanece y deja de bloquear
   &.is-loaded {
     opacity: 0;
@@ -26,17 +35,20 @@
     width: 90px;
     height: auto;
     fill: url(#loader-grad);
+    position: relative;
+    z-index: 1;          // el logo va ADELANTE del canvas
     animation: loaderPulse 1.6s ease-in-out infinite;
 
     [data-theme="light"] & {
       fill: $accent-light;
     }
   }
+  
 }
 
 @keyframes loaderPulse {
   0%, 100% {
-    opacity: 0.4;
+    opacity: 0.9;
     transform: scale(0.92);
   }
   50% {

@@ -13,7 +13,7 @@
 
   .scroll-arrow-container {
     position: relative;
-    margin-top: 45px;
+    margin-top: 43px;
     cursor: pointer;    
     display: flex;
     justify-content: center;
@@ -23,7 +23,7 @@
         position:absolute;  
         display: flex;        
         width: 24px;
-        opacity: 1;
+        opacity: 0.75;
         transition: opacity 1s ease;
         animation: mainLogoGlow 2.5s ease-in-out infinite;
         @include light  {
@@ -32,12 +32,12 @@
     }  
     .scroll-arrow-light {
     position:absolute;   
-    width: 24px;
+    width: 21px;
     opacity: 0;
     transition: opacity 1s ease;
     animation: mainLogoGlowLight 2.5s ease-in-out infinite;
     @include light  {
-            opacity: 0.5;
+            opacity: 0.75;
             }  
     }
     .scroll-dots {

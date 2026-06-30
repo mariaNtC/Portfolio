@@ -19,19 +19,184 @@ let scrollTimeout = null
 
 
 // ==============================
-// LOADER INICIAL
+// LOADER INICIAL — malla hex + halo mouse + duración mínima
 // ==============================
 ;(function () {
   const loader = document.getElementById('page-loader')
   if (!loader) return
 
-  const hideLoader = () => {
-    loader.classList.add('is-loaded')
-    // Lo removemos del DOM tras la transición
-    setTimeout(() => loader.remove(), 700)
+  // ── Detectar si hay mouse disponible ──
+  const hasMouse = window.matchMedia('(hover: hover)').matches
+  let autoStart = null   // timestamp de inicio del halo automático
+
+  const canvas = document.getElementById('loader-canvas')
+  const ctx = canvas ? canvas.getContext('2d') : null
+
+  // ── Colores reactivos al tema (igual que el Stack) ──
+  const COLOR_DARK  = '127, 255, 233'
+  const COLOR_LIGHT = '129, 140, 248'
+  const isLight = () => document.documentElement.getAttribute('data-theme') === 'light'
+  const getColor = () => isLight() ? COLOR_LIGHT : COLOR_DARK
+  const getBoost = () => isLight() ? 1.6 : 1
+
+  const HEX_SIZE = 16
+  const HALO_R   = 200
+
+  let mouseX = -9999
+  let mouseY = -9999
+  let rafId = null
+
+const draw = () => {
+    if (!ctx) return
+    const w = canvas.width
+    const h = canvas.height
+    ctx.clearRect(0, 0, w, h)
+
+    const colW = HEX_SIZE * Math.sqrt(3)
+    const rowH = HEX_SIZE * 1.5
+
+    // ── Banda (como en el Stack): malla solo entre top y bottom ──
+    const TOP_OFFSET = 90
+    const BOTTOM_PAD = 90
+    const bandY = TOP_OFFSET
+    const bandH = h - TOP_OFFSET - BOTTOM_PAD
+
+    ctx.save()
+    ctx.beginPath()
+    ctx.rect(0, bandY, w, bandH)
+    ctx.clip()
+
+    // Malla hexagonal
+    for (let row = -1; row * rowH < h + HEX_SIZE * 2; row++) {
+      for (let col = -1; col * colW < w + colW; col++) {
+        const ox = row % 2 === 0 ? 0 : colW / 2
+        const cx = col * colW + ox
+        const cy = row * rowH
+        ctx.beginPath()
+        for (let v = 0; v < 6; v++) {
+          const angle = (Math.PI / 3) * v - Math.PI / 6
+          const vx = cx + HEX_SIZE * 0.78 * Math.cos(angle)
+          const vy = cy + HEX_SIZE * 0.78 * Math.sin(angle)
+          v === 0 ? ctx.moveTo(vx, vy) : ctx.lineTo(vx, vy)
+        }
+        ctx.closePath()
+        ctx.strokeStyle = `rgba(${getColor()}, ${0.12 * getBoost()})`
+        ctx.lineWidth = 0.5
+        ctx.stroke()
+      }
+    }
+
+    // ── Posición del halo: mouse real, o automático en diagonal ──
+    let hx = mouseX
+    let hy = mouseY
+
+     if (!hasMouse) {
+      // Halo automático SOLO en dispositivos sin mouse (mobile/touch)
+      if (autoStart === null) autoStart = performance.now()
+      const t = ((performance.now() - autoStart) % 2500) / 2500  // 0 a 1, loop 2.5s
+      hx = w * t                        // izquierda → derecha
+      hy = h - (h * t)                  // abajo → arriba
+    }
+
+    // ── Halo (real o automático) ──
+    if (hx > 0 && hy > 0) {
+      const grad = ctx.createRadialGradient(hx, hy, 0, hx, hy, HALO_R)
+      grad.addColorStop(0,    `rgba(${getColor()}, ${0.18 * getBoost()})`)
+      grad.addColorStop(0.45, `rgba(${getColor()}, ${0.06 * getBoost()})`)
+      grad.addColorStop(1,    `rgba(${getColor()}, 0)`)
+      ctx.fillStyle = grad
+      ctx.fillRect(0, 0, w, h)
+
+      for (let row = -1; row * rowH < h + HEX_SIZE * 2; row++) {
+        for (let col = -1; col * colW < w + colW; col++) {
+          const ox = row % 2 === 0 ? 0 : colW / 2
+          const nx = col * colW + ox
+          const ny = row * rowH
+          const dist = Math.hypot(nx - hx, ny - hy)
+          if (dist < HALO_R * 0.65) {
+            const alpha = (1 - dist / (HALO_R * 0.65)) * 0.65
+            ctx.beginPath()
+            ctx.arc(nx, ny, 1.8, 0, Math.PI * 2)
+            ctx.fillStyle = `rgba(${getColor()}, ${alpha * getBoost()})`
+            ctx.fill()
+          }
+        }
+      }
+    }
+
+    ctx.restore()  // fin del clip de la banda
+
+    // ── Bordes de la banda con glow neon (como el Stack) ──
+    const drawBandEdge = (y, blur, alpha, lw) => {
+      const a = alpha * getBoost()
+      ctx.save()
+      ctx.shadowBlur  = blur
+      ctx.shadowColor = `rgba(${getColor()}, ${a})`
+      ctx.strokeStyle = `rgba(${getColor()}, ${a})`
+      ctx.lineWidth   = lw
+      ctx.beginPath()
+      ctx.moveTo(0, y)
+      ctx.lineTo(w, y)
+      ctx.stroke()
+      ctx.restore()
+    }
+
+    drawBandEdge(bandY, 24, 0.12, 4)
+    drawBandEdge(bandY,  8, 0.35, 1.5)
+    drawBandEdge(bandY,  2, 0.70, 0.8)
+
+    drawBandEdge(bandY + bandH, 24, 0.12, 4)
+    drawBandEdge(bandY + bandH,  8, 0.35, 1.5)
+    drawBandEdge(bandY + bandH,  2, 0.70, 0.8)
   }
 
-  // Espera a que TODOS los recursos (imágenes, fuentes, CSS) terminen
+  const resize = () => {
+    if (!canvas) return
+    canvas.width  = window.innerWidth
+    canvas.height = window.innerHeight
+    draw()
+  }
+
+  const loop = () => {
+    draw()
+    rafId = requestAnimationFrame(loop)
+  }
+
+  // Mouse tracking sobre el loader
+  loader.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX
+    mouseY = e.clientY
+  }, { passive: true })
+
+  loader.addEventListener('mouseleave', () => {
+    mouseX = -9999
+    mouseY = -9999
+  })
+
+  window.addEventListener('resize', resize)
+
+  // Arrancar la animación
+  if (canvas) {
+    resize()
+    loop()
+  }
+
+  // ── Duración mínima de 2.5s ──
+  const MIN_DURATION = 2500
+  const startTime = Date.now()
+
+  const hideLoader = () => {
+    const remaining = Math.max(0, MIN_DURATION - (Date.now() - startTime))
+    setTimeout(() => {
+      loader.classList.add('is-loaded')
+      // Frenar la animación del canvas y remover
+      setTimeout(() => {
+        cancelAnimationFrame(rafId)
+        loader.remove()
+      }, 700)
+    }, remaining)
+  }
+
   if (document.readyState === 'complete') {
     hideLoader()
   } else {
@@ -1002,19 +1167,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const nodes = timeline.querySelectorAll('.edu-node')
   if (!nodes.length) return
 
+  // Solo togglear en mobile/touch — en desktop el hover maneja la card
+  const isMobile = () => window.matchMedia('(max-width: 850px)').matches
+
   nodes.forEach(node => {
     node.addEventListener('click', (e) => {
+      if (!isMobile()) return   // en desktop, el click no fija nada
+
       const isOpen = node.getAttribute('aria-expanded') === 'true'
-
-      // Cerrar todos los demás
       nodes.forEach(n => n.setAttribute('aria-expanded', 'false'))
-
-      // Alternar el actual
       node.setAttribute('aria-expanded', isOpen ? 'false' : 'true')
     })
   })
 
-  // Cerrar al hacer click fuera del timeline
+  // Cerrar al hacer click fuera del timeline (solo relevante en mobile)
   document.addEventListener('click', (e) => {
     if (!timeline.contains(e.target)) {
       nodes.forEach(n => n.setAttribute('aria-expanded', 'false'))
